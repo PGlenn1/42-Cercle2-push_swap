@@ -8,6 +8,8 @@ t_stack	*ps_lstnew(void *content)
 	if (!ptr)
 		return (NULL);
 	ptr->content = content;
+	ptr->index = 0;
+	ptr->value = 0;
 	ptr->next = NULL;
 	return (ptr);
 }
@@ -25,6 +27,8 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 {
 	struct s_stack	*last;
 
+	// printf("\nADDBACK\n");
+	// printf("new:%p\n", new);
 	if (!lst || !new)
 		return ;
 	if (!*lst)
@@ -34,4 +38,5 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 	}
 	last = ps_lstlast(*lst);
 	last->next = new;
+	// printf("last:%p\n", last);
 }

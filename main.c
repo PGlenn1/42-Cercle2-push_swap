@@ -22,6 +22,7 @@ t_stack **init_stack_a(char **split_tab)
         new = ps_lstnew(split_tab[i]);
         // printf("new_str:%s\n", new->content);
         ps_lstadd_back(head, new);
+        printf("WHILE *head:%p\n", *head);
         i++;
     }
     printf("*head:%p\n", *head);
@@ -33,7 +34,7 @@ void print_stack(t_stack **stack)
 {
     t_stack *current;
 
-    printf("PRINT STACK\n");
+    printf("\nPRINT STACK\n");
     current = *stack;
     printf("stack:%p\n", stack);
     while (current)
@@ -66,12 +67,20 @@ int main(int argc, char **argv)
     if (!split_input)
         return (-1);
     stack_a = init_stack_a(split_input);
-    printf("head:%p\n", stack_a);
+    printf("\nMAIN PRINT STACK VALUES:\n");
+    printf("stack_a:%p\n", stack_a);
     printf("*stack_a:%p\n", *stack_a);
+    printf("*stack_a->content:%p\n", (*stack_a)->content);
+    // printf("*stack_a->content:%s\n", (*stack_a)->content);
+    // printf("*stack_a->valu:%d\n", (*stack_a)->value);
     b0_init = ps_lstnew(NULL);
     stack_b = &b0_init;
     // push_swap(stack_a, stack_b);
     // printf("head:%p\n", *stack_a);
     print_stack(stack_a);
+    printf("\nMAIN PRINT STACK VALUES:\n");
+    printf("stack_a:%p\n", stack_a);
+    printf("*stack_a:%p\n", *stack_a);
+    printf("*stack_a->content:%p\n", (*stack_a)->content);
     return (0);
 }
