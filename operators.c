@@ -1,13 +1,15 @@
 #include "push_swap.h"
 
-void swap(t_list **stack, char side)
+void	swap(t_list **stack)
 {
-    if (side == 'a')
-    {
-        ft_putstr_fd(1)
-    }
+	t_list *node_tmp;
+	t_list *last;
+	t_list *prev;
+	int index_tmp;
+	int value_tmp;
 
-    else if (side == 'b')
-    {
-    }
+	last = ps_lstlast(stack);
+	if (last.index < 1)
+		return ;
+	prev = ps_lstprev()
 }

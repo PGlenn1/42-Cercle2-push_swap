@@ -47,6 +47,7 @@ void	push_swap(int *int_values, int arr_size)
 	// t_stack **stack_b;
 	stack_a = init_stack_a(int_values, arr_size);
 	print_stack(stack_a);
+	ps_lstprev(stack_a);
 	// print_stack(stack_b);
 }
 

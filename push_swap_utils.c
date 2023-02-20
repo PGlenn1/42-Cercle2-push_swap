@@ -1,5 +1,26 @@
 #include "push_swap.h"
 
+t_stack	*ps_lstprev(t_stack **stack)
+{
+	t_stack	*probe;
+
+	if (!*stack)
+		return (NULL);
+	printf("LSTPREV\n");
+	probe = *stack;
+	while ((probe)->next)
+	{
+		if (probe->next && (probe->next->next) == NULL)
+		{
+			printf("probe->index:%d\n", probe->index);
+			printf("probe->value:%d\n", probe->value);
+			return (probe->next);
+		}
+		probe = probe->next;
+	}
+	return (probe);
+}
+
 t_stack	*ps_lstnew(int value, int index)
 {
 	struct s_stack	*ptr;
@@ -24,7 +45,7 @@ t_stack	*ps_lstlast(t_stack *lst)
 
 void	ps_lstadd_back(t_stack **lst, t_stack *new)
 {
-	struct s_stack	*last;
+	struct s_stack *last;
 
 	// printf("\nADDBACK\n");
 	// printf("new:%p\n", new);
