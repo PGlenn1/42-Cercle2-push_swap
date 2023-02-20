@@ -1,13 +1,13 @@
 #include "push_swap.h"
 
-t_stack	*ps_lstprev(t_stack **stack)
+t_stack	*ps_lstprev(t_stack *stack)
 {
 	t_stack	*probe;
 
-	if (!*stack)
+	if (!stack)
 		return (NULL);
 	printf("LSTPREV\n");
-	probe = *stack;
+	probe = stack;
 	while ((probe)->next)
 	{
 		if (probe->next && (probe->next->next) == NULL)
@@ -16,6 +16,7 @@ t_stack	*ps_lstprev(t_stack **stack)
 			printf("probe->value:%d\n", probe->value);
 			return (probe->next);
 		}
+		printf("PROUT\n");
 		probe = probe->next;
 	}
 	return (probe);
