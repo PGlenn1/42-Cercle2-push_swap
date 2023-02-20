@@ -1,15 +1,14 @@
 #include "push_swap.h"
 
-t_stack	*ps_lstnew(void *content)
+t_stack	*ps_lstnew(int value, int index)
 {
 	struct s_stack	*ptr;
 
 	ptr = (struct s_stack *)malloc(sizeof(struct s_stack));
 	if (!ptr)
 		return (NULL);
-	ptr->content = content;
-	ptr->index = 0;
-	ptr->value = 0;
+	ptr->index = index;
+	ptr->value = value;
 	ptr->next = NULL;
 	return (ptr);
 }
