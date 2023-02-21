@@ -14,9 +14,10 @@ t_stack	*ps_lstprev(t_stack *stack)
 		{
 			printf("probe->index:%d\n", probe->index);
 			printf("probe->value:%d\n", probe->value);
-			return (probe->next);
+			printf("probe->next:%p\n", probe->next);
+			printf("probe->next->next:%p\n", probe->next->next);
+			return (probe);
 		}
-		printf("PROUT\n");
 		probe = probe->next;
 	}
 	return (probe);

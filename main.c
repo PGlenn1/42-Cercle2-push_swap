@@ -40,9 +40,13 @@ void	print_stack(t_stack *stack)
 
 void	push_swap(t_root *root)
 {
+	t_stack	*prev;
+
 	print_stack(root->stack_a);
-	printf("prev->value:%d\n", ps_lstprev(root->stack_a)->value);
-	// swap_a(root);
+	prev = ps_lstprev(root->stack_a);
+	printf("prev:%p\n", prev);
+	printf("prev->value:%d\n", prev->value);
+	swap_a(root);
 	print_stack(root->stack_a);
 }
 
