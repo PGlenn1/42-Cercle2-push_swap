@@ -2,6 +2,7 @@
 # define PUSH_SWAP_H
 
 # include "libft_42/libft.h"
+#include <stdbool.h>
 
 typedef struct s_root
 {
@@ -27,9 +28,11 @@ void				ps_lstadd_back(t_stack **lst, t_stack *new);
 t_stack				*ps_lstnew(int value);
 t_stack				*ps_lstlast(t_stack *lst);
 t_stack				*ps_lstprev(t_stack *stack);
-void				print_stack(t_stack *stack);
+void				print_stack(t_stack *stack, bool ab);
 void				swap_a(t_stack *stack);
 void				swap_b(t_stack *stack);
 void				ss(t_root *root);
+void				push_a(t_root *root);
+void				push_b(t_root *root);
 
 #endif

@@ -52,11 +52,13 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 	new->prev = last;
 }
 
-void	print_stack(t_stack *stack)
+void	print_stack(t_stack *stack, bool ab)
 {
 	t_stack	*probe;
 
-	printf("\nPRINT STACK\n");
+	printf("\nPRINT STACK %s\n", (ab ? "A" : "B"));
+	if (!stack)
+		printf("\nSTACK B EMPTY\n");
 	probe = stack;
 	while (probe)
 	{

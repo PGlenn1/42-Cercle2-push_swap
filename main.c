@@ -26,15 +26,17 @@ void	push_swap(t_root *root)
 {
 	t_stack	*prev;
 
-	print_stack(root->stack_a);
+	print_stack(root->stack_a, 1);
 	prev = ps_lstprev(root->stack_a);
 	// printf("prev:%p\n", prev);
 	// printf("prev->value:%d\n", prev->value);
 	swap_a(root->stack_a);
-	print_stack(root->stack_a);
+	print_stack(root->stack_a, 1);
 	// swap_a(root->stack_a);
     ss(root);
-	print_stack(root->stack_a);
+    push_b(root);
+	print_stack(root->stack_a, 1);
+	print_stack(root->stack_b, 0);
 }
 
 //  TODO CHECK INPUT
@@ -73,7 +75,7 @@ t_root	*init_root(char **split_input)
 	stack_a = format_input(split_input);
 	root->stack_a = stack_a;
     root->data = NULL;
-	root->stack_b = NULL;
+    root->stack_b = NULL;
 	return (root);
 }
 
