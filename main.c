@@ -24,19 +24,19 @@ t_stack	*init_stack_a(int *int_values, int arr_size)
 
 void	push_swap(t_root *root)
 {
-	t_stack	*prev;
-
-	print_stack(root->stack_a, 1);
-	prev = ps_lstprev(root->stack_a);
+	print_both(root);
 	// printf("prev:%p\n", prev);
 	// printf("prev->value:%d\n", prev->value);
 	swap_a(root->stack_a);
-	print_stack(root->stack_a, 1);
-	// swap_a(root->stack_a);
-    ss(root);
-    push_b(root);
-	print_stack(root->stack_a, 1);
-	print_stack(root->stack_b, 0);
+	print_both(root);
+	ss(root);
+	print_both(root);
+	push_b(root);
+	print_both(root);
+	push_b(root);
+	print_both(root);
+	push_a(root);
+	print_both(root);
 }
 
 //  TODO CHECK INPUT
@@ -74,8 +74,8 @@ t_root	*init_root(char **split_input)
 		return (NULL);
 	stack_a = format_input(split_input);
 	root->stack_a = stack_a;
-    root->data = NULL;
-    root->stack_b = NULL;
+	root->data = NULL;
+	root->stack_b = NULL;
 	return (root);
 }
 

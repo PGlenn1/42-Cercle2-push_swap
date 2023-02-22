@@ -38,7 +38,7 @@ t_stack	*ps_lstlast(t_stack *lst)
 
 void	ps_lstadd_back(t_stack **lst, t_stack *new)
 {
-	struct s_stack *last;
+	struct s_stack	*last;
 
 	if (!lst || !new)
 		return ;
@@ -55,19 +55,27 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 void	print_stack(t_stack *stack, bool ab)
 {
 	t_stack	*probe;
+	int		i;
 
 	printf("\nPRINT STACK %s\n", (ab ? "A" : "B"));
-	if (!stack)
-		printf("\nSTACK B EMPTY\n");
 	probe = stack;
-	while (probe)
+	i = 0;
+	while (probe && i < 10)
 	{
 		printf("\n");
-		// printf("probe->prev:%p\n", probe->prev);
-        printf("probe:%p\n", probe);
+		printf("probe->prev:%p\n", probe->prev);
+		printf("probe:%p\n", probe);
 		printf("value:%d\n", probe->value);
-		// printf("probe->next:%p\n", probe->next);
+		printf("probe->next:%p\n", probe->next);
 		probe = probe->next;
 	}
-	printf("\nEND PRINT STACK\n");
+	printf("\nEND PRINT STACK\n\n");
+}
+
+void	print_both(t_root *root)
+{
+	printf("PRINTING STACK A\n");
+	root->stack_a ? print_stack(root->stack_a, 1) : printf("STACK A EMPTY\n");
+	printf("PRINTING STACK B\n");
+	root->stack_b ? print_stack(root->stack_b, 0) : printf("STACK B EMPTY\n");
 }
