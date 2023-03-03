@@ -35,6 +35,11 @@ void				ss(t_root *root);
 void				push_a(t_root *root);
 void				push_b(t_root *root);
 void				rotate_a(t_root *root);
+void				rotate_b(t_root *root);
+void				rrr(t_root *root);
+void				rr(t_root *root);
+void				reverse_rotate_a(t_root *root);
+void				reverse_rotate_b(t_root *root);
 void				print_node(t_stack *node);
 
 #endif

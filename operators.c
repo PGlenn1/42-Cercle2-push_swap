@@ -108,6 +108,11 @@ void	ss(t_root *root)
 		swap_b(root->stack_b);
 	else if (!root->stack_b)
 		swap_a(root->stack_a);
+	else
+	{
+		swap_a(root->stack_a);
+		swap_b(root->stack_a);
+	}
 }
 
 void	rotate_a(t_root *root)
@@ -138,7 +143,7 @@ void	rotate_b(t_root *root)
 	t_stack	*first;
 	t_stack	*last;
 
-	printf("ROTATE A\n");
+	printf("ROTATE B\n");
 	first = root->stack_b;
 	if (!first || !first->next)
 	{
@@ -151,7 +156,74 @@ void	rotate_b(t_root *root)
 	first->prev = last;
 	last->next = first;
 	last->prev = NULL;
+}
+
+void	reverse_rotate_a(t_root *root)
+{
+	t_stack	*first;
+	t_stack *last;
+
+	printf("REVERSE ROTATE A\n");
+	first = root->stack_a;
+	last = ps_lstlast(root->stack_a);
+	root->stack_a = first->next;
+	first->prev = last;
+	first->next = NULL;
+	last->next = first;
+}
+
+void	reverse_rotate_b(t_root *root)
+{
+	t_stack	*first;
+	t_stack *last;
+
+	printf("REVERSE ROTATE B\n");
+	first = root->stack_b;
+	last = ps_lstlast(root->stack_b);
+	root->stack_b = first->next;
+	first->prev = last;
+	first->next = NULL;
+	last->next = first;
+
 	print_node(first);
 	print_node(last);
+}
+
+void	rr(t_root *root)
+{
+	printf("RR\n");
+	if (!root->stack_a && !root->stack_b)
+	{
+		printf("ERROR\n");
+		return ;
+	}
+	else if (!root->stack_a)
+		rotate_b(root);
+	else if (!root)
+		rotate_a(root);
+	else
+	{
+		rotate_a(root);
+		rotate_b(root);
+	}
+}
+
+void	rrr(t_root *root)
+{
+	printf("RRR\n");
+	if (!root->stack_a && !root->stack_b)
+	{
+		printf("ERROR\n");
+		return ;
+	}
+	else if (!root->stack_a)
+		reverse_rotate_b(root);
+	else if (!root->stack_b)
+		reverse_rotate_a(root);
+	else
+	{
+		reverse_rotate_a(root);
+		reverse_rotate_b(root);
+	}
 
 }

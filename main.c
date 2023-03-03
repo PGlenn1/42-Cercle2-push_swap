@@ -25,6 +25,10 @@ t_stack	*init_stack_a(int *int_values, int arr_size)
 void	push_swap(t_root *root)
 {
 	print_both(root);
+	// rrr(root);
+	// print_both(root);
+	// rrr(root);
+	// print_both(root);
 }
 
 //  TODO CHECK INPUT

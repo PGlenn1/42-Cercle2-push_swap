@@ -79,9 +79,11 @@ void	print_stack(t_stack *stack)
 
 void	print_both(t_root *root)
 {
-	printf("\nPRINT BOTH\n");
+	static int i = 0;
+	printf("\nPRINT BOTH [%d]\n", i++);
 	printf("\nPRINTING STACK A\n");
 	root->stack_a ? print_stack(root->stack_a) : printf("STACK A EMPTY\n");
 	printf("PRINTING STACK B\n");
 	root->stack_b ? print_stack(root->stack_b) : printf("STACK B EMPTY\n");
+	printf("\n");
 }
