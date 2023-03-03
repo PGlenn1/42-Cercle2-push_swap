@@ -25,27 +25,6 @@ t_stack	*init_stack_a(int *int_values, int arr_size)
 void	push_swap(t_root *root)
 {
 	print_both(root);
-	// printf("prev:%p\n", prev);
-	// printf("prev->value:%d\n", prev->value);
-	// swap_a(root->stack_a);
-	// print_both(root);
-	// ss(root);
-	// print_both(root);
-	// push_b(root);
-	// print_both(root);
-	// push_b(root);
-	// print_both(root);
-	// push_a(root);
-	// print_both(root);
-	// push_a(root);
-	// print_both(root);
-	// push_a(root);
-	// print_both(root);
-	while (root->stack_a)
-	{
-		push_b(root);
-		print_both(root);
-	}
 }
 
 //  TODO CHECK INPUT

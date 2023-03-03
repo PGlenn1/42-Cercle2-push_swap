@@ -34,5 +34,7 @@ void				swap_b(t_stack *stack);
 void				ss(t_root *root);
 void				push_a(t_root *root);
 void				push_b(t_root *root);
+void				rotate_a(t_root *root);
+void				print_node(t_stack *node);
 
 #endif

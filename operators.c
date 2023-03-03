@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+
 void	push_a(t_root *root)
 {
 	t_stack	*last_a;
@@ -12,9 +13,7 @@ void	push_a(t_root *root)
 	last_b = ps_lstlast(root->stack_b);
 
 	if (last_b->prev)
-	{
 		last_b->prev->next = NULL;
-	}
 	else
 		root->stack_b = NULL;
 	if (last_a)
@@ -62,23 +61,15 @@ void	swap_nodes(t_stack *node_a, t_stack *node_b)
 	t_stack	*tmp;
 
 	// printf("swapping...\n");
+	if (!node_a || !node_b)
+		return ;
 	tmp = node_a->prev;
-	// printf("\ntmp:%p\n", tmp);
-	// printf("\nnode_a->next:%p\n", node_a->next);
+	if (node_a->prev)
+		node_a->prev->next = node_b;
 	node_a->next = node_b->next;
-	// printf("node_a->next:%p\n", node_a->next);
-	// printf("\nnode_a->prev->next:%p\n", node_a->prev->next);
-	node_a->prev->next = node_b;
-	// printf("node_a->prev->next:%p\n", node_a->prev->next);
-	// printf("\nnode_a->prev:%p\n", node_a->prev);
 	node_a->prev = node_b;
-	// printf("node_a->prev:%p\n", node_a->prev);
-	// printf("\nnode_b->next:%p\n", node_b->next);
 	node_b->next = node_a;
-	// printf("node_b->next:%p\n", node_b->next);
-	// printf("\nnode_b->prev:%p\n", node_b->prev);
 	node_b->prev = tmp;
-	// printf("node_b->prev:%p\n\n", node_b->prev);
 }
 
 void	swap_a(t_stack *stack)
@@ -117,4 +108,50 @@ void	ss(t_root *root)
 		swap_b(root->stack_b);
 	else if (!root->stack_b)
 		swap_a(root->stack_a);
+}
+
+void	rotate_a(t_root *root)
+{
+	t_stack	*first;
+	t_stack	*last;
+
+	printf("ROTATE A\n");
+	first = root->stack_a;
+	if (!first || !first->next)
+	{
+		printf("ERROR\n");
+		return ;
+	}
+	last = ps_lstlast(first);
+	root->stack_a = last;
+	last->prev->next = NULL;
+	first->prev = last;
+	last->next = first;
+	last->prev = NULL;
+	print_node(first);
+	print_node(last);
+
+}
+
+void	rotate_b(t_root *root)
+{
+	t_stack	*first;
+	t_stack	*last;
+
+	printf("ROTATE A\n");
+	first = root->stack_b;
+	if (!first || !first->next)
+	{
+		printf("ERROR\n");
+		return ;
+	}
+	last = ps_lstlast(first);
+	root->stack_b = last;
+	last->prev->next = NULL;
+	first->prev = last;
+	last->next = first;
+	last->prev = NULL;
+	print_node(first);
+	print_node(last);
+
 }
