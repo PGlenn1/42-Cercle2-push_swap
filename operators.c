@@ -71,11 +71,16 @@ void	swap_nodes(t_stack *node_a, t_stack *node_b)
 	node_b->prev = tmp;
 }
 
-void	swap_a(t_stack *stack)
+void	swap(t_stack *stack, char ab)
 {
 	t_stack	*last;
 
-	// printf("\nSWAP A\n");
+	if (ab == 'A')
+		printf("\nSWAP A\n");
+	else if (ab == 'B')
+		printf("\nSWAP A\n");
+	else 
+		ft_error("SWAP PARAM ERROR\n");
 	if (!stack)
 		return ;
 	last = ps_lstlast(stack);
@@ -85,32 +90,19 @@ void	swap_a(t_stack *stack)
 	last = ps_lstlast(stack);
 }
 
-void	swap_b(t_stack *stack)
-{
-	t_stack	*last;
-	t_stack	*prev;
-
-	last = ps_lstlast(stack);
-	if (!last->next)
-		return ;
-	prev = ps_lstprev(stack);
-	last->next = prev->next;
-	prev->next = NULL;
-}
-
 void	ss(t_root *root)
 {
 	// printf("SS\n");
 	if (!root->stack_a && !root->stack_b)
 		return ;
 	else if (!root->stack_a)
-		swap_b(root->stack_b);
+		swap(root->stack_b, 'B');
 	else if (!root->stack_b)
-		swap_a(root->stack_a);
+		swap(root->stack_a, 'A');
 	else
 	{
-		swap_a(root->stack_a);
-		swap_b(root->stack_a);
+		swap(root->stack_a, 'A');
+		swap(root->stack_a, 'B');
 	}
 }
 

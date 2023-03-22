@@ -6,6 +6,14 @@
 void	push_swap(t_root *root)
 {
 	print_both(root);
+	// swap(root->stack_a, 'A');
+	// push_b(root);
+	// push_b(root);
+	// push_b(root);
+	// print_both(root);
+	// swap(root->stack_a);
+	// print_both(root);
+	// swap_b(root->stack_a);
 	// rrr(root);
 	// print_both(root);
 	// rrr(root);
@@ -71,21 +79,21 @@ t_stack *init_stack_a(char **input)
 {
 	t_stack *stack_a;
 	t_stack *new;
-	int i;
+	int size;
 
 	check_input(input);
-	stack_a = ps_lstnew(ft_atol(input[1]));
-	if (!stack_a)
-		return (NULL);
+	size = 0;
+	while (input[size])
+		size++;
 	new = NULL;
-	i = 2;
-	while(input[i])
+	size--;
+	while(size >= 1)
 	{
-		new = ps_lstnew(ft_atol(input[i]));
+		new = ps_lstnew(ft_atol(input[size]));
 		if (!new)
 			return (NULL);
 		ps_lstadd_back(&stack_a, new);
-		i++;
+		size--;
 	}
 	return (stack_a);
 }
