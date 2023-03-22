@@ -2,25 +2,6 @@
 
 // check_input TODO
 
-t_stack	*init_stack_a(int *int_values, int arr_size)
-{
-	t_stack	*first;
-	t_stack	*new;
-	int		i;
-
-	if (!int_values)
-		return (NULL);
-	first = ps_lstnew(int_values[0]);
-	new = NULL;
-	i = 1;
-	while (i < arr_size)
-	{
-		new = ps_lstnew(int_values[i]);
-		ps_lstadd_back(&first, new);
-		i++;
-	}
-	return (first);
-}
 
 void	push_swap(t_root *root)
 {
@@ -31,87 +12,97 @@ void	push_swap(t_root *root)
 	// print_both(root);
 }
 
-void	check_doubles(char **argv)
+void	check_numbers(char **input)
 {
-	int	i;
-	int	j;
+	int i;
 
 	i = 1;
-	while (argv[i])
+	while (input[i])
 	{
-		j = i + 1;
-		while (argv[j])
-		{
-			if (!ft_strcmp(argv[i], argv[j]))
-				ft_error();
-			j++;
-		}
+		if (!is_number(input[i]))
+			ft_error("NOT A NUMBER\n");
 		i++;
 	}
 }
 
-void	check_input(char **argv) // TODO CHECK OVERFLOW
+int	check_len(char *str)
 {
-	unsigned int i;
-	unsigned int j;
+	int i;	
+
+	i = 0;
+	while (str[i])
+	{
+		if (i > 11)
+			return(i);
+		i++;
+	}
+	return (0);
+}
+
+void	check_input(char **input)
+{
+	int i;
+	int j;
 	long value;
 
 	i = 1;
-	while (argv[i])
+	j = i + 1;
+	value = 0;
+	check_numbers(input);
+	while (input[i])
 	{
-		j = 0;
-		while (argv[i][j])
+		value = ft_atol(input[i]);
+		if (value > INT_MAX || value < INT_MIN || check_len(input[i]))
+			ft_error("OVERFLOW\n");
+		j = i + 1;
+		while (input[j])
 		{
-			if (argv[i][j] == '+' || argv[i][j] == '-')
-				j++;
-			if (!ft_isdigit(argv[i][j]))
-				ft_error();
+			// printf("VALUE|%ld|\n", value);
+			// printf("VALUE2|%ld|\n", ft_atol(input[j]));
+			if (value == ft_atol(input[j]))
+				ft_error("DOUBLES\n");
 			j++;
-			if (argv[i] > INT_MAX || argv[i] < INT_MIN)
-				ft_error();
 		}
 		i++;
 	}
-	check_doubles(argv);
 }
 
-t_stack	*format_input(char **argv)
+t_stack *init_stack_a(char **input)
 {
-	t_stack	*stack_a;
-	int		*int_values;
-	int		arr_size;
-	int		i;
+	t_stack *stack_a;
+	t_stack *new;
+	int i;
 
-	arr_size = 0;
-	while (argv[arr_size + 1])
-		arr_size++;
-	int_values = malloc(sizeof(long) * (arr_size + 1));
-	if (!int_values)
+	check_input(input);
+	stack_a = ps_lstnew(ft_atol(input[1]));
+	if (!stack_a)
 		return (NULL);
-	i = 0;
-	while (i < arr_size)
+	new = NULL;
+	i = 2;
+	while(input[i])
 	{
-		int_values[i] = ft_atoi(argv[i + 1]);
+		new = ps_lstnew(ft_atol(input[i]));
+		if (!new)
+			return (NULL);
+		ps_lstadd_back(&stack_a, new);
 		i++;
 	}
-	stack_a = init_stack_a(int_values, arr_size);
 	return (stack_a);
 }
 
-t_root	*init_root(char **argv)
-{
-	t_root	*root;
-	t_stack	*stack_a;
 
-	root = malloc(sizeof(struct s_root));
+
+t_root	*init_root(char **input)
+{
+	t_root *root;
+
+	root = malloc(sizeof(t_root) * 1);
 	if (!root)
 		return (NULL);
-	stack_a = format_input(argv);
-	root->stack_a = stack_a;
-	root->data = NULL;
-	root->stack_b = NULL;
+	root->stack_a = init_stack_a(input);
 	return (root);
 }
+
 
 int	main(int argc, char **argv)
 {
@@ -119,8 +110,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (0);
-	check_input(argv);
 	root = init_root(argv);
+	if (!root)
+		return (1);
 	push_swap(root);
 	return (0);
 }

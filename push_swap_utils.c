@@ -90,8 +90,9 @@ void	print_both(t_root *root)
 	printf("\n");
 }
 
-void	ft_error(void)
+void	ft_error(const char *str)
 {
+	ft_putstr_fd((char *)str, 1);
 	ft_putstr_fd("Error\n", 1);
 	exit(1);
 }

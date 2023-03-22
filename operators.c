@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 void	push_a(t_root *root)
 {
 	t_stack	*last_a;

@@ -3,7 +3,6 @@
 
 # include "libft_42/libft.h"
 # include <stdbool.h>
-# include <limits.h>
 
 typedef struct s_root
 {
@@ -42,6 +41,6 @@ void				rr(t_root *root);
 void				reverse_rotate_a(t_root *root);
 void				reverse_rotate_b(t_root *root);
 void				print_node(t_stack *node);
-void				ft_error(void);
+void				ft_error(const char *str);
 
 #endif
