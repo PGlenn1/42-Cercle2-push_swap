@@ -59,7 +59,7 @@ void	swap_nodes(t_stack *node_a, t_stack *node_b)
 {
 	t_stack	*tmp;
 
-	// printf("swapping...\n");
+	printf("swapping...\n");
 	if (!node_a || !node_b)
 		return ;
 	tmp = node_a->prev;
@@ -102,7 +102,7 @@ void	ss(t_root *root)
 	else
 	{
 		swap(root->stack_a, 'A');
-		swap(root->stack_a, 'B');
+		swap(root->stack_b, 'B');
 	}
 }
 

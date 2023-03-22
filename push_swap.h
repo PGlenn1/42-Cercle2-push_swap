@@ -24,6 +24,7 @@ typedef struct s_data
 
 }					t_data;
 
+t_root				*init_root(char **input);
 void				ps_lstadd_back(t_stack **lst, t_stack *new);
 t_stack				*ps_lstnew(int value);
 t_stack				*ps_lstlast(t_stack *lst);
