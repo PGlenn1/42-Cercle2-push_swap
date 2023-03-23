@@ -2,12 +2,11 @@
 
 void	update_root(t_root *root)
 {
-	 	// printf("\nUPDATE ROOT\n");
+	 	printf("UPDATE ROOT\n");
 		root->last_a = ps_lstlast(root->first_a);
 		root->prev_a = get_prev(root->first_a);
 		root->last_b = ps_lstlast(root->first_b);
 		root->prev_b = get_prev(root->first_b);
-		// printf("END ROOT\n\n");
 }
 
 void	push_a(t_root *root)
@@ -44,40 +43,22 @@ void	push_b(t_root *root)
 	update_root(root);
 }
 
-// void	swap_nodes(t_stack *node_a, t_stack *node_b)
+// void	swap_a(t_root *root)	
 // {
-// 	t_stack	*tmp;
+// 	t_stack *tmp;
 
-// 	printf("swapping...\n");
-// 	if (!node_a || !node_b)
-// 		return ;
-// 	tmp = node_a->prev;
-// 	if (node_a->prev)
-// 		node_a->prev->next = node_b;
-// 	node_a->next = node_b->next;
-// 	node_a->prev = node_b;
-// 	node_b->next = node_a;
-// 	node_b->prev = tmp;
+// 	printf("SWAP A\n");
+// 	tmp = NULL;
+// 	if (!root->prev_a)
+// 	{
+// 		tmp = root->last_a;
+// 		root->first_a = root->last_a;
+// 		root->last_a = root->first_a;
+
+// 	}
 // }
 
-// void	swap(t_stack *stack, char ab)
-// {
-// 	t_stack	*last;
 
-// 	if (ab == 'A')
-// 		printf("\nSWAP A\n");
-// 	else if (ab == 'B')
-// 		printf("\nSWAP A\n");
-// 	else 
-// 		ft_error("SWAP PARAM ERROR\n");
-// 	if (!stack)
-// 		return ;
-// 	last = ps_lstlast(stack);
-// 	if (!stack->next)
-// 		return ;
-// 	swap_nodes(last->prev, last);
-// 	last = ps_lstlast(stack);
-// }
 
 // void	ss(t_root *root)
 // {

@@ -55,6 +55,37 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 	last->next = new;
 }
 
+void	print_root(t_root *root)
+{
+	printf("\nPRINT ROOT\n");
+	if (root->first_a)
+	{
+		// printf("first_a:%p\n", root->first_a);
+		printf("first_a:%d\n", root->first_a->value);
+		if (root->first_a != root->last_a)
+			printf("last_a:%d\n", root->last_a->value);
+		else
+			printf("Only 1 node\n");
+		if (root->prev_a)
+			printf("prev_a:%d\n", root->prev_a->value);
+	}
+	else
+		printf("STACK A EMPTY\n");
+	if (root->first_b)
+	{
+		printf("\nfirst_b:%d\n", root->first_b->value);
+		if (root->first_b != root->last_b)
+			printf("last_b:%d\n", root->last_b->value);
+		else
+			printf("Only 1 node\n");
+		if (root->prev_b)
+			printf("prev_b:%d\n", root->prev_b->value);
+	}
+	else
+		printf("STACK B EMPTY\n");
+	printf("\nEND PRINT ROOT\n\n");
+}
+
 void	print_node(t_stack *node)
 {
 	printf("\n");
@@ -91,6 +122,7 @@ void	print_both(t_root *root)
 	root->first_a ? print_stack(root->first_a) : printf("STACK A EMPTY\n");
 	printf("\nPRINTING STACK B\n");
 	root->first_b ? print_stack(root->first_b) : printf("STACK B EMPTY\n");
+	print_root(root);
 	printf("\n");
 }
 
