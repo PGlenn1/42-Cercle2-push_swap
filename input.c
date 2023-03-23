@@ -55,33 +55,43 @@ static void	check_input(char **input)
 	}
 }
 
-static t_stack *init_stack_a(char **input)
+static t_stack *init_first_a(char **input)
 {
-	t_stack *stack_a;
 	t_stack *new;
+	t_stack *first_a;
 	int i;
 
 	check_input(input);
-	i = 1;
 	new = NULL;
+	i = 1;
+	first_a = ps_lstnew(ft_atol(input[i]));
+	if (!first_a)
+		return (NULL);
+	i++;
 	while(input[i])
 	{
 		new = ps_lstnew(ft_atol(input[i]));
 		if (!new)
 			return (NULL);
-		ps_lstadd_back(&stack_a, new);
+		ps_lstadd_back(&first_a, new);
         i++;
 	}
-	return (stack_a);
+	return (first_a);
 }
 
 t_root	*init_root(char **input)
 {
 	t_root *root;
 
-	root = malloc(sizeof(t_root) * 1);
+	root = malloc(sizeof(t_root));
 	if (!root)
 		return (NULL);
-	root->stack_a = init_stack_a(input);
+	root->first_a = init_first_a(input);
+	printf("first_a:%p", root->first_a);
+	root->last_a = ps_lstlast(root->first_a);
+	root->prev_a = get_prev(root->first_a);
+	root->first_b = NULL;
+	root->last_b = NULL;
+	root->prev_b = NULL;
 	return (root);
 }

@@ -1,220 +1,209 @@
 #include "push_swap.h"
 
+void	update_root(t_root *root)
+{
+	 	// printf("\nUPDATE ROOT\n");
+		root->last_a = ps_lstlast(root->first_a);
+		root->prev_a = get_prev(root->first_a);
+		root->last_b = ps_lstlast(root->first_b);
+		root->prev_b = get_prev(root->first_b);
+		// printf("END ROOT\n\n");
+}
+
 void	push_a(t_root *root)
 {
-	t_stack	*last_a;
-	t_stack	*last_b;
-
-	// printf("PUSH A\n");
-	if (!root->stack_b)
-		return ;
-	last_a = ps_lstlast(root->stack_a);
-	last_b = ps_lstlast(root->stack_b);
-
-	if (last_b->prev)
-		last_b->prev->next = NULL;
+	if (!root->first_b)
+		return;
+	if (!root->first_a)
+		root->last_a = root->first_a = root->last_b;
 	else
-		root->stack_b = NULL;
-	if (last_a)
-	{
-		last_a->next = last_b;
-		last_b->prev = last_a;
-	}
+		root->last_a->next = root->last_b;
+	if (root->prev_b)
+		root->prev_b->next = NULL;
+	else if (root->first_b->next == NULL)
+		root->first_b = NULL;
 	else
-	{
-		root->stack_a = last_b;
-		last_b->next = NULL;
-		last_b->prev = NULL;
-	}
+	 	root->first_b->next = NULL;
+	update_root(root);
 }
 
 void	push_b(t_root *root)
 {
-	t_stack	*last_a;
-	t_stack	*last_b;
-
-	// printf("PUSH B\n");
-	if (!root->stack_a) // Check if stack_a is empty
-		return ;
-	last_a = ps_lstlast(root->stack_a);
-	last_b = ps_lstlast(root->stack_b);
-	if (last_a->prev)
-		last_a->prev->next = NULL;
+	if (!root->first_a)
+		return;
+	if (!root->first_b)
+		root->last_b = root->first_b = root->last_a;
 	else
-		root->stack_a = NULL;
-	if (last_b)
-	{
-		last_b->next = last_a;
-		last_a->prev = last_b;
-	}
+		root->last_b->next = root->last_a;
+	if (root->prev_a)
+		root->prev_a->next = NULL;
+	else if (root->first_a->next == NULL)
+		root->first_a = NULL;
 	else
-	{
-		root->stack_b = last_a;
-		last_a->next = NULL;
-		last_a->prev = NULL;
-	}
+	 	root->first_a->next = NULL;
+	update_root(root);
 }
 
-void	swap_nodes(t_stack *node_a, t_stack *node_b)
-{
-	t_stack	*tmp;
+// void	swap_nodes(t_stack *node_a, t_stack *node_b)
+// {
+// 	t_stack	*tmp;
 
-	printf("swapping...\n");
-	if (!node_a || !node_b)
-		return ;
-	tmp = node_a->prev;
-	if (node_a->prev)
-		node_a->prev->next = node_b;
-	node_a->next = node_b->next;
-	node_a->prev = node_b;
-	node_b->next = node_a;
-	node_b->prev = tmp;
-}
+// 	printf("swapping...\n");
+// 	if (!node_a || !node_b)
+// 		return ;
+// 	tmp = node_a->prev;
+// 	if (node_a->prev)
+// 		node_a->prev->next = node_b;
+// 	node_a->next = node_b->next;
+// 	node_a->prev = node_b;
+// 	node_b->next = node_a;
+// 	node_b->prev = tmp;
+// }
 
-void	swap(t_stack *stack, char ab)
-{
-	t_stack	*last;
+// void	swap(t_stack *stack, char ab)
+// {
+// 	t_stack	*last;
 
-	if (ab == 'A')
-		printf("\nSWAP A\n");
-	else if (ab == 'B')
-		printf("\nSWAP A\n");
-	else 
-		ft_error("SWAP PARAM ERROR\n");
-	if (!stack)
-		return ;
-	last = ps_lstlast(stack);
-	if (!stack->next)
-		return ;
-	swap_nodes(last->prev, last);
-	last = ps_lstlast(stack);
-}
+// 	if (ab == 'A')
+// 		printf("\nSWAP A\n");
+// 	else if (ab == 'B')
+// 		printf("\nSWAP A\n");
+// 	else 
+// 		ft_error("SWAP PARAM ERROR\n");
+// 	if (!stack)
+// 		return ;
+// 	last = ps_lstlast(stack);
+// 	if (!stack->next)
+// 		return ;
+// 	swap_nodes(last->prev, last);
+// 	last = ps_lstlast(stack);
+// }
 
-void	ss(t_root *root)
-{
-	// printf("SS\n");
-	if (!root->stack_a && !root->stack_b)
-		return ;
-	else if (!root->stack_a)
-		swap(root->stack_b, 'B');
-	else if (!root->stack_b)
-		swap(root->stack_a, 'A');
-	else
-	{
-		swap(root->stack_a, 'A');
-		swap(root->stack_b, 'B');
-	}
-}
+// void	ss(t_root *root)
+// {
+// 	// printf("SS\n");
+// 	if (!root->first_a && !root->first_b)
+// 		return ;
+// 	else if (!root->first_a)
+// 		swap(root->first_b, 'B');
+// 	else if (!root->first_b)
+// 		swap(root->first_a, 'A');
+// 	else
+// 	{
+// 		swap(root->first_a, 'A');
+// 		swap(root->first_b, 'B');
+// 	}
+// }
 
-void	rotate_a(t_root *root)
-{
-	t_stack	*first;
-	t_stack	*last;
+// void	rotate_a(t_root *root)
+// {
+// 	t_stack	*first;
+// 	t_stack	*last;
 
-	printf("ROTATE A\n");
-	first = root->stack_a;
-	if (!first || !first->next)
-	{
-		printf("ERROR\n");
-		return ;
-	}
-	last = ps_lstlast(first);
-	root->stack_a = last;
-	last->prev->next = NULL;
-	first->prev = last;
-	last->next = first;
-	last->prev = NULL;
-	print_node(first);
-	print_node(last);
+// 	printf("ROTATE A\n");
+// 	first = root->first_a;
+// 	if (!first || !first->next)
+// 	{
+// 		printf("ERROR\n");
+// 		return ;
+// 	}
+// 	last = ps_lstlast(first);
+// 	root->first_a = last;
+// 	last->prev->next = NULL;
+// 	first->prev = last;
+// 	last->next = first;
+// 	last->prev = NULL;
+// 	print_node(first);
+// 	print_node(last);
 
-}
+// }
 
-void	rotate_b(t_root *root)
-{
-	t_stack	*first;
-	t_stack	*last;
+// void	rotate_b(t_root *root)
+// {
+// 	t_stack	*first;
+// 	t_stack	*last;
 
-	printf("ROTATE B\n");
-	first = root->stack_b;
-	if (!first || !first->next)
-	{
-		printf("ERROR\n");
-		return ;
-	}
-	last = ps_lstlast(first);
-	root->stack_b = last;
-	last->prev->next = NULL;
-	first->prev = last;
-	last->next = first;
-	last->prev = NULL;
-}
+// 	printf("ROTATE B\n");
+// 	first = root->first_b;
+// 	if (!first || !first->next)
+// 	{
+// 		printf("ERROR\n");
+// 		return ;
+// 	}
+// 	last = ps_lstlast(first);
+// 	root->first_b = last;
+// 	last->prev->next = NULL;
+// 	first->prev = last;
+// 	last->next = first;
+// 	last->prev = NULL;
+// }
 
-void	reverse_rotate_a(t_root *root)
-{
-	t_stack	*first;
-	t_stack *last;
+// void	reverse_rotate_a(t_root *root)
+// {
+// 	t_stack	*first;
+// 	t_stack *last;
 
-	printf("REVERSE ROTATE A\n");
-	first = root->stack_a;
-	last = ps_lstlast(root->stack_a);
-	root->stack_a = first->next;
-	first->prev = last;
-	first->next = NULL;
-	last->next = first;
-}
+// 	printf("REVERSE ROTATE A\n");
+// 	first = root->first_a;
+// 	last = ps_lstlast(root->first_a);
+// 	root->first_a = first->next;
+// 	first->prev = last;
+// 	first->next = NULL;
+// 	last->next = first;
+// }
 
-void	reverse_rotate_b(t_root *root)
-{
-	t_stack	*first;
-	t_stack *last;
+// void	reverse_rotate_b(t_root *root)
+// {
+// 	t_stack	*first;
+// 	t_stack *last;
 
-	printf("REVERSE ROTATE B\n");
-	first = root->stack_b;
-	last = ps_lstlast(root->stack_b);
-	root->stack_b = first->next;
-	first->prev = last;
-	first->next = NULL;
-	last->next = first;
+// 	printf("REVERSE ROTATE B\n");
+// 	first = root->first_b;
+// 	last = ps_lstlast(root->first_b);
+// 	root->first_b = first->next;
+// 	first->prev = last;
+// 	first->next = NULL;
+// 	last->next = first;
 
-	print_node(first);
-	print_node(last);
-}
+// 	print_node(first);
+// 	print_node(last);
+// }
 
-void	rr(t_root *root)
-{
-	printf("RR\n");
-	if (!root->stack_a && !root->stack_b)
-	{
-		printf("ERROR\n");
-		return ;
-	}
-	else if (!root->stack_a)
-		rotate_b(root);
-	else if (!root)
-		rotate_a(root);
-	else
-	{
-		rotate_a(root);
-		rotate_b(root);
-	}
-}
+// void	rr(t_root *root)
+// {
+// 	printf("RR\n");
+// 	if (!root->first_a && !root->first_b)
+// 	{
+// 		printf("ERROR\n");
+// 		return ;
+// 	}
+// 	else if (!root->first_a)
+// 		rotate_b(root);
+// 	else if (!root)
+// 		rotate_a(root);
+// 	else
+// 	{
+// 		rotate_a(root);
+// 		rotate_b(root);
+// 	}
+// }
 
-void	rrr(t_root *root)
-{
-	printf("RRR\n");
-	if (!root->stack_a && !root->stack_b)
-	{
-		printf("ERROR\n");
-		return ;
-	}
-	else if (!root->stack_a)
-		reverse_rotate_b(root);
-	else if (!root->stack_b)
-		reverse_rotate_a(root);
-	else
-	{
-		reverse_rotate_a(root);
-		reverse_rotate_b(root);
-	}
+// void	rrr(t_root *root)
+// {
+// 	printf("RRR\n");
+// 	if (!root->first_a && !root->first_b)
+// 	{
+// 		printf("ERROR\n");
+// 		return ;
+// 	}
+// 	else if (!root->first_a)
+// 		reverse_rotate_b(root);
+// 	else if (!root->first_b)
+// 		reverse_rotate_a(root);
+// 	else
+// 	{
+// 		reverse_rotate_a(root);
+// 		reverse_rotate_b(root);
+// 	}
 
-}
+// }

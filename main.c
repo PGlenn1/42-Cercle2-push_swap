@@ -6,14 +6,33 @@
 void	push_swap(t_root *root)
 {
 	print_both(root);
-	// swap(root->stack_a, 'A');
+	// swap(root->first_a, 'A');
 	push_b(root);
-	// push_b(root);
-	// push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
 	print_both(root);
-	// swap(root->stack_a);
+	push_a(root);
+	push_b(root);
+	push_b(root);
+	print_both(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	push_a(root);
+	print_both(root);
+	// swap(root->first_a);
 	// print_both(root);
-	// swap_b(root->stack_a);
+	// swap_b(root->first_a);
 	// rrr(root);
 	// print_both(root);
 	// rrr(root);

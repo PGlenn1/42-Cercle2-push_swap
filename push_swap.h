@@ -6,15 +6,18 @@
 
 typedef struct s_root
 {
-	struct s_stack	*stack_a;
-	struct s_stack	*stack_b;
+	struct s_stack	*first_a;
+	struct s_stack	*last_a;
+	struct s_stack	*prev_a;
+	struct s_stack	*first_b;
+	struct s_stack	*last_b;
+	struct s_stack	*prev_b;
 	struct s_data	*data;
 }					t_root;
 
 typedef struct s_stack
 {
 	int				value;
-	struct s_stack	*prev;
 	struct s_stack	*next;
 }					t_stack;
 
@@ -26,6 +29,7 @@ typedef struct s_data
 
 t_root				*init_root(char **input);
 void				ps_lstadd_back(t_stack **lst, t_stack *new);
+t_stack				*get_prev(t_stack *stack);
 t_stack				*ps_lstnew(int value);
 t_stack				*ps_lstlast(t_stack *lst);
 t_stack				*ps_lstprev(t_stack *stack);
