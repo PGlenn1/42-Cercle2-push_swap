@@ -4,9 +4,25 @@ void	update_root(t_root *root)
 {
 	 	printf("UPDATE ROOT\n");
 		root->last_a = ps_lstlast(root->first_a);
-		root->prev_a = get_prev(root->first_a);
+		root->sec_last_a = get_second_last(root->first_a);
 		root->last_b = ps_lstlast(root->first_b);
-		root->prev_b = get_prev(root->first_b);
+		root->sec_last_b = get_second_last(root->first_b);
+}
+
+t_stack	*get_third_last(t_stack *stack)
+{
+	t_stack *probe;
+
+	if (!stack || !stack->next || !stack->next->next)
+		return (NULL);
+	probe = stack;
+	while (probe->next->next->next)
+	{
+		probe = probe->next;
+	}
+	// printf("THIRD LAST:%p\n", probe);
+	// printf("THIRD LAST VALUE:%d\n", probe->value);
+	return (probe);
 }
 
 void	push_a(t_root *root)
@@ -17,8 +33,8 @@ void	push_a(t_root *root)
 		root->last_a = root->first_a = root->last_b;
 	else
 		root->last_a->next = root->last_b;
-	if (root->prev_b)
-		root->prev_b->next = NULL;
+	if (root->sec_last_b)
+		root->sec_last_b->next = NULL;
 	else if (!root->first_b->next)
 		root->first_b = NULL;
 	else
@@ -34,8 +50,8 @@ void	push_b(t_root *root)
 		root->last_b = root->first_b = root->last_a;
 	else
 		root->last_b->next = root->last_a;
-	if (root->prev_a)
-		root->prev_a->next = NULL;
+	if (root->sec_last_a)
+		root->sec_last_a->next = NULL;
 	else if (!root->first_a->next)
 		root->first_a = NULL;
 	else
@@ -48,13 +64,47 @@ void	swap_a(t_root *root)
 	t_stack *tmp;
 
 	printf("SWAP A\n");
+	if (!root->first_a || !root->first_a->next)
+		return ;
 	tmp = NULL;
-	if (!root->prev_a)
+	if (root->sec_last_a)
 	{
-		tmp = root->last_a;
-		root->first_a = root->last_a;
-		root->last_a = root->first_a;
+		tmp = get_third_last(root->first_a);
+		tmp->next = root->last_a;
+		root->last_a->next = root->sec_last_a;
+		root->sec_last_a->next = NULL;
 	}
+	else
+	{
+		root->last_a->next = root->first_a;
+		root->first_a->next = NULL;
+		root->first_a = root->last_a;
+	}
+	update_root(root);
+}
+
+void	swap_b(t_root *root)	
+{
+	t_stack *tmp;
+
+	printf("SWAP B\n");
+	if (!root->first_b || !root->first_b->next)
+		return ;
+	tmp = NULL;
+	if (root->sec_last_b)
+	{
+		tmp = get_third_last(root->first_b);
+		tmp->next = root->last_b;
+		root->last_b->next = root->sec_last_b;
+		root->sec_last_b->next = NULL;
+	}
+	else
+	{
+		root->last_b->next = root->first_b;
+		root->first_b->next = NULL;
+		root->first_b = root->last_b;
+	}
+	update_root(root);
 }
 
 
@@ -89,10 +139,10 @@ void	swap_a(t_root *root)
 // 	}
 // 	last = ps_lstlast(first);
 // 	root->first_a = last;
-// 	last->prev->next = NULL;
-// 	first->prev = last;
+// 	last->sec_last->next = NULL;
+// 	first->sec_last = last;
 // 	last->next = first;
-// 	last->prev = NULL;
+// 	last->sec_last = NULL;
 // 	print_node(first);
 // 	print_node(last);
 
@@ -112,10 +162,10 @@ void	swap_a(t_root *root)
 // 	}
 // 	last = ps_lstlast(first);
 // 	root->first_b = last;
-// 	last->prev->next = NULL;
-// 	first->prev = last;
+// 	last->sec_last->next = NULL;
+// 	first->sec_last = last;
 // 	last->next = first;
-// 	last->prev = NULL;
+// 	last->sec_last = NULL;
 // }
 
 // void	reverse_rotate_a(t_root *root)
@@ -127,7 +177,7 @@ void	swap_a(t_root *root)
 // 	first = root->first_a;
 // 	last = ps_lstlast(root->first_a);
 // 	root->first_a = first->next;
-// 	first->prev = last;
+// 	first->sec_last = last;
 // 	first->next = NULL;
 // 	last->next = first;
 // }
@@ -141,7 +191,7 @@ void	swap_a(t_root *root)
 // 	first = root->first_b;
 // 	last = ps_lstlast(root->first_b);
 // 	root->first_b = first->next;
-// 	first->prev = last;
+// 	first->sec_last = last;
 // 	first->next = NULL;
 // 	last->next = first;
 

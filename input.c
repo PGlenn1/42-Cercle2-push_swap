@@ -89,9 +89,9 @@ t_root	*init_root(char **input)
 	root->first_a = init_first_a(input);
 	printf("first_a:%p", root->first_a);
 	root->last_a = ps_lstlast(root->first_a);
-	root->prev_a = get_prev(root->first_a);
+	root->sec_last_a = get_second_last(root->first_a);
 	root->first_b = NULL;
 	root->last_b = NULL;
-	root->prev_b = NULL;
+	root->sec_last_b = NULL;
 	return (root);
 }

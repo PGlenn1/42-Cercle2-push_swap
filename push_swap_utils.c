@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-t_stack	*get_prev(t_stack *stack)
+t_stack	*get_second_last(t_stack *stack)
 {
 	t_stack *probe;
 
@@ -66,8 +66,8 @@ void	print_root(t_root *root)
 			printf("last_a:%d\n", root->last_a->value);
 		else
 			printf("Only 1 node\n");
-		if (root->prev_a)
-			printf("prev_a:%d\n", root->prev_a->value);
+		if (root->sec_last_a)
+			printf("sec_last_a:%d\n", root->sec_last_a->value);
 	}
 	else
 		printf("STACK A EMPTY\n");
@@ -78,8 +78,8 @@ void	print_root(t_root *root)
 			printf("last_b:%d\n", root->last_b->value);
 		else
 			printf("Only 1 node\n");
-		if (root->prev_b)
-			printf("prev_b:%d\n", root->prev_b->value);
+		if (root->sec_last_b)
+			printf("sec_last_b:%d\n", root->sec_last_b->value);
 	}
 	else
 		printf("STACK B EMPTY\n");
@@ -102,7 +102,7 @@ void	print_stack(t_stack *stack)
 	probe = stack;
 	printf("stack:%p\n", stack);
 	i = 0;
-	while (probe)
+	while (probe && i < 20)
 	{
 		// printf("WHILE\n");
 		print_node(probe);
@@ -122,7 +122,7 @@ void	print_both(t_root *root)
 	root->first_a ? print_stack(root->first_a) : printf("STACK A EMPTY\n");
 	printf("\nPRINTING STACK B\n");
 	root->first_b ? print_stack(root->first_b) : printf("STACK B EMPTY\n");
-	print_root(root);
+	// print_root(root);
 	printf("\n");
 }
 
