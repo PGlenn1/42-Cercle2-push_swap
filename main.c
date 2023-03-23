@@ -1,13 +1,19 @@
 #include "push_swap.h"
 
-// check_input TODO
-
-
 void	push_swap(t_root *root)
 {
 	print_both(root);
 	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
+	push_b(root);
 	print_both(root);
+	// ss(root);
+	rotate_a(root);
+	rotate_b(root);
+	print_both(root);
+
 }
 
 int	main(int argc, char **argv)

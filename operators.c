@@ -2,7 +2,6 @@
 
 void	update_root(t_root *root)
 {
-	 	printf("UPDATE ROOT\n");
 		root->last_a = ps_lstlast(root->first_a);
 		root->sec_last_a = get_second_last(root->first_a);
 		root->last_b = ps_lstlast(root->first_b);
@@ -20,13 +19,19 @@ t_stack	*get_third_last(t_stack *stack)
 	{
 		probe = probe->next;
 	}
-	// printf("THIRD LAST:%p\n", probe);
-	// printf("THIRD LAST VALUE:%d\n", probe->value);
 	return (probe);
 }
 
+// void push(t_root *root, stacks ab)
+// {
+// 	if (ab == A)
+// 	{
+// 	}
+// }
+
 void	push_a(t_root *root)
 {
+	printf("PUSH A\n");
 	if (!root->first_b)
 		return;
 	if (!root->first_a)
@@ -44,6 +49,7 @@ void	push_a(t_root *root)
 
 void	push_b(t_root *root)
 {
+	printf("PUSH B\n");
 	if (!root->first_a)
 		return;
 	if (!root->first_b)
@@ -109,44 +115,71 @@ void	swap_b(t_root *root)
 
 
 
-// void	ss(t_root *root)
-// {
-// 	// printf("SS\n");
-// 	if (!root->first_a && !root->first_b)
-// 		return ;
-// 	else if (!root->first_a)
-// 		swap(root->first_b, 'B');
-// 	else if (!root->first_b)
-// 		swap(root->first_a, 'A');
-// 	else
-// 	{
-// 		swap(root->first_a, 'A');
-// 		swap(root->first_b, 'B');
-// 	}
-// }
+void	ss(t_root *root)
+{
+	printf("SS\n");
+	if (!root->first_a && !root->first_b)
+		return ;
+	else if (!root->first_a)
+		swap_b(root);
+	else if (!root->first_b)
+		swap_a(root);
+	else
+	{
+		swap_a(root);
+		swap_b(root);
+	}
+}
 
-// void	rotate_a(t_root *root)
-// {
-// 	t_stack	*first;
-// 	t_stack	*last;
+void	rotate_a(t_root *root)
+{
+	t_stack *tmp;
+	
+	printf("ROTATE A\n");
+	tmp = NULL;
+	if (!root->first_a || !root->first_a->next)
+	{
+		printf("STACK A TOO SMALL\n");
+		return ;
+	}
+	if (root->sec_last_a)
+	{
+		tmp = root->first_a;
+		root->first_a = root->last_a;
+		root->first_a->next = tmp;
+		root->sec_last_a->next = NULL;
+	}
+	else
+	{
+		printf("INTO\n");
+		swap_a(root);
+	}
+}
 
-// 	printf("ROTATE A\n");
-// 	first = root->first_a;
-// 	if (!first || !first->next)
-// 	{
-// 		printf("ERROR\n");
-// 		return ;
-// 	}
-// 	last = ps_lstlast(first);
-// 	root->first_a = last;
-// 	last->sec_last->next = NULL;
-// 	first->sec_last = last;
-// 	last->next = first;
-// 	last->sec_last = NULL;
-// 	print_node(first);
-// 	print_node(last);
-
-// }
+void	rotate_b(t_root *root)
+{
+	t_stack *tmp;
+	
+	printf("ROTATE B\n");
+	tmp = NULL;
+	if (!root->first_b || !root->first_b->next)
+	{
+		printf("ERROR STACK B TOO SMALL\n");
+		return ;
+	}
+	if (root->sec_last_b)
+	{
+		tmp = root->first_b;
+		root->first_b = root->last_b;
+		root->first_b->next = tmp;
+		root->sec_last_b->next = NULL;
+	}
+	else
+	{
+		printf("INTO\n");
+		swap_b(root);
+	}
+}
 
 // void	rotate_b(t_root *root)
 // {

@@ -89,9 +89,10 @@ void	print_root(t_root *root)
 void	print_node(t_stack *node)
 {
 	printf("\n");
-	printf("node:%p\n", node);
+	// printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	printf("node->next:%p\n", node->next);
+	// printf("node->next:%p\n", node->next);
+	printf("\n");
 }
 
 void	print_stack(t_stack *stack)
@@ -110,7 +111,6 @@ void	print_stack(t_stack *stack)
 		i++;
 	}
 	printf("[%d] NODES\n", i);
-	printf("\nEND PRINT STACK\n\n");
 }
 
 void	print_both(t_root *root)
@@ -124,6 +124,7 @@ void	print_both(t_root *root)
 	root->first_b ? print_stack(root->first_b) : printf("STACK B EMPTY\n");
 	// print_root(root);
 	printf("\n");
+	printf("\nEND PRINT BOTH\n\n");
 }
 
 void	ft_error(const char *str)
