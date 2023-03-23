@@ -84,9 +84,9 @@ void	ps_lstadd_back(t_elem **lst, t_elem *new)
 void	print_node(t_elem *node)
 {
 	printf("\n");
-	// printf("node:%p\n", node);
+	printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	// printf("node->next:%p\n", node->next);
+	printf("node->next:%p\n", node->next);
 	printf("\n");
 }
 
@@ -131,16 +131,19 @@ void	ft_error(errors error)
 	switch (error)
 	{
 		case INPUT_NAN:
-		str = "Input not a number.\n";
+		str = "Invalid entry\n";
 		break;
 		case INPUT_OVERFLOW:
-		str = "Overflow.\n";
+		str = "Input overflow\n";
 		break;
 		case INPUT_DOUBLE:
-		str = "Doubles.\n";
+		str = "Input double\n";
+		break;
+		case PTR_ERROR:
+		str = "Pointer error\n";
 		break;
 		case MALLOC_FAIL:
-		str = "Malloc fail";
+		str = "Malloc fail\n";
 		break;
 	}
 	ft_putstr_fd(str, 2);

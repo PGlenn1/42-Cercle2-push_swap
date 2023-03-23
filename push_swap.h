@@ -43,6 +43,7 @@ typedef enum
 	INPUT_OVERFLOW,
 	INPUT_DOUBLE,
 	MALLOC_FAIL,
+	PTR_ERROR,
 } errors;
 
 t_root				*init_root(char **input);
@@ -53,9 +54,9 @@ t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
 t_elem				*ps_lstprev(t_elem *stack);
 void				print_both(t_root *root);
-void				swap(t_root *root, stack_ab ab);
+void				swap_ab(t_root *root, stack_ab ab);
 void				ss(t_root *root);
-void				push(t_root *root, stack_ab ab);
+void				push_ab(t_root *root, stack_ab ab);
 // void				rotate_a(t_root *root);
 // void				rotate_b(t_root *root);
 // void				rrr(t_root *root);

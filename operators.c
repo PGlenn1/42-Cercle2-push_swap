@@ -1,11 +1,37 @@
 #include "push_swap.h"
 
-void	push(t_root *root, stack_ab ab)
+void	push(t_stack *from, t_stack *to)
+{
+	if (!from || !to)
+		ft_error(PTR_ERROR);
+	if (!from->first)
+		return ;
+	if (!to->first)
+		to->first = from->last;
+	else
+		to->last->next = from->last;
+	if (from->sec_last)
+		from->sec_last->next = NULL;
+	else if (from->first->next)
+		from->first->next = NULL;
+	else
+		from->first = NULL;
+}
+
+
+void	push_ab(t_root *root, stack_ab ab)
 {
 	if (ab == A)
 	{
 		printf("PUSH A\n");
+		push(root->stack_b, root->stack_a);
 	}
+	else
+	{	
+		printf("PUSH B\n");
+		push(root->stack_a, root->stack_b);
+	}
+	update_stacks(root);
 }
 
 // void	swap_a(t_root *root)	
@@ -32,22 +58,10 @@ void	push(t_root *root, stack_ab ab)
 // 	update_root(root);
 // }
 
-void	swap(t_root *root, stack_ab ab)	
+void	swap(t_root *root, t_stack *stack)
 {
-	t_stack *stack;
-
-	if (ab == A)
-	{
-		printf("SWAP A\n");
-		stack = root->stack_a;
-	}
-	else
-	{
-		printf("SWAP B\n");
-		stack = root->stack_b;
-	}
 	if (!stack->first || !stack->first->next)
-		return ;
+		ft_error(PTR_ERROR);
 	if (stack->sec_last)
 	{
 		stack->thi_last->next = stack->last;
@@ -61,6 +75,27 @@ void	swap(t_root *root, stack_ab ab)
 		stack->first = stack->last;
 	}
 	update_stacks(root);
+}
+
+void	swap_ab(t_root *root, stack_ab ab)	
+{
+	t_stack *stack;
+
+	if (ab == A)
+	{
+		if (!root->stack_a)
+			return ;
+		printf("SWAP A\n");
+		stack = root->stack_a;
+	}
+	else
+	{
+		if (!root->stack_b)
+			return ;
+		printf("SWAP B\n");
+		stack = root->stack_b;
+	}
+	swap(root, stack);
 }
 
 // void	ss(t_root *root)
