@@ -1,22 +1,48 @@
 #include "push_swap.h"
 
-t_stack	*get_second_last(t_stack *stack)
+t_elem	*get_third_last(t_elem *stack)
 {
-	t_stack *probe;
+	t_elem *probe;
 
-	probe = stack;
-	if (!stack || !probe->next || !probe->next->next)
+	if (!stack || !stack->next || !stack->next->next)
 		return (NULL);
+	probe = stack;
+	while (probe->next->next->next)
+	{
+		probe = probe->next;
+	}
+	return (probe);
+}
+
+void	update_stacks(t_root *root)
+{
+		root->stack_a->last = ps_lstlast(root->stack_a->first);
+		root->stack_a->sec_last = get_second_last(root->stack_a->first);
+		root->stack_a->thi_last = get_third_last(root->stack_a->first);
+
+		root->stack_b->last = ps_lstlast(root->stack_b->first);
+		root->stack_b->sec_last = get_second_last(root->stack_b->first);
+		root->stack_b->thi_last = get_third_last(root->stack_b->first);
+}
+
+
+t_elem	*get_second_last(t_elem *first)
+{
+	t_elem *probe;
+
+	if (!first || !first->next || !first->next->next)
+		return (NULL);
+	probe = first;
 	while(probe->next->next)
 		probe = probe->next;
 	return (probe);
 }
 
-t_stack	*ps_lstnew(int value)
+t_elem	*ps_lstnew(int value)
 {
-	struct s_stack	*ptr;
+	struct s_elem	*ptr;
 
-	ptr = (struct s_stack *)malloc(sizeof(struct s_stack));
+	ptr = (struct s_elem *)malloc(sizeof(struct s_elem));
 	if (!ptr)
 		return (NULL);
 	ptr->value = value;
@@ -24,7 +50,7 @@ t_stack	*ps_lstnew(int value)
 	return (ptr);
 }
 
-t_stack	*ps_lstlast(t_stack *lst)
+t_elem	*ps_lstlast(t_elem *lst)
 {
 	// printf("LAST\n");
 	if (!lst)
@@ -40,9 +66,9 @@ t_stack	*ps_lstlast(t_stack *lst)
 	return (lst);
 }
 
-void	ps_lstadd_back(t_stack **lst, t_stack *new)
+void	ps_lstadd_back(t_elem **lst, t_elem *new)
 {
-	struct s_stack	*last;
+	struct s_elem	*last;
 
 	if (!lst || !new)
 		return ;
@@ -55,38 +81,7 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 	last->next = new;
 }
 
-void	print_root(t_root *root)
-{
-	printf("\nPRINT ROOT\n");
-	if (root->first_a)
-	{
-		// printf("first_a:%p\n", root->first_a);
-		printf("first_a:%d\n", root->first_a->value);
-		if (root->first_a != root->last_a)
-			printf("last_a:%d\n", root->last_a->value);
-		else
-			printf("Only 1 node\n");
-		if (root->sec_last_a)
-			printf("sec_last_a:%d\n", root->sec_last_a->value);
-	}
-	else
-		printf("STACK A EMPTY\n");
-	if (root->first_b)
-	{
-		printf("\nfirst_b:%d\n", root->first_b->value);
-		if (root->first_b != root->last_b)
-			printf("last_b:%d\n", root->last_b->value);
-		else
-			printf("Only 1 node\n");
-		if (root->sec_last_b)
-			printf("sec_last_b:%d\n", root->sec_last_b->value);
-	}
-	else
-		printf("STACK B EMPTY\n");
-	printf("\nEND PRINT ROOT\n\n");
-}
-
-void	print_node(t_stack *node)
+void	print_node(t_elem *node)
 {
 	printf("\n");
 	// printf("node:%p\n", node);
@@ -97,11 +92,13 @@ void	print_node(t_stack *node)
 
 void	print_stack(t_stack *stack)
 {
-	t_stack	*probe;
+	t_elem	*probe;
 	int		i;
 
-	probe = stack;
-	printf("stack:%p\n", stack);
+	if (!stack)
+		return ;
+	probe = stack->first;
+	// printf("stack:%p\n", stack);
 	i = 0;
 	while (probe && i < 20)
 	{
@@ -119,17 +116,34 @@ void	print_both(t_root *root)
 
 	printf("\nPRINT BOTH [%d]\n", i++);
 	printf("\nPRINTING STACK A\n");
-	root->first_a ? print_stack(root->first_a) : printf("STACK A EMPTY\n");
+	root->stack_a ? print_stack(root->stack_a) : printf("STACK A EMPTY\n");
 	printf("\nPRINTING STACK B\n");
-	root->first_b ? print_stack(root->first_b) : printf("STACK B EMPTY\n");
+	root->stack_b->first ? print_stack(root->stack_b) : printf("STACK B EMPTY\n");
 	// print_root(root);
 	printf("\n");
 	printf("\nEND PRINT BOTH\n\n");
 }
 
-void	ft_error(const char *str)
+void	ft_error(errors error)
 {
-	ft_putstr_fd((char *)str, 1);
-	ft_putstr_fd("Error\n", 1);
+	char *str;
+	str = NULL;
+	switch (error)
+	{
+		case INPUT_NAN:
+		str = "Input not a number.\n";
+		break;
+		case INPUT_OVERFLOW:
+		str = "Overflow.\n";
+		break;
+		case INPUT_DOUBLE:
+		str = "Doubles.\n";
+		break;
+		case MALLOC_FAIL:
+		str = "Malloc fail";
+		break;
+	}
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("Error\n", 2);
 	exit(1);
 }

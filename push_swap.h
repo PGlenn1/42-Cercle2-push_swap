@@ -6,22 +6,24 @@
 
 typedef struct s_root
 {
-	struct s_stack	*first_a;
-	struct s_stack	*last_a;
-	struct s_stack	*sec_last_a;
-	
-	struct s_stack	*first_b;
-	struct s_stack	*last_b;
-	struct s_stack	*sec_last_b;
-	
+	struct s_stack	*stack_a;
+	struct s_stack	*stack_b;
 	struct s_data	*data;
 }					t_root;
 
 typedef struct s_stack
 {
+	struct s_elem	*first;
+	struct s_elem	*last;
+	struct s_elem	*sec_last;
+	struct s_elem 	*thi_last;
+} t_stack;
+
+typedef struct s_elem
+{
 	int				value;
-	struct s_stack	*next;
-}					t_stack;
+	struct s_elem	*next;
+}					t_elem;
 
 typedef struct s_data
 {
@@ -33,27 +35,33 @@ typedef enum
 {
 	A,
 	B,
-} stacks;
+} stack_ab;
+
+typedef enum
+{
+	INPUT_NAN,
+	INPUT_OVERFLOW,
+	INPUT_DOUBLE,
+	MALLOC_FAIL,
+} errors;
 
 t_root				*init_root(char **input);
-void				ps_lstadd_back(t_stack **lst, t_stack *new);
-t_stack				*get_second_last(t_stack *stack);
-t_stack				*ps_lstnew(int value);
-t_stack				*ps_lstlast(t_stack *lst);
-t_stack				*ps_lstprev(t_stack *stack);
+void				update_stacks(t_root *root);
+void				ps_lstadd_back(t_elem **lst, t_elem *new);
+t_elem				*get_second_last(t_elem *stack);
+t_elem				*ps_lstnew(int value);
+t_elem				*ps_lstlast(t_elem *lst);
+t_elem				*ps_lstprev(t_elem *stack);
 void				print_both(t_root *root);
-void				swap_a(t_root *root);
-void				swap_b(t_root *root);
+void				swap(t_root *root, stack_ab ab);
 void				ss(t_root *root);
-void				push_a(t_root *root);
-void				push_b(t_root *root);
-void				rotate_a(t_root *root);
-void				rotate_b(t_root *root);
-void				rrr(t_root *root);
-void				rr(t_root *root);
-void				reverse_rotate_a(t_root *root);
-void				reverse_rotate_b(t_root *root);
-void				print_node(t_stack *node);
-void				ft_error(const char *str);
+void				push(t_root *root, stack_ab ab);
+// void				rotate_a(t_root *root);
+// void				rotate_b(t_root *root);
+// void				rrr(t_root *root);
+// void				rr(t_root *root);
+// void				reverse_rotate_a(t_root *root);
+// void				reverse_rotate_b(t_root *root);
+void				ft_error(errors error);
 
 #endif

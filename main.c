@@ -2,16 +2,20 @@
 
 void	push_swap(t_root *root)
 {
+	update_stacks(root);
 	print_both(root);
-	push_b(root);
-	push_b(root);
-	push_b(root);
-	push_b(root);
-	push_b(root);
-	print_both(root);
+	push(root, A);
+	push(root, B);
+	push(root, B);
+	push(root, B);
+	// swap(root, A);
+	// swap(root, B);
+	// push_b(root);
+	// push_b(root);
+	// print_both(root);
 	// ss(root);
-	rotate_a(root);
-	rotate_b(root);
+	// rotate_a(root);
+	// rotate_b(root);
 	print_both(root);
 
 }
