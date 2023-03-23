@@ -37,7 +37,8 @@ void	push_ab(t_root *root, stack_ab ab)
 void	swap(t_root *root, t_stack *stack)
 {
 	if (!stack->first || !stack->first->next)
-		ft_error(PTR_ERROR);
+	 	return ;
+		// ft_error(PTR_ERROR);
 	if (stack->sec_last)
 	{
 		stack->thi_last->next = stack->last;
@@ -59,17 +60,18 @@ void	swap_ab(t_root *root, stack_ab ab)
 
 	if (ab == A)
 	{
-		if (!root->stack_a)
-			return ;
 		printf("SWAP A\n");
 		stack = root->stack_a;
 	}
 	else
 	{
-		if (!root->stack_b)
-			return ;
 		printf("SWAP B\n");
 		stack = root->stack_b;
+	}
+	if (!stack || !stack->first || !stack->first->next)
+	{
+		printf("NO OP\n");
+		return ;
 	}
 	swap(root, stack);
 }
@@ -86,30 +88,47 @@ void	ss(t_root *root)
 	}
 }
 
-// void	rotate_a(t_root *root)
-// {
-// 	t_elem *tmp;
-	
-// 	printf("ROTATE A\n");
-// 	tmp = NULL;
-// 	if (!root->first || !root->first->next)
-// 	{
-// 		printf("STACK A TOO SMALL\n");
-// 		return ;
-// 	}
-// 	if (root->sec_last)
-// 	{
-// 		tmp = root->first;
-// 		root->first = root->last;
-// 		root->first->next = tmp;
-// 		root->sec_last->next = NULL;
-// 	}
-// 	else
-// 	{
-// 		printf("INTO\n");
-// 		swap_a(root);
-// 	}
-// }
+void	rotate(t_stack *stack)
+{
+	t_elem *tmp;
+
+	if (!stack || !stack->first)
+		ft_error(UNWANTED_BEHAVIOR);
+	if (!stack->first->next)
+		return ;
+	tmp = stack->first; 
+	printf("tmp:%p\n", tmp);
+	stack->first = stack->last;
+	printf("stack last value:%d\n", stack->last->value);
+	stack->first->next = tmp;
+	stack->sec_last->next = NULL;
+}
+
+void	rotate_ab(t_root *root, stack_ab ab)
+{
+
+	if (ab == A)
+	{
+		if (!root->stack_a->sec_last)
+			swap_ab(root, ab);
+		else
+		{
+			printf("ROTATE A\n");
+			rotate(root->stack_a);
+		}
+	}
+	else
+	{
+		if (!root->stack_b->sec_last)
+			swap_ab(root, ab);
+		else
+		{
+			printf("ROTATE B\n");
+			rotate(root->stack_b);
+		}
+	}
+	update_stack_ptrs(root);
+}
 
 // void	rotate_b(t_root *root)
 // {

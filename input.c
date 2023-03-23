@@ -92,12 +92,13 @@ void init_stacks(t_root *root, char **input)
 		ft_error(MALLOC_FAIL);
 	stack_a->first = fill_stack(input);
 	stack_a->last = ps_lstlast(stack_a->first);
+	stack_a->sec_last = get_second_last(stack_a->first);
+	stack_a->thi_last = get_third_last(stack_a->first);
 	stack_b->first = NULL;
 	stack_b->last = NULL;
 	stack_b->sec_last = NULL;
 	root->stack_a = stack_a;
 	root->stack_b = stack_b;
-
 }
 
 t_root *init_root(char **input)
