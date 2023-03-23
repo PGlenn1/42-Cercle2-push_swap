@@ -42,12 +42,13 @@ typedef enum
 	INPUT_NAN,
 	INPUT_OVERFLOW,
 	INPUT_DOUBLE,
-	MALLOC_FAIL,
 	PTR_ERROR,
+	MALLOC_FAIL,
+	UNWANTED_BEHAVIOR,
 } errors;
 
 t_root				*init_root(char **input);
-void				update_stacks(t_root *root);
+void				update_stack_ptrs(t_root *root);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);
 t_elem				*get_second_last(t_elem *stack);
 t_elem				*ps_lstnew(int value);

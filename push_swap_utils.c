@@ -14,7 +14,7 @@ t_elem	*get_third_last(t_elem *stack)
 	return (probe);
 }
 
-void	update_stacks(t_root *root)
+void	update_stack_ptrs(t_root *root)
 {
 		root->stack_a->last = ps_lstlast(root->stack_a->first);
 		root->stack_a->sec_last = get_second_last(root->stack_a->first);
@@ -98,11 +98,9 @@ void	print_stack(t_stack *stack)
 	if (!stack)
 		return ;
 	probe = stack->first;
-	// printf("stack:%p\n", stack);
 	i = 0;
 	while (probe && i < 20)
 	{
-		// printf("WHILE\n");
 		print_node(probe);
 		probe = probe->next;
 		i++;
@@ -144,6 +142,9 @@ void	ft_error(errors error)
 		break;
 		case MALLOC_FAIL:
 		str = "Malloc fail\n";
+		break;
+		case UNWANTED_BEHAVIOR:
+		str = "Unwanted behavior\n";
 		break;
 	}
 	ft_putstr_fd(str, 2);

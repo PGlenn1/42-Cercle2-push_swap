@@ -31,32 +31,8 @@ void	push_ab(t_root *root, stack_ab ab)
 		printf("PUSH B\n");
 		push(root->stack_a, root->stack_b);
 	}
-	update_stacks(root);
+	update_stack_ptrs(root);
 }
-
-// void	swap_a(t_root *root)	
-// {
-// 	t_elem *tmp;
-
-// 	printf("SWAP A\n");
-// 	if (!root->first || !root->first->next)
-// 		return ;
-// 	tmp = NULL;
-// 	if (root->sec_last)
-// 	{
-// 		tmp = get_third_last(root->first);
-// 		tmp->next = root->last;
-// 		root->last->next = root->sec_last;
-// 		root->sec_last->next = NULL;
-// 	}
-// 	else
-// 	{
-// 		root->last->next = root->first;
-// 		root->first->next = NULL;
-// 		root->first = root->last;
-// 	}
-// 	update_root(root);
-// }
 
 void	swap(t_root *root, t_stack *stack)
 {
@@ -74,7 +50,7 @@ void	swap(t_root *root, t_stack *stack)
 		stack->first->next = NULL;
 		stack->first = stack->last;
 	}
-	update_stacks(root);
+	update_stack_ptrs(root);
 }
 
 void	swap_ab(t_root *root, stack_ab ab)	
@@ -98,21 +74,17 @@ void	swap_ab(t_root *root, stack_ab ab)
 	swap(root, stack);
 }
 
-// void	ss(t_root *root)
-// {
-// 	printf("SS\n");
-// 	if (!root->first && !root->first)
-// 		return ;
-// 	else if (!root->first)
-// 		swap_b(root);
-// 	else if (!root->first)
-// 		swap_a(root);
-// 	else
-// 	{
-// 		swap_a(root);
-// 		swap_b(root);
-// 	}
-// }
+void	ss(t_root *root)
+{
+	printf("SS\n");
+	if (!root->stack_a || !root->stack_b)
+		return ;
+	else
+	{
+		swap_ab(root, A);
+		swap_ab(root, B);
+	}
+}
 
 // void	rotate_a(t_root *root)
 // {
