@@ -19,7 +19,7 @@ void	push_a(t_root *root)
 		root->last_a->next = root->last_b;
 	if (root->prev_b)
 		root->prev_b->next = NULL;
-	else if (root->first_b->next == NULL)
+	else if (!root->first_b->next)
 		root->first_b = NULL;
 	else
 	 	root->first_b->next = NULL;
@@ -36,27 +36,26 @@ void	push_b(t_root *root)
 		root->last_b->next = root->last_a;
 	if (root->prev_a)
 		root->prev_a->next = NULL;
-	else if (root->first_a->next == NULL)
+	else if (!root->first_a->next)
 		root->first_a = NULL;
 	else
 	 	root->first_a->next = NULL;
 	update_root(root);
 }
 
-// void	swap_a(t_root *root)	
-// {
-// 	t_stack *tmp;
+void	swap_a(t_root *root)	
+{
+	t_stack *tmp;
 
-// 	printf("SWAP A\n");
-// 	tmp = NULL;
-// 	if (!root->prev_a)
-// 	{
-// 		tmp = root->last_a;
-// 		root->first_a = root->last_a;
-// 		root->last_a = root->first_a;
-
-// 	}
-// }
+	printf("SWAP A\n");
+	tmp = NULL;
+	if (!root->prev_a)
+	{
+		tmp = root->last_a;
+		root->first_a = root->last_a;
+		root->last_a = root->first_a;
+	}
+}
 
 
 
