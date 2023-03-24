@@ -1,5 +1,7 @@
 #include "push_swap.h"
 
+
+
 void	push_swap(t_root *root)
 {
 	update_stack_ptrs(root);

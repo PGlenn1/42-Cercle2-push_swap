@@ -29,6 +29,7 @@ typedef struct s_stack
 	struct s_elem	*last;
 	struct s_elem	*sec_last;
 	struct s_elem 	*thi_last;
+	int	size;
 } t_stack;
 
 typedef struct s_elem

@@ -24,16 +24,23 @@ void	push(t_stack *from, t_stack *to)
 
 void	push_ab(t_root *root, stack_ab ab)
 {
+	t_stack *from;
+	t_stack *to;
+
 	if (ab == A)
 	{
-		printf("PUSH A\n");
-		push(root->stack_b, root->stack_a);
+		from = root->stack_b;
+		to = root->stack_a;
 	}
 	else
 	{	
-		printf("PUSH B\n");
-		push(root->stack_a, root->stack_b);
+		from = root->stack_a;
+		to = root->stack_b;
 	}
+	ab == A ? printf("PUSH A\n") : printf("PUSH B\n");
+	from->size--;
+	to->size++;
+	push(from, to);
 	update_stack_ptrs(root);
 }
 
@@ -79,7 +86,9 @@ void	swap_ab(t_root *root, stack_ab ab)
 void	ss(t_root *root)
 {
 	printf("SS\n");
-	if (!root->stack_a || !root->stack_b || !root->stack_a->first || !root->stack_a->first->next || !root->stack_b->first || !root->stack_b->first->next)
+	if (!root->stack_a || !root->stack_b)
+		ft_error(PTR_ERROR);
+	 if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_b->first || !root->stack_b->first->next)
 	{
 		printf(BAD_OPS);
 		return ;
@@ -124,7 +133,7 @@ void	rotate_ab(t_root *root, stack_ab ab)
 	}
 	else
 	{
-		(stack == root->stack_a ? printf("ROTATE A\n") : printf("ROTATE B\n"));
+		(ab == A ? printf("ROTATE A\n") : printf("ROTATE B\n"));
 		rotate(stack);
 	}
 	update_stack_ptrs(root);
@@ -174,17 +183,14 @@ void rev_rotate(t_stack *stack)
 
 void rev_rotate_ab(t_root *root, stack_ab ab)
 {
+	t_stack *stack;
 	printf("REVERSE ROTATE\n");
 	if (ab == A)
-	{
-		printf("REV ROT A\n");
-		rev_rotate(root->stack_a);
-	}
+		stack = root->stack_a;
 	else
-	{
-		printf("REV ROT B\n");
-		rev_rotate(root->stack_b);
-	}
+		stack = root->stack_a;
+	(ab == A ? printf("REV ROTATE A\n") : printf("REV ROTATE B\n"));
+	rev_rotate(stack);
 	update_stack_ptrs(root);
 }
 
