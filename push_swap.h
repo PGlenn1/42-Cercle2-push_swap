@@ -39,8 +39,9 @@ typedef struct s_elem
 
 typedef struct s_data
 {
-	int				ops;
-
+	int		ops;
+	int		size_a;
+	int		size_b;
 }					t_data;
 
 typedef struct s_root
@@ -65,7 +66,7 @@ void				ss(t_root *root);
 void				push_ab(t_root *root, stack_ab ab);
 void				rotate_ab(t_root *root, stack_ab ab);
 void 				rev_rotate_ab(t_root *root, stack_ab ab);
-// void				rrr(t_root *root);
+void				rrr(t_root *root);
 void				rr(t_root *root);
 void				ft_error(errors error);
 

@@ -134,17 +134,10 @@ void	rotate_ab(t_root *root, stack_ab ab)
 void	rr(t_root *root)
 {
 	printf("RR\n");
-	if (!root->stack_a || !root->stack_a->first || !root->stack_a->first->next) 
-	{
-		printf("ERROR DEBUG ROTATE A\n");
-		return ;
-	}
-	if (!root->stack_b || !root->stack_b->first || !root->stack_b->first->next)
-	{
-		printf("ERROR DEBUG ROTATE B\n");
-		return ;
-	}
-	if (!root->stack_b->first->next->next && !root->stack_b->first->next->next)
+	if (!root->stack_a || !root->stack_b)
+		ft_error(PTR_ERROR);
+	if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_a->sec_last
+		|| !root->stack_b->first || !root->stack_b->first->next || !root->stack_b->sec_last)
 	{
 		printf(BAD_OPS);
 		return ;
@@ -164,8 +157,6 @@ void rev_rotate(t_stack *stack)
 	if (!stack->first) 
 		ft_error(UNWANTED_BEHAVIOR);
 	tmp = stack->first->next;
-	// printf("tmp:%p\n", tmp);
-	// printf("last:%p\n", stack->last);
 	if (!stack->sec_last || !stack->first->next)
 	{
 		printf(BAD_OPS);
@@ -197,72 +188,19 @@ void rev_rotate_ab(t_root *root, stack_ab ab)
 	update_stack_ptrs(root);
 }
 
-// void	reverse_rotate_a(t_root *root)
-// {
-// 	t_elem	*first;
-// 	t_elem *last;
-
-// 	printf("REVERSE ROTATE A\n");
-// 	first = root->first;
-// 	last = ps_lstlast(root->first);
-// 	root->first = first->next;
-// 	first->sec_last = last;
-// 	first->next = NULL;
-// 	last->next = first;
-// }
-
-// void	reverse_rotate_b(t_root *root)
-// {
-// 	t_elem	*first;
-// 	t_elem *last;
-
-// 	printf("REVERSE ROTATE B\n");
-// 	first = root->first;
-// 	last = ps_lstlast(root->first);
-// 	root->first = first->next;
-// 	first->sec_last = last;
-// 	first->next = NULL;
-// 	last->next = first;
-
-// 	print_node(first);
-// 	print_node(last);
-// }
-
-// void	rr(t_root *root)
-// {
-// 	printf("RR\n");
-// 	if (!root->first && !root->first)
-// 	{
-// 		printf("ERROR\n");
-// 		return ;
-// 	}
-// 	else if (!root->first)
-// 		rotate_b(root);
-// 	else if (!root)
-// 		rotate_a(root);
-// 	else
-// 	{
-// 		rotate_a(root);
-// 		rotate_b(root);
-// 	}
-// }
-
-// void	rrr(t_root *root)
-// {
-// 	printf("RRR\n");
-// 	if (!root->first && !root->first)
-// 	{
-// 		printf("ERROR\n");
-// 		return ;
-// 	}
-// 	else if (!root->first)
-// 		reverse_rotate_b(root);
-// 	else if (!root->first)
-// 		reverse_rotate_a(root);
-// 	else
-// 	{
-// 		reverse_rotate_a(root);
-// 		reverse_rotate_b(root);
-// 	}
-
-// }
+void	rrr(t_root *root)
+{
+	printf("RRR\n");
+	if (!root->stack_a->first)
+	 	ft_error(PTR_ERROR);
+	if (!root->stack_a->sec_last || !root->stack_a->first->next || !root->stack_b->sec_last || !root->stack_b->first->next)
+	{
+		printf(BAD_OPS);
+		return ;
+	}
+	else
+	{
+		rev_rotate_ab(root, A);
+		rev_rotate_ab(root, B);
+	}
+}

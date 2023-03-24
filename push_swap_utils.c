@@ -88,9 +88,9 @@ void	ps_lstadd_back(t_elem **lst, t_elem *new)
 void	print_node(t_elem *node)
 {
 	printf("\n");
-	printf("node:%p\n", node);
+	// printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	printf("node->next:%p\n", node->next);
+	// printf("node->next:%p\n", node->next);
 	printf("\n");
 }
 
