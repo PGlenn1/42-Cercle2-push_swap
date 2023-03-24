@@ -177,8 +177,6 @@ void rev_rotate(t_stack *stack)
 		stack->last->next = stack->first;
 		stack->first = tmp;
 	}
-
-
 }
 
 void rev_rotate_ab(t_root *root, stack_ab ab)

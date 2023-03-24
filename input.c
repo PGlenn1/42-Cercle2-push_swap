@@ -81,6 +81,21 @@ struct s_elem *fill_stack(char **input)
 
 void init_stacks(t_root *root, char **input)
 {
+		root->stack_a->first = fill_stack(input);
+		root->stack_a->last = ps_lstlast(root->stack_a->first);
+		root->stack_a->sec_last = get_second_last(root->stack_a);
+		root->stack_a->thi_last = get_third_last(root->stack_a);				
+		root->stack_a->size = get_stack_size(root->stack_a);
+
+		root->stack_b->first = NULL;
+		root->stack_b->last = NULL;
+		root->stack_b->sec_last = NULL;
+		root->stack_a->thi_last = NULL;
+		root->stack_a->size = 0;
+}
+
+void init_stack_ptrs(t_root *root, char **input)
+{
 	t_stack *stack_a;
 	t_stack *stack_b;
 
@@ -93,8 +108,8 @@ void init_stacks(t_root *root, char **input)
 
 	stack_a->first = fill_stack(input);
 	stack_a->last = ps_lstlast(stack_a->first);
-	stack_a->sec_last = get_second_last(stack_a->first);
-	stack_a->thi_last = get_third_last(stack_a->first);
+	stack_a->sec_last = get_second_last(stack_a);
+	stack_a->thi_last = get_third_last(stack_a);
 
 	stack_b->first = NULL;
 	stack_b->last = NULL;
@@ -105,22 +120,6 @@ void init_stacks(t_root *root, char **input)
 	root->stack_b = stack_b;
 }
 
-void	init_data(t_root *root, char **input)
-{
-	int i;
-	t_data *data;	
-
-	data = malloc(sizeof(t_data));
-	if (!data)
-		ft_error(MALLOC_FAIL);
-	i = 1;
-	while (input[i])
-		i++;
-	root->data = data;
-	root->data->size_a = i;
-	root->data->size_b = 0;
-}
-
 t_root *init_root(char **input)
 {
 	t_root *root;
@@ -128,7 +127,6 @@ t_root *init_root(char **input)
 	root = malloc(sizeof(t_root));
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	init_data(root, input);
-	init_stacks(root, input);
+	init_stack_ptrs(root, input);
 	return (root);
 }

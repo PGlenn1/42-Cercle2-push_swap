@@ -15,6 +15,7 @@ typedef enum
 	PTR_ERROR,
 	MALLOC_FAIL,
 	UNWANTED_BEHAVIOR,
+	DEBUG,
 } errors;
 
 typedef enum
@@ -38,13 +39,6 @@ typedef struct s_elem
 	struct s_elem	*next;
 }					t_elem;
 
-typedef struct s_data
-{
-	int		ops;
-	int		size_a;
-	int		size_b;
-}					t_data;
-
 typedef struct s_root
 {
 	struct s_stack	*stack_a;
@@ -55,9 +49,10 @@ typedef struct s_root
 
 t_root				*init_root(char **input);
 void				update_stack_ptrs(t_root *root);
+int					get_stack_size(t_stack *stack);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);
-t_elem				*get_second_last(t_elem *stack);
-t_elem				*get_third_last(t_elem *stack);
+t_elem				*get_second_last(t_stack *stack);
+t_elem				*get_third_last(t_stack *stack);
 t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
 t_elem				*ps_lstprev(t_elem *stack);

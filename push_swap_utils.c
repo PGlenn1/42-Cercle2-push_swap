@@ -1,16 +1,30 @@
 #include "push_swap.h"
 
-t_elem	*get_third_last(t_elem *stack)
+int	get_stack_size(t_stack *stack)
+{
+	t_elem *probe;
+	int size;
+	
+	probe = stack->first;
+	size = 0;
+	while (probe)
+	{
+		size++;
+		probe = probe->next;
+	}
+	return (size);
+}
+
+
+t_elem	*get_third_last(t_stack *stack)
 {
 	t_elem *probe;
 
-	if (!stack || !stack->next || !stack->next->next)
+	if (!stack || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
 		return (NULL);
-	probe = stack;
+	probe = stack->first;
 	while (probe->next->next->next)
-	{
 		probe = probe->next;
-	}
 	return (probe);
 }
 
@@ -18,25 +32,25 @@ void	update_stack_ptrs(t_root *root)
 {
 		root->stack_a->last = ps_lstlast(root->stack_a->first);
 		// printf(" LAST A:%p\n", root->stack_a->last);
-		root->stack_a->sec_last = get_second_last(root->stack_a->first);
+		root->stack_a->sec_last = get_second_last(root->stack_a);
 		// printf("SC LAST A:%p\n", root->stack_a->sec_last);
-		root->stack_a->thi_last = get_third_last(root->stack_a->first);
+		root->stack_a->thi_last = get_third_last(root->stack_a);
 
 		root->stack_b->last = ps_lstlast(root->stack_b->first);
 		// printf(" LAST B:%p\n", root->stack_b->last);
-		root->stack_b->sec_last = get_second_last(root->stack_b->first);
+		root->stack_b->sec_last = get_second_last(root->stack_b);
 		// printf("SEC LAST B:%p\n", root->stack_b->sec_last);
-		root->stack_b->thi_last = get_third_last(root->stack_b->first);
+		root->stack_b->thi_last = get_third_last(root->stack_b);
 }
 
 
-t_elem	*get_second_last(t_elem *first)
+t_elem	*get_second_last(t_stack *stack)
 {
 	t_elem *probe;
 
-	if (!first || !first->next || !first->next->next)
+	if (!stack || !stack->first || !stack->first->next)
 		return (NULL);
-	probe = first;
+	probe = stack->first;
 	while(probe->next->next)
 		probe = probe->next;
 	return (probe);
@@ -150,8 +164,12 @@ void	ft_error(errors error)
 		case UNWANTED_BEHAVIOR:
 		str = "Unwanted behavior\n";
 		break;
+		case DEBUG:
+		str = "Debug\n";
+		break;
 	}
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (error != DEBUG)
+		exit(1);
 }

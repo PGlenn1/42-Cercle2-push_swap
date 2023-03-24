@@ -1,6 +1,13 @@
 #include "push_swap.h"
 
+// void	get_median(t_root *root, stack_ab ab)
+// {
+// 	int	first;
+// 	int last;
+// 	int middle;
 
+
+// }
 
 void	push_swap(t_root *root)
 {
