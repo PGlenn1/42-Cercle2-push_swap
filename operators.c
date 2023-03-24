@@ -3,7 +3,7 @@
 void	push(t_stack *from, t_stack *to)
 {
 	if (!from || !to)
-		ft_error(PTR_ERROR);
+		ft_error(UNWANTED_BEHAVIOR);
 	if (!from->first)
 		return ;
 	if (!to->first)
@@ -97,9 +97,9 @@ void	rotate(t_stack *stack)
 	if (!stack->first->next)
 		return ;
 	tmp = stack->first; 
-	printf("tmp:%p\n", tmp);
+	// printf("tmp:%p\n", tmp);
 	stack->first = stack->last;
-	printf("stack last value:%d\n", stack->last->value);
+	// printf("stack last value:%d\n", stack->last->value);
 	stack->first->next = tmp;
 	stack->sec_last->next = NULL;
 }
@@ -107,10 +107,14 @@ void	rotate(t_stack *stack)
 void	rotate_ab(t_root *root, stack_ab ab)
 {
 
+	printf("ROTATE\n");
 	if (ab == A)
 	{
 		if (!root->stack_a->sec_last)
-			swap_ab(root, ab);
+		{
+			printf("NOT ENOUGH NODES FOR OP\n");
+			return;
+		}
 		else
 		{
 			printf("ROTATE A\n");
@@ -130,6 +134,26 @@ void	rotate_ab(t_root *root, stack_ab ab)
 	update_stack_ptrs(root);
 }
 
+void	rr(t_root *root)
+{
+	if (!root->stack_a || !root->stack_a->first || !root->stack_a->first->next) 
+	{
+		printf("ERROR DEBUG A\n");
+		return ;
+	}
+	if (!root->stack_b || !root->stack_b->first || !root->stack_b->first->next)
+	{
+		printf("ERROR DEBUG B\n");
+		return ;
+	}
+	if (!root->stack_b->first->next->next && !root->stack_b->first->next->next)
+	{
+		printf("NOT ENOUGH NODES FOR OP\n");
+		return ;
+	}
+	rotate_ab(root, A);
+	rotate_ab(root, B);
+}
 // void	rotate_b(t_root *root)
 // {
 // 	t_elem *tmp;

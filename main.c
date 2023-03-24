@@ -3,15 +3,24 @@
 void	push_swap(t_root *root)
 {
 	update_stack_ptrs(root);
-	// push_ab(root, A);
-	// push_ab(root, B);
+	// print_both(root);
+	// rotate_ab(root, B);
+	// rotate_ab(root, B);
+	// rotate_ab(root, B);
+	// rotate_ab(root, B);
+	print_both(root);
+	push_ab(root, B);
+	push_ab(root, B);
 	// swap_ab(root, A);
 	// swap_ab(root, B);
 	// ss(root);
-	print_both(root);
-	// rotate_ab(root, B);
-	// rotate_ab(root, A);
 	// print_both(root);
+	rr(root);
+	rr(root);
+	rr(root);
+	rotate_ab(root, B);
+	// rotate_ab(root, A);
+	print_both(root);
 
 }
 

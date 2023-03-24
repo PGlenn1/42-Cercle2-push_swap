@@ -64,7 +64,7 @@ void				push_ab(t_root *root, stack_ab ab);
 void				rotate_ab(t_root *root, stack_ab ab);
 // void				rotate_b(t_root *root);
 // void				rrr(t_root *root);
-// void				rr(t_root *root);
+void				rr(t_root *root);
 // void				reverse_rotate_a(t_root *root);
 // void				reverse_rotate_b(t_root *root);
 void				ft_error(errors error);
