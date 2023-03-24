@@ -4,8 +4,8 @@
 # include "libft_42/libft.h"
 # include <stdbool.h>
 
-#define BAD_OPS "NOT ENOUGH NODES\n"
-
+#define MORE_NODES "NOT ENOUGH NODES\n"
+#define BAD_OPS "Wrong operation\n"
 
 typedef enum
 {

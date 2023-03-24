@@ -6,7 +6,7 @@ void	push(t_stack *from, t_stack *to)
 		ft_error(PTR_ERROR);
 	if (!from->first)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	if (!to->first)
@@ -48,7 +48,7 @@ void	swap(t_root *root, t_stack *stack)
 {
 	if (!stack->first || !stack->first->next)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 	 	return ;
 	}
 	if (stack->sec_last)
@@ -81,7 +81,7 @@ void	swap_ab(t_root *root, stack_ab ab)
 		ft_error(PTR_ERROR);
 	if (!stack->first || !stack->first->next)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	(ab == A ? printf("sa\n") : printf("sb\n"));
@@ -94,7 +94,7 @@ void	ss(t_root *root)
 		ft_error(PTR_ERROR);
 	 if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_b->first || !root->stack_b->first->next)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	else
@@ -113,7 +113,7 @@ void	rotate(t_stack *stack)
 		ft_error(PTR_ERROR);
 	if (!stack->first->next || !stack->sec_last)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	tmp = stack->first; 
@@ -133,7 +133,7 @@ void	rotate_ab(t_root *root, stack_ab ab)
 		stack = root->stack_b;	
 	if (!stack)	
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return;
 	}
 	else
@@ -152,7 +152,7 @@ void	rr(t_root *root)
 	if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_a->sec_last
 		|| !root->stack_b->first || !root->stack_b->first->next || !root->stack_b->sec_last)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	else
@@ -173,7 +173,7 @@ void rev_rotate(t_stack *stack)
 	tmp = stack->first->next;
 	if (!stack->sec_last || !stack->first->next)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	else
@@ -203,7 +203,7 @@ void	rrr(t_root *root)
 	 	ft_error(PTR_ERROR);
 	if (!root->stack_a->sec_last || !root->stack_a->first->next || !root->stack_b->sec_last || !root->stack_b->first->next)
 	{
-		printf(BAD_OPS);
+		printf(MORE_NODES);
 		return ;
 	}
 	else

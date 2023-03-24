@@ -14,10 +14,7 @@ int	is_sorted(t_stack *stack)
 		if (value == probe->next->value)
 			ft_error(UNWANTED_BEHAVIOR);
 		if (value < probe->next->value)
-		{
-			printf(BAD_OPS);
 			return (0);
-		}
 		probe = probe->next;
 	}
 	return (1);
@@ -37,8 +34,6 @@ void sort_three(t_root *root, t_stack *stack)
 	
 
 	printf("CHOICE PATH\n");
-
-	print_sort_opt(first, sec_last, last);
 
 	if (first < sec_last && sec_last < last) {
 	    // first < sec_last < last
@@ -69,6 +64,8 @@ void sort_three(t_root *root, t_stack *stack)
 	    // last < first < sec_last
 		// 5 6 4
 		printf("E\n");
+		rev_rotate_ab(root, A);
+		swap_ab(root, A);
 	}
 	else {
 		ft_error(UNWANTED_BEHAVIOR);
@@ -88,7 +85,7 @@ int pick_algo(t_root *root)  /// LAST MUST BE SMALLEST
 	// 	sort_big(root);
 	// else if (root->stack_a->size >= 5)
 	// 	sort_medium(root);
-	// else if (root->stack_a->size == 4)
+	// else if (root->stack_a->size  4)
 	// 	sort_medium(root);
 	// else if (root->stack_a->size <= 3)
 	// 	sort_small(root);

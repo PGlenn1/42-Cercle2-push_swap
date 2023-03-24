@@ -111,9 +111,9 @@ void	print_sort_opt(int first, int sec_last, int last)
 void	print_node(t_elem *node)
 {
 	printf("\n");
-	printf("node:%p\n", node);
+	// printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	printf("node->next:%p\n", node->next);
+	// printf("node->next:%p\n", node->next);
 	printf("\n");
 }
 
@@ -132,8 +132,8 @@ void	print_stack(t_stack *stack)
 		probe = probe->next;
 		i++;
 	}
-	if (stack->first && stack->sec_last && stack->last)
-		print_sort_opt(stack->first->value, stack->sec_last->value, stack->last->value);
+	// if (stack->first && stack->sec_last && stack->last)
+	// 	print_sort_opt(stack->first->value, stack->sec_last->value, stack->last->value);
 	printf("[%d] NODES\n", i);
 }
 
