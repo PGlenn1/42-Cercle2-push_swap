@@ -47,11 +47,16 @@ void	push_ab(t_root *root, stack_ab ab)
 void	swap(t_root *root, t_stack *stack)
 {
 	if (!stack->first || !stack->first->next)
+	{
+		printf(BAD_OPS);
 	 	return ;
+	}
 	if (stack->sec_last)
 	{
 		if (stack->thi_last)
 			stack->thi_last->next = stack->last;
+		else 
+			stack->first->next = stack->last;
 		stack->last->next = stack->sec_last;
 		stack->sec_last->next = NULL;
 	}

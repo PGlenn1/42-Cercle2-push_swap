@@ -49,6 +49,7 @@ typedef struct s_root
 
 
 t_root				*init_root(char **input);
+void				print_sort_opt(int first, int sec_last, int last);
 void				update_stack_ptrs(t_root *root);
 int					get_stack_size(t_stack *stack);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);

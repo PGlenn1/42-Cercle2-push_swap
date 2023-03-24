@@ -100,12 +100,20 @@ void	ps_lstadd_back(t_elem **lst, t_elem *new)
 	last->next = new;
 }
 
+void	print_sort_opt(int first, int sec_last, int last)
+{
+	printf("\n");
+	printf("SORT OPTIONS\n");
+	printf("%d -> %d -> %d\n", first, sec_last, last);
+	printf("\n");
+}
+
 void	print_node(t_elem *node)
 {
 	printf("\n");
-	// printf("node:%p\n", node);
+	printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	// printf("node->next:%p\n", node->next);
+	printf("node->next:%p\n", node->next);
 	printf("\n");
 }
 
@@ -124,21 +132,26 @@ void	print_stack(t_stack *stack)
 		probe = probe->next;
 		i++;
 	}
+	if (stack->first && stack->sec_last && stack->last)
+		print_sort_opt(stack->first->value, stack->sec_last->value, stack->last->value);
 	printf("[%d] NODES\n", i);
 }
 
 void	print_both(t_root *root)
 {
-	static int	i;
+	// static int	i;
 
-	printf("\nPRINT BOTH [%d]\n", i++);
-	printf("\nPRINTING STACK A\n");
+	// printf("\nPRINT BOTH [%d]\n", i++);
+	// printf("\nPRINTING STACK A\n");
+
 	root->stack_a ? print_stack(root->stack_a) : printf("STACK A EMPTY\n");
-	printf("\nPRINTING STACK B\n");
-	root->stack_b->first ? print_stack(root->stack_b) : printf("STACK B EMPTY\n");
+	// printf("\nPRINTING STACK B\n");
+	// root->stack_b->first ? print_stack(root->stack_b) : printf("STACK B EMPTY\n");
 	// print_root(root);
 	printf("\n");
-	printf("\nEND PRINT BOTH\n\n");
+	if (root->stack_a->first && root->stack_a->sec_last && root->stack_a->last) 
+		print_sort_opt(root->stack_a->first->value, root->stack_a->sec_last->value, root->stack_a->last->value);
+	// printf("\nEND PRINT BOTH\n\n");
 }
 
 void	ft_error(errors error)
