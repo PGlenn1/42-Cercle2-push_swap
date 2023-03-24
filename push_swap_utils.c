@@ -17,11 +17,13 @@ t_elem	*get_third_last(t_elem *stack)
 void	update_stack_ptrs(t_root *root)
 {
 		root->stack_a->last = ps_lstlast(root->stack_a->first);
+		// printf(" LAST A:%p\n", root->stack_a->last);
 		root->stack_a->sec_last = get_second_last(root->stack_a->first);
-		// printf("SC LAST B:%p\n", root->stack_a->sec_last);
+		// printf("SC LAST A:%p\n", root->stack_a->sec_last);
 		root->stack_a->thi_last = get_third_last(root->stack_a->first);
 
 		root->stack_b->last = ps_lstlast(root->stack_b->first);
+		// printf(" LAST B:%p\n", root->stack_b->last);
 		root->stack_b->sec_last = get_second_last(root->stack_b->first);
 		// printf("SEC LAST B:%p\n", root->stack_b->sec_last);
 		root->stack_b->thi_last = get_third_last(root->stack_b->first);

@@ -13,15 +13,21 @@ void	push_swap(t_root *root)
 	push_ab(root, B);
 	push_ab(root, B);
 	push_ab(root, B);
+	print_both(root);
 	// swap_ab(root, A);
 	// swap_ab(root, B);
 	// ss(root);
 	// print_both(root);
-	rr(root);
-	rr(root);
-	rr(root);
-	rotate_ab(root, B);
-	// rotate_ab(root, A);
+	// rr(root);
+	// rr(root);
+	// rr(root);
+	rev_rotate_ab(root, B);
+	rev_rotate_ab(root, B);
+	// rev_rotate_ab(root, B);
+	// print_both(root);
+	rev_rotate_ab(root, B);
+	// rev_rotate_ab(root, B);
+	// rotate_ab(root, B);
 	print_both(root);
 
 }

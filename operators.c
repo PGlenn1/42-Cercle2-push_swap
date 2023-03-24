@@ -3,7 +3,7 @@
 void	push(t_stack *from, t_stack *to)
 {
 	if (!from || !to)
-		ft_error(UNWANTED_BEHAVIOR);
+		ft_error(PTR_ERROR);
 	if (!from->first)
 	{
 		printf(BAD_OPS);
@@ -79,7 +79,7 @@ void	swap_ab(t_root *root, stack_ab ab)
 void	ss(t_root *root)
 {
 	printf("SS\n");
-	if (!root->stack_a || !root->stack_b)
+	if (!root->stack_a || !root->stack_b || !root->stack_a->first || !root->stack_a->first->next || !root->stack_b->first || !root->stack_b->first->next)
 	{
 		printf(BAD_OPS);
 		return ;
@@ -96,7 +96,7 @@ void	rotate(t_stack *stack)
 	t_elem *tmp;
 
 	if (!stack || !stack->first)
-		ft_error(UNWANTED_BEHAVIOR);
+		ft_error(PTR_ERROR);
 	if (!stack->first->next || !stack->sec_last)
 	{
 		printf(BAD_OPS);
@@ -164,7 +164,8 @@ void rev_rotate(t_stack *stack)
 	if (!stack->first) 
 		ft_error(UNWANTED_BEHAVIOR);
 	tmp = stack->first->next;
-	printf("tmp:%p\n", tmp);
+	// printf("tmp:%p\n", tmp);
+	// printf("last:%p\n", stack->last);
 	if (!stack->sec_last || !stack->first->next)
 	{
 		printf(BAD_OPS);
@@ -172,13 +173,15 @@ void rev_rotate(t_stack *stack)
 	}
 	else
 	{
+		stack->first->next = NULL;
 		stack->last->next = stack->first;
 		stack->first = tmp;
 	}
 
+
 }
 
-void reverse_rotate_ab(t_root *root, stack_ab ab)
+void rev_rotate_ab(t_root *root, stack_ab ab)
 {
 	printf("REVERSE ROTATE\n");
 	if (ab == A)
@@ -188,9 +191,10 @@ void reverse_rotate_ab(t_root *root, stack_ab ab)
 	}
 	else
 	{
-		printf("REV ROT A\n");
+		printf("REV ROT B\n");
 		rev_rotate(root->stack_b);
 	}
+	update_stack_ptrs(root);
 }
 
 // void	reverse_rotate_a(t_root *root)
