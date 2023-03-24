@@ -20,7 +20,7 @@ t_elem	*get_third_last(t_stack *stack)
 {
 	t_elem *probe;
 
-	if (!stack || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
+	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
 		return (NULL);
 	probe = stack->first;
 	while (probe->next->next->next)
@@ -35,6 +35,7 @@ void	update_stack_ptrs(t_root *root)
 		root->stack_a->sec_last = get_second_last(root->stack_a);
 		// printf("SC LAST A:%p\n", root->stack_a->sec_last);
 		root->stack_a->thi_last = get_third_last(root->stack_a);
+		root->stack_a->size = get_stack_size(root->stack_a);
 
 		root->stack_b->last = ps_lstlast(root->stack_b->first);
 		// printf(" LAST B:%p\n", root->stack_b->last);
@@ -146,13 +147,16 @@ void	ft_error(errors error)
 	str = NULL;
 	switch (error)
 	{
-		case INPUT_NAN:
+		case NAN:
 		str = "Invalid entry\n";
 		break;
-		case INPUT_OVERFLOW:
+		case ALREADY_SORTED:
+		str = "Input already sorted\n";
+		break;
+		case OVERFLOW:
 		str = "Input overflow\n";
 		break;
-		case INPUT_DOUBLE:
+		case DOUBLE:
 		str = "Input double\n";
 		break;
 		case PTR_ERROR:

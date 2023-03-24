@@ -8,7 +8,7 @@ static void check_numbers(char **input)
 	while (input[i])
 	{
 		if (!is_number(input[i]))
-			ft_error(INPUT_NAN);
+			ft_error(NAN);
 		i++;
 	}
 }
@@ -41,14 +41,14 @@ static void check_input(char **input)
 	{
 		value = ft_atol(input[i]);
 		if (value > INT_MAX || value < INT_MIN || check_len(input[i]))
-			ft_error(INPUT_OVERFLOW);
+			ft_error(OVERFLOW);
 		j = i + 1;
 		while (input[j])
 		{
 			// printf("VALUE|%ld|\n", value);
 			// printf("VALUE2|%ld|\n", ft_atol(input[j]));
 			if (value == ft_atol(input[j]))
-				ft_error(INPUT_DOUBLE);
+				ft_error(DOUBLE);
 			j++;
 		}
 		i++;
@@ -82,16 +82,13 @@ struct s_elem *fill_stack(char **input)
 void init_stacks(t_root *root, char **input)
 {
 		root->stack_a->first = fill_stack(input);
-		root->stack_a->last = ps_lstlast(root->stack_a->first);
-		root->stack_a->sec_last = get_second_last(root->stack_a);
-		root->stack_a->thi_last = get_third_last(root->stack_a);				
-		root->stack_a->size = get_stack_size(root->stack_a);
 
 		root->stack_b->first = NULL;
 		root->stack_b->last = NULL;
 		root->stack_b->sec_last = NULL;
 		root->stack_a->thi_last = NULL;
 		root->stack_a->size = 0;
+		update_stack_ptrs(root);
 }
 
 void init_stack_ptrs(t_root *root, char **input)
@@ -107,17 +104,18 @@ void init_stack_ptrs(t_root *root, char **input)
 		ft_error(MALLOC_FAIL);
 
 	stack_a->first = fill_stack(input);
-	stack_a->last = ps_lstlast(stack_a->first);
-	stack_a->sec_last = get_second_last(stack_a);
-	stack_a->thi_last = get_third_last(stack_a);
+	// stack_a->last = ps_lstlast(stack_a->first);
+	// stack_a->sec_last = get_second_last(stack_a);
+	// stack_a->thi_last = get_third_last(stack_a);
 
-	stack_b->first = NULL;
-	stack_b->last = NULL;
-	stack_b->sec_last = NULL;
-	stack_a->thi_last = NULL;
+	// stack_b->first = NULL;
+	// stack_b->last = NULL;
+	// stack_b->sec_last = NULL;
+	// stack_a->thi_last = NULL;
 
 	root->stack_a = stack_a;
 	root->stack_b = stack_b;
+	init_stacks(root, input);
 }
 
 t_root *init_root(char **input)
@@ -128,5 +126,6 @@ t_root *init_root(char **input)
 	if (!root)
 		ft_error(MALLOC_FAIL);
 	init_stack_ptrs(root, input);
+	// update_stack_ptrs(root);
 	return (root);
 }
