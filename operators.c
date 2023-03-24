@@ -5,7 +5,10 @@ void	push(t_stack *from, t_stack *to)
 	if (!from || !to)
 		ft_error(UNWANTED_BEHAVIOR);
 	if (!from->first)
+	{
+		printf(BAD_OPS);
 		return ;
+	}
 	if (!to->first)
 		to->first = from->last;
 	else
@@ -59,20 +62,17 @@ void	swap_ab(t_root *root, stack_ab ab)
 	t_stack *stack;
 
 	if (ab == A)
-	{
-		printf("SWAP A\n");
 		stack = root->stack_a;
-	}
 	else
-	{
-		printf("SWAP B\n");
 		stack = root->stack_b;
-	}
-	if (!stack || !stack->first || !stack->first->next)
+	if (!stack)
+		ft_error(PTR_ERROR);
+	if (!stack->first || !stack->first->next)
 	{
-		printf("NO OP\n");
+		printf(BAD_OPS);
 		return ;
 	}
+	(stack == root->stack_a ? printf("SWAP A\n") : printf("SWAP B\n"));
 	swap(root, stack);
 }
 
@@ -80,7 +80,10 @@ void	ss(t_root *root)
 {
 	printf("SS\n");
 	if (!root->stack_a || !root->stack_b)
+	{
+		printf(BAD_OPS);
 		return ;
+	}
 	else
 	{
 		swap_ab(root, A);
@@ -94,90 +97,101 @@ void	rotate(t_stack *stack)
 
 	if (!stack || !stack->first)
 		ft_error(UNWANTED_BEHAVIOR);
-	if (!stack->first->next)
+	if (!stack->first->next || !stack->sec_last)
+	{
+		printf(BAD_OPS);
 		return ;
+	}
 	tmp = stack->first; 
-	// printf("tmp:%p\n", tmp);
 	stack->first = stack->last;
-	// printf("stack last value:%d\n", stack->last->value);
 	stack->first->next = tmp;
-	stack->sec_last->next = NULL;
+	if (stack->sec_last)
+		stack->sec_last->next = NULL;
 }
 
 void	rotate_ab(t_root *root, stack_ab ab)
 {
 
-	printf("ROTATE\n");
+	t_stack *stack;
 	if (ab == A)
+		stack = root->stack_a;	
+	else
+		stack = root->stack_b;	
+	if (!stack)	
 	{
-		if (!root->stack_a->sec_last)
-		{
-			printf("NOT ENOUGH NODES FOR OP\n");
-			return;
-		}
-		else
-		{
-			printf("ROTATE A\n");
-			rotate(root->stack_a);
-		}
+		printf(BAD_OPS);
+		return;
 	}
 	else
 	{
-		if (!root->stack_b->sec_last)
-			swap_ab(root, ab);
-		else
-		{
-			printf("ROTATE B\n");
-			rotate(root->stack_b);
-		}
+		(stack == root->stack_a ? printf("ROTATE A\n") : printf("ROTATE B\n"));
+		rotate(stack);
 	}
 	update_stack_ptrs(root);
 }
 
+
 void	rr(t_root *root)
 {
+	printf("RR\n");
 	if (!root->stack_a || !root->stack_a->first || !root->stack_a->first->next) 
 	{
-		printf("ERROR DEBUG A\n");
+		printf("ERROR DEBUG ROTATE A\n");
 		return ;
 	}
 	if (!root->stack_b || !root->stack_b->first || !root->stack_b->first->next)
 	{
-		printf("ERROR DEBUG B\n");
+		printf("ERROR DEBUG ROTATE B\n");
 		return ;
 	}
 	if (!root->stack_b->first->next->next && !root->stack_b->first->next->next)
 	{
-		printf("NOT ENOUGH NODES FOR OP\n");
+		printf(BAD_OPS);
 		return ;
 	}
-	rotate_ab(root, A);
-	rotate_ab(root, B);
+	else
+	{
+		rotate_ab(root, A);
+		rotate_ab(root, B);
+	}
 }
-// void	rotate_b(t_root *root)
-// {
-// 	t_elem *tmp;
-	
-// 	printf("ROTATE B\n");
-// 	tmp = NULL;
-// 	if (!root->first || !root->first->next)
-// 	{
-// 		printf("ERROR STACK B TOO SMALL\n");
-// 		return ;
-// 	}
-// 	if (root->sec_last)
-// 	{
-// 		tmp = root->first;
-// 		root->first = root->last;
-// 		root->first->next = tmp;
-// 		root->sec_last->next = NULL;
-// 	}
-// 	else
-// 	{
-// 		printf("INTO\n");
-// 		swap_b(root);
-// 	}
-// }
+
+
+void rev_rotate(t_stack *stack)
+{
+	t_elem *tmp;
+
+	if (!stack->first) 
+		ft_error(UNWANTED_BEHAVIOR);
+	tmp = stack->first->next;
+	printf("tmp:%p\n", tmp);
+	if (!stack->sec_last || !stack->first->next)
+	{
+		printf(BAD_OPS);
+		return ;
+	}
+	else
+	{
+		stack->last->next = stack->first;
+		stack->first = tmp;
+	}
+
+}
+
+void reverse_rotate_ab(t_root *root, stack_ab ab)
+{
+	printf("REVERSE ROTATE\n");
+	if (ab == A)
+	{
+		printf("REV ROT A\n");
+		rev_rotate(root->stack_a);
+	}
+	else
+	{
+		printf("REV ROT A\n");
+		rev_rotate(root->stack_b);
+	}
+}
 
 // void	reverse_rotate_a(t_root *root)
 // {

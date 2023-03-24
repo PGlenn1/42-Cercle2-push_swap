@@ -11,6 +11,8 @@ void	push_swap(t_root *root)
 	print_both(root);
 	push_ab(root, B);
 	push_ab(root, B);
+	push_ab(root, B);
+	push_ab(root, B);
 	// swap_ab(root, A);
 	// swap_ab(root, B);
 	// ss(root);
