@@ -102,17 +102,7 @@ void init_stack_ptrs(t_root *root, char **input)
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
 		ft_error(MALLOC_FAIL);
-
 	stack_a->first = fill_stack(input);
-	// stack_a->last = ps_lstlast(stack_a->first);
-	// stack_a->sec_last = get_second_last(stack_a);
-	// stack_a->thi_last = get_third_last(stack_a);
-
-	// stack_b->first = NULL;
-	// stack_b->last = NULL;
-	// stack_b->sec_last = NULL;
-	// stack_a->thi_last = NULL;
-
 	root->stack_a = stack_a;
 	root->stack_b = stack_b;
 	init_stacks(root, input);
@@ -125,7 +115,7 @@ t_root *init_root(char **input)
 	root = malloc(sizeof(t_root));
 	if (!root)
 		ft_error(MALLOC_FAIL);
+	root->ops = 0;
 	init_stack_ptrs(root, input);
-	// update_stack_ptrs(root);
 	return (root);
 }

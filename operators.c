@@ -41,6 +41,7 @@ void	push_ab(t_root *root, stack_ab ab)
 	from->size--;
 	to->size++;
 	push(from, to);
+	root->ops++;
 	update_stack_ptrs(root);
 }
 
@@ -85,6 +86,7 @@ void	swap_ab(t_root *root, stack_ab ab)
 		return ;
 	}
 	(ab == A ? printf("sa\n") : printf("sb\n"));
+	root->ops++;
 	swap(root, stack);
 }
 
@@ -102,6 +104,7 @@ void	ss(t_root *root)
 		printf("ss\n");
 		swap_ab(root, A);
 		swap_ab(root, B);
+		root->ops += 2;
 	}
 }
 
@@ -121,6 +124,7 @@ void	rotate(t_stack *stack)
 	stack->first->next = tmp;
 	if (stack->sec_last)
 		stack->sec_last->next = NULL;
+
 }
 
 void	rotate_ab(t_root *root, stack_ab ab)
@@ -141,6 +145,7 @@ void	rotate_ab(t_root *root, stack_ab ab)
 		(ab == A ? printf("ra\n") : printf("rb\n"));
 		rotate(stack);
 	}
+	root->ops++;
 	update_stack_ptrs(root);
 }
 
@@ -194,6 +199,7 @@ void rev_rotate_ab(t_root *root, stack_ab ab)
 		stack = root->stack_a;
 	(ab == A ? printf("rra\n") : printf("rrb\n"));
 	rev_rotate(stack);
+	root->ops++;
 	update_stack_ptrs(root);
 }
 
@@ -211,5 +217,6 @@ void	rrr(t_root *root)
 		printf("rrr\n");
 		rev_rotate_ab(root, A);
 		rev_rotate_ab(root, B);
+		root->ops += 2;
 	}
 }

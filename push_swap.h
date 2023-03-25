@@ -32,6 +32,7 @@ typedef struct s_stack
 	struct s_elem	*sec_last;
 	struct s_elem 	*thi_last;
 	int	size;
+	int median;
 } t_stack;
 
 typedef struct s_elem
@@ -44,12 +45,16 @@ typedef struct s_root
 {
 	struct s_stack	*stack_a;
 	struct s_stack	*stack_b;
-	struct s_data	*data;
+	// struct s_data	*data;
+	int	ops;
 }					t_root;
 
 
 t_root				*init_root(char **input);
-void				print_sort_opt(int first, int sec_last, int last);
+int					is_sorted(t_stack *stack);
+int 				pick_algo(t_root *root, t_stack *stack);
+void				print_sort_values(int first, int sec_last, int last);
+void 				print_result(t_stack *stack);
 void				update_stack_ptrs(t_root *root);
 int					get_stack_size(t_stack *stack);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);
