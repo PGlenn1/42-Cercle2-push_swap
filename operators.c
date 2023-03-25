@@ -165,6 +165,7 @@ void	rr(t_root *root)
 		printf("rr\n");
 		rotate_ab(root, A);
 		rotate_ab(root, B);
+		root->ops += 2;
 	}
 }
 
