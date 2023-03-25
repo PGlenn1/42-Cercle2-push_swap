@@ -55,7 +55,7 @@ static void check_input(char **input)
 	}
 }
 
-struct s_elem *fill_stack(char **input)
+struct s_elem *fill_stack(t_stack *stack, char **input)
 {
 	t_elem *new;
 	t_elem *first;
@@ -76,22 +76,20 @@ struct s_elem *fill_stack(char **input)
 		ps_lstadd_back(&first, new);
 		i++;
 	}
+	stack->last = ps_lstlast(first);
+	stack->size = i;
 	return (first);
 }
 
-void init_stacks(t_root *root, char **input)
+void init_stack_values(t_root *root, char **input)
 {
-		root->stack_a->first = fill_stack(input);
-
-		root->stack_b->first = NULL;
-		root->stack_b->last = NULL;
-		root->stack_b->sec_last = NULL;
-		root->stack_a->thi_last = NULL;
-		root->stack_a->size = 0;
-		update_stack_ptrs(root);
+		root->stack_a->first = fill_stack(root->stack_a, input);
+		root->stack_b->size = 0;
+		update_stack_ptrs(root->stack_a->size, root->stack_a);
+		update_stack_ptrs(root->stack_b->size, root->stack_b);
 }
 
-void init_stack_ptrs(t_root *root, char **input)
+void init_stacks(t_root *root, char **input)
 {
 	t_stack *stack_a;
 	t_stack *stack_b;
@@ -102,10 +100,9 @@ void init_stack_ptrs(t_root *root, char **input)
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
 		ft_error(MALLOC_FAIL);
-	stack_a->first = fill_stack(input);
 	root->stack_a = stack_a;
 	root->stack_b = stack_b;
-	init_stacks(root, input);
+	init_stack_values(root, input);
 }
 
 t_root *init_root(char **input)
@@ -116,6 +113,6 @@ t_root *init_root(char **input)
 	if (!root)
 		ft_error(MALLOC_FAIL);
 	root->ops = 0;
-	init_stack_ptrs(root, input);
+	init_stacks(root, input);
 	return (root);
 }

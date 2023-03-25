@@ -172,15 +172,16 @@ int pick_algo(t_root *root, t_stack *stack)  /// LAST MUST BE SMALLEST
         ab = B;
     printf("\nPICK ALGO %c\n", ab == A ? 'A' : 'B');
 	print_both(root);
-	if (stack->size == 2)
-    {
-        printf("SORT TWO\n");
-		swap_ab(root, ab);
-    }
-	else if (stack->size == 3)
-		sort_three(root, stack);
-	else if (stack->size <= 5)
-        sort_five(root, stack);
+	// if (stack->size == 2)
+    // {
+    //     printf("SORT TWO\n");
+	// 	swap_ab(root, ab);
+    // }
+	// else if (stack->size == 3)
+	// 	sort_three(root, stack);
+	// else if (stack->size <= 5)
+        // sort_five(root, stack);
+    push_ab(root, B);
 	print_both(root);
     if (is_sorted(stack))
         return (1);

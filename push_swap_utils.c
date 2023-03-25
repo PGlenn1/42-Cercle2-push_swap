@@ -42,17 +42,17 @@ int	get_stack_size(t_stack *stack)
 }
 
 
-t_elem	*get_third_last(t_stack *stack)
-{
-	t_elem *probe;
+// t_elem	*get_third_last(t_stack *stack)
+// {
+// 	t_elem *probe;
 
-	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
-		return (NULL);
-	probe = stack->first;
-	while (probe->next->next->next)
-		probe = probe->next;
-	return (probe);
-}
+// 	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
+// 		return (NULL);
+// 	probe = stack->first;
+// 	while (probe->next->next->next)
+// 		probe = probe->next;
+// 	return (probe);
+// }
 
 void print_stack_ptrs(t_root *root)
 {
@@ -83,32 +83,40 @@ void print_result(t_stack *stack)
 	printf("\n\n");
 }
 
-void	update_stack_ptrs(t_root *root) /// Should be reworked entirely as for less function calls
+void	update_stack_ptrs(int size, t_stack *stack) /// Should be reworked entirely as for less function calls
 {
-	 	// printf("UPDATE STACK PTRS\n");
-		root->stack_a->last = ps_lstlast(root->stack_a->first);
-		root->stack_a->sec_last = get_second_last(root->stack_a);
-		root->stack_a->thi_last = get_third_last(root->stack_a);
-		root->stack_a->size = get_stack_size(root->stack_a);
-
-		root->stack_b->last = ps_lstlast(root->stack_b->first);
-		root->stack_b->sec_last = get_second_last(root->stack_b);
-		root->stack_b->thi_last = get_third_last(root->stack_b);
-		root->stack_b->size = get_stack_size(root->stack_b);
+	 	printf("UPDATE STACK PTRS\n");
+		
+		if (size == 0)
+		{
+			stack->first = NULL;
+		}
+		if (size > 1)
+		{
+			stack->second = stack->first->next;
+		}
+		if (size > 2)
+		{
+			stack->sec_last = stack->last->prev;	
+		}
+		if (size > 3)
+		{
+			stack->thi_last = stack->sec_last->prev;
+		}
 }
 
 
-t_elem	*get_second_last(t_stack *stack)
-{
-	t_elem *probe;
+// t_elem	*get_second_last(t_stack *stack)
+// {
+// 	t_elem *probe;
 
-	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next)
-		return (NULL);
-	probe = stack->first;
-	while(probe->next->next)
-		probe = probe->next;
-	return (probe);
-}
+// 	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next)
+// 		return (NULL);
+// 	probe = stack->first;
+// 	while(probe->next->next)
+// 		probe = probe->next;
+// 	return (probe);
+// }
 
 t_elem	*ps_lstnew(int value)
 {
@@ -118,6 +126,7 @@ t_elem	*ps_lstnew(int value)
 	if (!ptr)
 		return (NULL);
 	ptr->value = value;
+	ptr->prev = NULL;
 	ptr->next = NULL;
 	return (ptr);
 }
@@ -150,6 +159,7 @@ void	ps_lstadd_back(t_elem **lst, t_elem *new)
 		return ;
 	}
 	last = ps_lstlast(*lst);
+	new->prev = last;
 	last->next = new;
 }
 
@@ -201,8 +211,7 @@ void	print_both(t_root *root)
 	// printf("\nPRINTING STACK B\n");
 	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
-	// print_root(root);
-	// print_stack_ptrs(root);
+	print_stack_ptrs(root);
 	if (root->stack_a->first)
 		print_result(root->stack_a);
 	if (root->stack_b->first)

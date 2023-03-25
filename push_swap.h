@@ -28,6 +28,7 @@ typedef enum
 typedef struct s_stack
 {
 	struct s_elem	*first;
+	struct s_elem	*second;
 	struct s_elem	*last;
 	struct s_elem	*sec_last;
 	struct s_elem 	*thi_last;
@@ -38,6 +39,7 @@ typedef struct s_stack
 typedef struct s_elem
 {
 	int				value;
+	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -55,7 +57,8 @@ int					is_sorted(t_stack *stack);
 int 				pick_algo(t_root *root, t_stack *stack);
 void				print_sort_values(int first, int sec_last, int last);
 void 				print_result(t_stack *stack);
-void				update_stack_ptrs(t_root *root);
+void				update_stack_ptrs(int size, t_stack *stack);
+// void				update_stack_ptrs(t_root *root);
 int					get_stack_size(t_stack *stack);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);
 t_elem				*get_second_last(t_stack *stack);

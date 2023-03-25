@@ -1,26 +1,35 @@
 #include "push_swap.h"
 
+
+
 void	push(t_stack *from, t_stack *to)
 {
 	if (!from || !to)
 		ft_error(PTR_ERROR);
-	if (!from->first)
+	if (from->size == 0)
 	{
 		printf(MORE_NODES);
 		return ;
 	}
-	if (!to->first)
-		to->first = from->last;
-	else
-		to->last->next = from->last;
-	if (from->sec_last)
-		from->sec_last->next = NULL;
-	else if (from->first->next)
-		from->first->next = NULL;
-	else
+	if (to->size == 0)
+	{
+		to->first = from->last;	
+	}
+	else if (to->size > 0)
+	{
+		to->last = from->last;	
+		to->sec_last->next = to->last;
+		to->last->prev = to->sec_last;
+	}
+	if (from->size == 1)
+	{
 		from->first = NULL;
+	}
+	else
+	{
+		from->sec_last->next = NULL;
+	}
 }
-
 
 void	push_ab(t_root *root, stack_ab ab)
 {
@@ -38,14 +47,16 @@ void	push_ab(t_root *root, stack_ab ab)
 		to = root->stack_b;
 	}
 	ab == A ? printf("pa\n") : printf("pb\n");
+	print_both(root);
 	from->size--;
 	to->size++;
 	push(from, to);
+	update_stack_ptrs(from->size, from);
+	update_stack_ptrs(to->size, to);
 	root->ops++;
-	update_stack_ptrs(root);
 }
 
-void	swap(t_root *root, t_stack *stack)
+void	swap(t_stack *stack)
 {
 	if (!stack->first || !stack->first->next)
 	{
@@ -67,7 +78,6 @@ void	swap(t_root *root, t_stack *stack)
 		stack->first->next = NULL;
 		stack->first = stack->last;
 	}
-	update_stack_ptrs(root);
 }
 
 void	swap_ab(t_root *root, stack_ab ab)	
@@ -87,7 +97,8 @@ void	swap_ab(t_root *root, stack_ab ab)
 	}
 	(ab == A ? printf("sa\n") : printf("sb\n"));
 	root->ops++;
-	swap(root, stack);
+	swap(stack);
+	update_stack_ptrs(stack->size, stack);
 }
 
 void	ss(t_root *root)
@@ -124,7 +135,6 @@ void	rotate(t_stack *stack)
 	stack->first->next = tmp;
 	if (stack->sec_last)
 		stack->sec_last->next = NULL;
-
 }
 
 void	rotate_ab(t_root *root, stack_ab ab)
@@ -144,9 +154,9 @@ void	rotate_ab(t_root *root, stack_ab ab)
 	{
 		(ab == A ? printf("ra\n") : printf("rb\n"));
 		rotate(stack);
+		update_stack_ptrs(stack->size, stack);
 	}
 	root->ops++;
-	update_stack_ptrs(root);
 }
 
 
@@ -201,7 +211,7 @@ void rev_rotate_ab(t_root *root, stack_ab ab)
 	(ab == A ? printf("rra\n") : printf("rrb\n"));
 	rev_rotate(stack);
 	root->ops++;
-	update_stack_ptrs(root);
+	update_stack_ptrs(stack->size, stack);
 }
 
 void	rrr(t_root *root)
