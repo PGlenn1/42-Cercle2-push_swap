@@ -77,16 +77,23 @@ struct s_elem *fill_stack(t_stack *stack, char **input)
 		i++;
 	}
 	stack->last = ps_lstlast(first);
-	stack->size = i;
+	printf("last prev next value:%d\n", stack->last->prev->next->value);
+	printf("last:%p\n", stack->last);
+	stack->size = i - 1;
 	return (first);
 }
 
 void init_stack_values(t_root *root, char **input)
 {
 		root->stack_a->first = fill_stack(root->stack_a, input);
+		root->stack_a->ops = 0;
+
+		root->stack_b->first = NULL;
+		root->stack_b->last = NULL;
 		root->stack_b->size = 0;
-		update_stack_ptrs(root->stack_a->size, root->stack_a);
-		update_stack_ptrs(root->stack_b->size, root->stack_b);
+		root->stack_b->ops = 0;
+		// update_stack_ptrs(root->stack_a->size, root->stack_a);
+		// update_stack_ptrs(root->stack_b->size, root->stack_b);
 }
 
 void init_stacks(t_root *root, char **input)
@@ -112,7 +119,6 @@ t_root *init_root(char **input)
 	root = malloc(sizeof(t_root));
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	root->ops = 0;
 	init_stacks(root, input);
 	return (root);
 }

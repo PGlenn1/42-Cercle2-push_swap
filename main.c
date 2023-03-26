@@ -11,14 +11,14 @@ int	push_swap(char **input)
 		ft_error(ALREADY_SORTED);
 	else if (pick_algo(root, root->stack_a))
 	{
-		if (root->ops > 12)
-		{
-			printf("Too many ops:%d\n", root->ops);
-			return (0);
-		}
-		{
-			printf("Ops:%d\n", root->ops);
-		}
+		// if (root->ops > 12)
+		// {
+			// printf("Too many ops:%d\n", root->ops);
+			// return (0);
+		// }
+		// {
+			// printf("Ops:%d\n", root->ops);
+		// }
 		return (1);
 	}
 	return (0);

@@ -64,8 +64,8 @@ void print_stack_ptrs(t_root *root)
 		// printf("LAST B:%p\n", root->stack_b->last);
 		// printf("SEC LAST B:%p\n", root->stack_b->sec_last);
 		// printf("THI LAST B:%p\n", root->stack_b->thi_last);
-		printf("-----\nsize A:%d\n", root->stack_a->size);
-		printf("-----\nsize B:%d\n", root->stack_b->size);
+		printf("-----\nsize A:%d\n", get_stack_size(root->stack_a));
+		printf("-----\nsize B:%d\n", get_stack_size(root->stack_b));
 }
 
 void print_result(t_stack *stack)
@@ -74,10 +74,13 @@ void print_result(t_stack *stack)
 
 	printf("\n");
 	probe = stack->first;
+	static int i;
 	while (probe->next)
 	{
 		printf("--> %d ", probe->value);
 		probe = probe->next;
+		if (i++ > 10)
+			return;
 	}
 	printf("--> %d", probe->value);
 	printf("\n\n");
@@ -174,9 +177,12 @@ void	print_sort_values(int first, int middle, int last)
 void	print_node(t_elem *node)
 {
 	printf("\n");
+	printf("node->prev:%p\n", node->prev);
+	// if (node->prev)
+	// 	printf("node->prev->next:%p\n", node->prev->next);
 	printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
-	// printf("node->next:%p\n", node->next);
+	printf("node->next:%p\n", node->next);
 	printf("\n");
 }
 
@@ -207,13 +213,16 @@ void	print_both(t_root *root)
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
 	// printf("\nPRINTING STACK A\n");
 
-	// root->stack_a ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
-	// printf("\nPRINTING STACK B\n");
-	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
+	root->stack_a ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
+	printf("\nPRINTING STACK B\n");
+	root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
 	print_stack_ptrs(root);
+	printf("\n");
 	if (root->stack_a->first)
 		print_result(root->stack_a);
+	else
+		printf("--> EMPTY\n");
 	if (root->stack_b->first)
 		print_result(root->stack_b);
 	else

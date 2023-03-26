@@ -139,24 +139,25 @@ void sort_three(t_root *root, t_stack *stack)
 
 void    sort_five(t_root *root, t_stack *stack)
 {
-    printf("SORT FIVE\n");
+    (void)root, (void)stack;
+    // printf("SORT FIVE\n");
 
-    get_median(stack);
+    // get_median(stack);
     
-    while (stack->size > 3)
-    {
-        if (stack->last->value < stack->median)
-            push_ab(root, B);
-        else
-            rotate_ab(root, A);
-    }
-    print_both(root);
-    if (is_sorted(root->stack_b))
-        swap_ab(root, B);
-    if (!is_sorted(stack))
-        sort_three(root, stack);
-    push_ab(root, A);
-    push_ab(root, A);
+    // while (stack->size > 3)
+    // {
+    //     if (stack->last->value < stack->median)
+    //         push_ab(root, B);
+    //     else
+    //         rotate_ab(root, A);
+    // }
+    // print_both(root);
+    // if (is_sorted(root->stack_b))
+    //     swap_ab(root, B);
+    // if (!is_sorted(stack))
+    //     sort_three(root, stack);
+    // push_ab(root, stack);
+    // push_ab(root, A);
 	// swap_ab(root, ab);
     
 
@@ -181,8 +182,32 @@ int pick_algo(t_root *root, t_stack *stack)  /// LAST MUST BE SMALLEST
 	// 	sort_three(root, stack);
 	// else if (stack->size <= 5)
         // sort_five(root, stack);
-    push_ab(root, B);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    push_ab(root->stack_a, root->stack_b);
+    push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
 	print_both(root);
+    push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+	print_both(root);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+    // push_ab(root->stack_a, root->stack_b);
+	// // print_both(root);
+    // // push_ab(root->stack_a, root->stack_b);
+	// print_both(root);
+    // push_ab(root->stack_a, root->stack_b);
+	// print_both(root);
     if (is_sorted(stack))
         return (1);
 	return (0);

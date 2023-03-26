@@ -1,59 +1,68 @@
 #include "push_swap.h"
 
 
-
-void	push(t_stack *from, t_stack *to)
+void	push_ab(t_stack *from, t_stack *to)
 {
+	t_elem *tmp;
+	printf("push AB\n");
+	tmp = from->last;	
 	if (!from || !to)
 		ft_error(PTR_ERROR);
+	if (!from->first)
+		printf(BAD_OPS);
+	// from
 	if (from->size == 0)
 	{
-		printf(MORE_NODES);
 		return ;
 	}
-	if (to->size == 0)
+	if (from->size > 1)
 	{
-		to->first = from->last;	
+		// printf("last :%p\n", from->last);
+		// printf("last prev:%p\n", from->last->prev);
+		// printf("size:%d\n", from->size);
+		
+		from->last = from->last->prev;
+		from->last->next = NULL;
+		// if (from->size )
+		// from->last
+
 	}
-	else if (to->size > 0)
+	else if (from->size == 1)
 	{
-		to->last = from->last;	
-		to->sec_last->next = to->last;
-		to->last->prev = to->sec_last;
+		from->first = from->last = NULL;
 	}
-	if (from->size == 1)
+	// to
+	
+	if (to->size >= 1)
 	{
-		from->first = NULL;
+		to->last = tmp;
+		if (to->size == 1)
+		{
+			to->last->prev = to->first;
+			printf("to->first:%p\n", to->first);
+			to->first->next = tmp;
+		}
+		else
+		{
+			printf("tmp:%p\n", tmp);
+			printf("tmp->value:%d\n", tmp->value);
+			to->last->next = tmp;
+			// to->last = tmp;	
+			printf("to->last:%p\n", to->last);
+			printf("to->last->value:%d\n", to->last->value);
+			printf("tmp:%p\n", tmp);
+		}
 	}
 	else
 	{
-		from->sec_last->next = NULL;
-	}
-}
 
-void	push_ab(t_root *root, stack_ab ab)
-{
-	t_stack *from;
-	t_stack *to;
+		to->first = tmp;
+		to->first->prev = NULL;
+		to->last = to->first;
+	}
 
-	if (ab == A)
-	{
-		from = root->stack_b;
-		to = root->stack_a;
-	}
-	else
-	{	
-		from = root->stack_a;
-		to = root->stack_b;
-	}
-	ab == A ? printf("pa\n") : printf("pb\n");
-	print_both(root);
 	from->size--;
 	to->size++;
-	push(from, to);
-	update_stack_ptrs(from->size, from);
-	update_stack_ptrs(to->size, to);
-	root->ops++;
 }
 
 void	swap(t_stack *stack)
@@ -96,9 +105,8 @@ void	swap_ab(t_root *root, stack_ab ab)
 		return ;
 	}
 	(ab == A ? printf("sa\n") : printf("sb\n"));
-	root->ops++;
 	swap(stack);
-	update_stack_ptrs(stack->size, stack);
+	// update_stack_ptrs(stack->size, stack);
 }
 
 void	ss(t_root *root)
@@ -115,7 +123,6 @@ void	ss(t_root *root)
 		printf("ss\n");
 		swap_ab(root, A);
 		swap_ab(root, B);
-		root->ops += 2;
 	}
 }
 
@@ -154,9 +161,9 @@ void	rotate_ab(t_root *root, stack_ab ab)
 	{
 		(ab == A ? printf("ra\n") : printf("rb\n"));
 		rotate(stack);
-		update_stack_ptrs(stack->size, stack);
+		// update_stack_ptrs(stack->size, stack);
 	}
-	root->ops++;
+	// root->ops++;
 }
 
 
@@ -175,7 +182,6 @@ void	rr(t_root *root)
 		printf("rr\n");
 		rotate_ab(root, A);
 		rotate_ab(root, B);
-		root->ops += 2;
 	}
 }
 
@@ -210,8 +216,7 @@ void rev_rotate_ab(t_root *root, stack_ab ab)
 		stack = root->stack_a;
 	(ab == A ? printf("rra\n") : printf("rrb\n"));
 	rev_rotate(stack);
-	root->ops++;
-	update_stack_ptrs(stack->size, stack);
+	// update_stack_ptrs(stack->size, stack);
 }
 
 void	rrr(t_root *root)
@@ -228,6 +233,5 @@ void	rrr(t_root *root)
 		printf("rrr\n");
 		rev_rotate_ab(root, A);
 		rev_rotate_ab(root, B);
-		root->ops += 2;
 	}
 }
