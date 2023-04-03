@@ -67,8 +67,7 @@ void	ss(t_root *root)
 {
 	if (!root->stack_a || !root->stack_b)
 		ft_error(PTR_ERROR);
-	if (!root->stack_a->first || !root->stack_a->first->next
-		|| !root->stack_b->first || !root->stack_b->first->next)
+	if (root->stack_a->size <= 3 || root->stack_b->size <= 3)
 	{
 		printf(MORE_NODES);
 		return ;
@@ -81,73 +80,44 @@ void	ss(t_root *root)
 	}
 }
 
-void	rotate(t_stack *stack)
+void	rotate_ab(t_stack *stack, stack_ab ab)
 {
-	t_elem	*tmp;
+	t_elem	*second;
+	t_elem	*sec_last;
 
-	if (!stack || !stack->first)
-		ft_error(PTR_ERROR);
-	if (!stack->first->next || !stack->sec_last)
-	{
-		printf(MORE_NODES);
-		return ;
-	}
-	tmp = stack->first;
-	stack->first = stack->last;
-	stack->first->next = tmp;
-	if (stack->sec_last)
-		stack->sec_last->next = NULL;
-}
-
-void	rotate_ab(t_root *root, stack_ab ab)
-{
-	t_stack	*stack;
-
-	if (ab == A)
-		stack = root->stack_a;
-	else
-		stack = root->stack_b;
 	if (!stack)
+		ft_error(PTR_ERROR);
+	if (stack->size <= 1)
 	{
 		printf(MORE_NODES);
 		return ;
 	}
-	else
-	{
-		(ab == A ? printf("ra\n") : printf("rb\n"));
-		rotate(stack);
-		// update_stack_ptrs(stack->size, stack);
-	}
-	// root->ops++;
+	(ab == A ? printf("ra\n") : printf("rb\n"));
+	sec_last = stack->last->prev;
+	second = stack->first;
+	stack->first->prev = stack->last;
+	stack->first = stack->last;
+	stack->first->prev = NULL;
+	stack->first->next = second;
+	stack->last = sec_last;
+	sec_last->next = NULL;
 }
 
 void	rr(t_root *root)
 {
-	if (!root->stack_a || !root->stack_b)
-		ft_error(PTR_ERROR);
-	if (!root->stack_a->first || !root->stack_a->first->next
-		|| !root->stack_a->sec_last || !root->stack_b->first
-		|| !root->stack_b->first->next || !root->stack_b->sec_last)
-	{
-		printf(MORE_NODES);
-		return ;
-	}
-	else
-	{
-		printf("rr\n");
-		rotate_ab(root, A);
-		rotate_ab(root, B);
-	}
+	printf("rr\n");
+	rotate_ab(root->stack_a, A);
+	rotate_ab(root->stack_b, B);
 }
 
-void	rev_rotate(t_stack *stack)
+void	rev_rotate(t_stack *stack, stack_ab ab)
 {
 	t_elem	*tmp;
 
-	if (!stack->first)
-		ft_error(UNWANTED_BEHAVIOR);
+	if (!stack)
+		ft_error(PTR_ERROR);
 	tmp = stack->first->next;
-	if (!stack->sec_last || !stack->first->next)
+	if (stack->size <= 1)
 	{
 		printf(MORE_NODES);
 		return ;

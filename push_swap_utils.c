@@ -2,8 +2,8 @@
 
 int	is_sorted(t_stack *stack)
 {
-	t_elem *probe;
-	int	value;
+	t_elem	*probe;
+	int		value;
 
 	printf("IS SORTED ?\n");
 	probe = stack->first;
@@ -28,9 +28,9 @@ int	is_sorted(t_stack *stack)
 
 int	get_stack_size(t_stack *stack)
 {
-	t_elem *probe;
-	int size;
-	
+	t_elem	*probe;
+	int		size;
+
 	probe = stack->first;
 	size = 0;
 	while (probe)
@@ -40,86 +40,6 @@ int	get_stack_size(t_stack *stack)
 	}
 	return (size);
 }
-
-
-// t_elem	*get_third_last(t_stack *stack)
-// {
-// 	t_elem *probe;
-
-// 	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next || !stack->first->next->next->next)
-// 		return (NULL);
-// 	probe = stack->first;
-// 	while (probe->next->next->next)
-// 		probe = probe->next;
-// 	return (probe);
-// }
-
-void print_stack_ptrs(t_root *root)
-{
-		// printf("FIRST A:%p\n", root->stack_a->first);
-		// printf("LAST A:%p\n", root->stack_a->last);
-		// printf("SC LAST A:%p\n", root->stack_a->sec_last);
-		// printf("THI LAST A:%p\n", root->stack_a->thi_last);
-		// printf("FIRST B:%p\n", root->stack_b->first);
-		// printf("LAST B:%p\n", root->stack_b->last);
-		// printf("SEC LAST B:%p\n", root->stack_b->sec_last);
-		// printf("THI LAST B:%p\n", root->stack_b->thi_last);
-		printf("-----\nsize A:%d\n", get_stack_size(root->stack_a));
-		printf("-----\nsize B:%d\n", get_stack_size(root->stack_b));
-}
-
-void print_result(t_stack *stack)
-{
-	t_elem *probe;
-
-	printf("\n");
-	probe = stack->first;
-	static int i;
-	while (probe->next)
-	{
-		printf("--> %d ", probe->value);
-		probe = probe->next;
-		if (i++ > 10)
-			return;
-	}
-	printf("--> %d", probe->value);
-	printf("\n\n");
-}
-
-void	update_stack_ptrs(int size, t_stack *stack) /// Should be reworked entirely as for less function calls
-{
-	 	printf("UPDATE STACK PTRS\n");
-		
-		if (size == 0)
-		{
-			stack->first = NULL;
-		}
-		if (size > 1)
-		{
-			stack->second = stack->first->next;
-		}
-		if (size > 2)
-		{
-			stack->sec_last = stack->last->prev;	
-		}
-		if (size > 3)
-		{
-			stack->thi_last = stack->sec_last->prev;
-		}
-}
-
-
-// t_elem	*get_second_last(t_stack *stack)
-// {
-// 	t_elem *probe;
-
-// 	if (!stack || !stack->first || !stack->first->next || !stack->first->next->next)
-// 		return (NULL);
-// 	probe = stack->first;
-// 	while(probe->next->next)
-// 		probe = probe->next;
-// 	return (probe);
-// }
 
 t_elem	*ps_lstnew(int value)
 {
@@ -136,17 +56,10 @@ t_elem	*ps_lstnew(int value)
 
 t_elem	*ps_lstlast(t_elem *lst)
 {
-	// printf("LAST\n");
 	if (!lst)
 		return (NULL);
-	int i = 0;
 	while (lst->next)
-	{
-		if (i++ > 20)
-			printf("lst:%p\n", lst);
 		lst = lst->next;
-	}
-	// printf("lst:%p\n", lst);
 	return (lst);
 }
 
@@ -178,12 +91,25 @@ void	print_node(t_elem *node)
 {
 	printf("\n");
 	printf("node->prev:%p\n", node->prev);
-	// if (node->prev)
-	// 	printf("node->prev->next:%p\n", node->prev->next);
 	printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
 	printf("node->next:%p\n", node->next);
 	printf("\n");
+}
+
+void	print_result(t_stack *stack)
+{
+	t_elem	*probe;
+
+	printf("\n");
+	probe = stack->first;
+	while (probe->next)
+	{
+		printf("--> %d ", probe->value);
+		probe = probe->next;
+	}
+	printf("--> %d", probe->value);
+	printf("\n\n");
 }
 
 void	print_stack(t_stack *stack)
@@ -201,9 +127,7 @@ void	print_stack(t_stack *stack)
 		probe = probe->next;
 		i++;
 	}
-	// if (stack->first && stack->thi_last && stack->last)
-	// 	print_sort_values(stack->first->value, stack->thi_last->value, stack->last->value);
-	printf("[%d] NODES\n", i);
+	printf("-----\nSize:%d\n", get_stack_size(stack));
 }
 
 void	print_both(t_root *root)
@@ -211,13 +135,11 @@ void	print_both(t_root *root)
 	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	// printf("\nPRINTING STACK A\n");
-
-	root->stack_a ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
+	printf("\nPRINTING STACK A\n");
+	root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
 	printf("\nPRINTING STACK B\n");
 	root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
-	print_stack_ptrs(root);
 	printf("\n");
 	if (root->stack_a->first)
 		print_result(root->stack_a);
@@ -230,8 +152,10 @@ void	print_both(t_root *root)
 	printf("\n");
 	if (i > 15)
 		ft_error(UNWANTED_BEHAVIOR);
-	// if (root->stack_a->first && root->stack_a->sec_last && root->stack_a->last) 
-	// 	print_sort_values(root->stack_a->first->value, root->stack_a->sec_last->value, root->stack_a->last->value);
+	// if (root->stack_a->first && root->stack_a->sec_last
+	// && root->stack_a->last)
+	// 	print_sort_values(root->stack_a->first->value,
+	// root->stack_a->sec_last->value, root->stack_a->last->value);
 	// printf("\nEND PRINT BOTH\n\n");
 }
 
@@ -241,30 +165,30 @@ void	ft_error(errors error)
 	str = NULL;
 	switch (error)
 	{
-		case NAN:
+	case NAN:
 		str = "Invalid entry\n";
-		break;
-		case ALREADY_SORTED:
+		break ;
+	case ALREADY_SORTED:
 		str = "Input already sorted\n";
-		break;
-		case OVERFLOW:
+		break ;
+	case OVERFLOW:
 		str = "Input overflow\n";
-		break;
-		case DOUBLE:
+		break ;
+	case DOUBLE:
 		str = "Input double\n";
-		break;
-		case PTR_ERROR:
+		break ;
+	case PTR_ERROR:
 		str = "Pointer error\n";
-		break;
-		case MALLOC_FAIL:
+		break ;
+	case MALLOC_FAIL:
 		str = "Malloc fail\n";
-		break;
-		case UNWANTED_BEHAVIOR:
+		break ;
+	case UNWANTED_BEHAVIOR:
 		str = "Unwanted behavior\n";
-		break;
-		case DEBUG:
+		break ;
+	case DEBUG:
 		str = "Debug\n";
-		break;
+		break ;
 	}
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("Error\n", 2);

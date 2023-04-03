@@ -67,7 +67,7 @@ void				print_both(t_root *root);
 void				swap_ab(t_stack *stack, stack_ab ab);
 void				ss(t_root *root);
 void				push_ab(t_stack *from, t_stack *to);
-void				rotate_ab(t_root *root, stack_ab ab);
+void				rotate_ab(t_stack *stack, stack_ab ab);
 void				rev_rotate_ab(t_root *root, stack_ab ab);
 void				rrr(t_root *root);
 void				rr(t_root *root);
