@@ -112,7 +112,7 @@ void	sort_three(t_root *root, t_stack *stack)
 		// first < last < sec_last
 		// 1 8 5
 		printf("B\n");
-		rev_rotate_ab(root, A);
+		rev_rotate_ab(root->stack_a, A);
 	}
 	else if (sec_last < first && first < last)
 	{
@@ -133,7 +133,7 @@ void	sort_three(t_root *root, t_stack *stack)
 		// last < first < sec_last
 		// 5 6 4
 		printf("E\n");
-		rev_rotate_ab(root, A);
+		rev_rotate_ab(root->stack_a, A);
 		swap_ab(root->stack_a, A);
 	}
 	else
@@ -176,12 +176,14 @@ int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 	// push_ab(root->stack_a, root->stack_b);
 	print_both(root);
 	// swap_ab(root->stack_a, A);
-	rotate_ab(root->stack_a, A);
+	rev_rotate_ab(root->stack_a, A);
 	print_both(root);
-	rotate_ab(root->stack_a, A);
-	rotate_ab(root->stack_a, A);
-	rotate_ab(root->stack_a, A);
+	rev_rotate_ab(root->stack_a, A);
 	print_both(root);
+	// rotate_ab(root->stack_a, A);
+	// rotate_ab(root->stack_a, A);
+	// rotate_ab(root->stack_a, A);
+	// print_both(root);
 	// rotate_ab(root->stack_a, A);
 	// print_both(root);
 	// swap_ab(root->stack_a, A);
