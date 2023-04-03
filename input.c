@@ -77,8 +77,6 @@ struct s_elem *fill_stack(t_stack *stack, char **input)
 		i++;
 	}
 	stack->last = ps_lstlast(first);
-	printf("last prev next value:%d\n", stack->last->prev->next->value);
-	printf("last:%p\n", stack->last);
 	stack->size = i - 1;
 	return (first);
 }

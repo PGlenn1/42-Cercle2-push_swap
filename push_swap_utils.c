@@ -101,7 +101,7 @@ void	print_result(t_stack *stack)
 {
 	t_elem	*probe;
 
-	printf("\n");
+	printf("\nPRINT RESULT\n");
 	probe = stack->first;
 	while (probe->next)
 	{

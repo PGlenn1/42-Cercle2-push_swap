@@ -28,10 +28,7 @@ typedef enum
 typedef struct s_stack
 {
 	struct s_elem	*first;
-	struct s_elem	*second;
 	struct s_elem	*last;
-	struct s_elem	*sec_last;
-	struct s_elem	*thi_last;
 	int				size;
 	int				median;
 	int				ops;

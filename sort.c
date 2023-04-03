@@ -95,16 +95,16 @@ void	sort_three(t_root *root, t_stack *stack)
 	printf("SORT THREE\n");
 	// (void)root;
 	first = stack->first->value;
-	sec_last = stack->sec_last->value;
 	last = stack->last->value;
+	sec_last = stack->last->prev->value;
 	printf("CHOICE PATH\n");
 	print_result(stack);
 	if (first < sec_last && sec_last < last)
 	{
 		// first < sec_last < last
 		// 2 4 6
-		rotate_ab(root->stack_a, A);
 		printf("A\n");
+		rotate_ab(root->stack_a, A);
 		swap_ab(root->stack_a, A);
 	}
 	else if (first < last && last < sec_last)
@@ -159,9 +159,9 @@ void	sort_five(t_root *root, t_stack *stack)
 	//     swap_ab(root, B);
 	// if (!is_sorted(stack))
 	//     sort_three(root, stack);
-	// push_ab(root, stack);
-	// push_ab(root, A);
-	// swap_ab(root, ab);
+	// push_ab(root->stack_a, A);
+	// push_ab(root->stack_a, A);
+	// swap_ab(root->stack_a, A);
 }
 
 int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
@@ -173,39 +173,15 @@ int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 	else
 		ab = B;
 	printf("\nPICK ALGO %c\n", ab == A ? 'A' : 'B');
-	// push_ab(root->stack_a, root->stack_b);
-	print_both(root);
-	// swap_ab(root->stack_a, A);
-	rev_rotate_ab(root->stack_a, A);
-	print_both(root);
-	rev_rotate_ab(root->stack_a, A);
-	print_both(root);
-	// rotate_ab(root->stack_a, A);
-	// rotate_ab(root->stack_a, A);
-	// rotate_ab(root->stack_a, A);
-	// print_both(root);
-	// rotate_ab(root->stack_a, A);
-	// print_both(root);
-	// swap_ab(root->stack_a, A);
-	// if (stack->size == 2)
-	// {
-	//     printf("SORT TWO\n");
-	// 	swap_ab(root, ab);
-	// }
-	// else if (stack->size == 3)
-	// 	sort_three(root, stack);
-	// else if (stack->size <= 5)
-	// sort_five(root, stack);
-	// push_ab(root->stack_a, root->stack_b);
-	// push_ab(root->stack_a, root->stack_b);
-	// push_ab(root->stack_a, root->stack_b);
-	// push_ab(root->stack_a, root->stack_b);
-	// print_both(root);
-	// push_ab(root->stack_a, root->stack_b);
-	// push_ab(root->stack_a, root->stack_b);
-	// push_ab(root->stack_a, root->stack_b);
-	// print_both(root);
-	// printf("PUSH A TEST\n");
+	if (stack->size == 2)
+	{
+	    printf("SORT TWO\n");
+		swap_ab(root->stack_a, A);
+	}
+	else if (stack->size == 3)
+		sort_three(root, stack);
+	else if (stack->size <= 5)
+	sort_five(root, stack);
 	// print_both(root);
 	if (is_sorted(stack))
 		return (1);
