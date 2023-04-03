@@ -49,48 +49,18 @@ void	push_ab(t_stack *from, t_stack *to)
 	to->size++;
 }
 
-void	swap(t_stack *stack)
+void	swap_ab(t_stack *stack, stack_ab ab)
 {
-	if (!stack->first || !stack->first->next)
-	{
-		printf(MORE_NODES);
-		return ;
-	}
-	if (stack->sec_last)
-	{
-		if (stack->thi_last)
-			stack->thi_last->next = stack->last;
-		else
-			stack->first->next = stack->last;
-		stack->last->next = stack->sec_last;
-		stack->sec_last->next = NULL;
-	}
-	else
-	{
-		stack->last->next = stack->first;
-		stack->first->next = NULL;
-		stack->first = stack->last;
-	}
-}
+	int	tmp;
 
-void	swap_ab(t_root *root, stack_ab ab)
-{
-	t_stack	*stack;
-
-	if (ab == A)
-		stack = root->stack_a;
-	else
-		stack = root->stack_b;
 	if (!stack)
 		ft_error(PTR_ERROR);
-	if (!stack->first || !stack->first->next)
-	{
-		printf(MORE_NODES);
-		return ;
-	}
-	(ab == A ? printf("sa\n") : printf("sb\n"));
-	swap(stack);
-	// update_stack_ptrs(stack->size, stack);
+	if (!stack->first || !stack->first->next || stack->size <= 3)
+		printf(BAD_OPS);
+	ab == A ? printf("sa\n") : printf("sb");
+	tmp = stack->last->value;
+	stack->last->value = stack->last->prev->value;
+	stack->last->prev->value = tmp;
 }
 
 void	ss(t_root *root)
@@ -106,8 +76,8 @@ void	ss(t_root *root)
 	else
 	{
 		printf("ss\n");
-		swap_ab(root, A);
-		swap_ab(root, B);
+		swap_ab(root->stack_a, A);
+		swap_ab(root->stack_b, B);
 	}
 }
 
