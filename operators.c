@@ -1,66 +1,50 @@
 #include "push_swap.h"
 
-
-void	push_ab(t_stack *from, t_stack *to)
+void	push(t_stack *to, t_elem *last_from)
 {
-	t_elem *tmp;
-	printf("push AB\n");
-	tmp = from->last;	
-	if (!from || !to)
-		ft_error(PTR_ERROR);
-	if (!from->first)
-		printf(BAD_OPS);
-	// from
-	if (from->size == 0)
-	{
-		return ;
-	}
-	if (from->size > 1)
-	{
-		// printf("last :%p\n", from->last);
-		// printf("last prev:%p\n", from->last->prev);
-		// printf("size:%d\n", from->size);
-		
-		from->last = from->last->prev;
-		from->last->next = NULL;
-		// if (from->size )
-		// from->last
-
-	}
-	else if (from->size == 1)
-	{
-		from->first = from->last = NULL;
-	}
-	// to
-	
 	if (to->size >= 1)
 	{
-		to->last = tmp;
 		if (to->size == 1)
 		{
-			to->last->prev = to->first;
-			printf("to->first:%p\n", to->first);
-			to->first->next = tmp;
+			to->first->next = last_from;
+			last_from->prev = to->first;
 		}
 		else
 		{
-			printf("tmp:%p\n", tmp);
-			printf("tmp->value:%d\n", tmp->value);
-			to->last->next = tmp;
-			// to->last = tmp;	
-			printf("to->last:%p\n", to->last);
-			printf("to->last->value:%d\n", to->last->value);
-			printf("tmp:%p\n", tmp);
+			to->last->next = last_from;
+			last_from->prev = to->last;
 		}
+		to->last = last_from;
 	}
 	else
 	{
-
-		to->first = tmp;
+		to->first = last_from;
 		to->first->prev = NULL;
 		to->last = to->first;
 	}
+}
 
+void	push_ab(t_stack *from, t_stack *to)
+{
+	t_elem	*last_from;
+
+	printf("push AB\n");
+	last_from = from->last;
+	if (!from || !to)
+		ft_error(PTR_ERROR);
+	if (!from->first)
+	{
+		printf(BAD_OPS);
+		return ;
+	}
+	if (from->size == 1)
+		from->first = from->last = NULL;
+	else if (from->size > 1)
+	{
+		from->last = from->last->prev;
+		from->last->next = NULL;
+	}
+	push(to, last_from);
 	from->size--;
 	to->size++;
 }
@@ -70,13 +54,13 @@ void	swap(t_stack *stack)
 	if (!stack->first || !stack->first->next)
 	{
 		printf(MORE_NODES);
-	 	return ;
+		return ;
 	}
 	if (stack->sec_last)
 	{
 		if (stack->thi_last)
 			stack->thi_last->next = stack->last;
-		else 
+		else
 			stack->first->next = stack->last;
 		stack->last->next = stack->sec_last;
 		stack->sec_last->next = NULL;
@@ -89,9 +73,9 @@ void	swap(t_stack *stack)
 	}
 }
 
-void	swap_ab(t_root *root, stack_ab ab)	
+void	swap_ab(t_root *root, stack_ab ab)
 {
-	t_stack *stack;
+	t_stack	*stack;
 
 	if (ab == A)
 		stack = root->stack_a;
@@ -113,7 +97,8 @@ void	ss(t_root *root)
 {
 	if (!root->stack_a || !root->stack_b)
 		ft_error(PTR_ERROR);
-	 if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_b->first || !root->stack_b->first->next)
+	if (!root->stack_a->first || !root->stack_a->first->next
+		|| !root->stack_b->first || !root->stack_b->first->next)
 	{
 		printf(MORE_NODES);
 		return ;
@@ -128,7 +113,7 @@ void	ss(t_root *root)
 
 void	rotate(t_stack *stack)
 {
-	t_elem *tmp;
+	t_elem	*tmp;
 
 	if (!stack || !stack->first)
 		ft_error(PTR_ERROR);
@@ -137,7 +122,7 @@ void	rotate(t_stack *stack)
 		printf(MORE_NODES);
 		return ;
 	}
-	tmp = stack->first; 
+	tmp = stack->first;
 	stack->first = stack->last;
 	stack->first->next = tmp;
 	if (stack->sec_last)
@@ -146,16 +131,16 @@ void	rotate(t_stack *stack)
 
 void	rotate_ab(t_root *root, stack_ab ab)
 {
+	t_stack	*stack;
 
-	t_stack *stack;
 	if (ab == A)
-		stack = root->stack_a;	
+		stack = root->stack_a;
 	else
-		stack = root->stack_b;	
-	if (!stack)	
+		stack = root->stack_b;
+	if (!stack)
 	{
 		printf(MORE_NODES);
-		return;
+		return ;
 	}
 	else
 	{
@@ -166,13 +151,13 @@ void	rotate_ab(t_root *root, stack_ab ab)
 	// root->ops++;
 }
 
-
 void	rr(t_root *root)
 {
 	if (!root->stack_a || !root->stack_b)
 		ft_error(PTR_ERROR);
-	if (!root->stack_a->first || !root->stack_a->first->next || !root->stack_a->sec_last
-		|| !root->stack_b->first || !root->stack_b->first->next || !root->stack_b->sec_last)
+	if (!root->stack_a->first || !root->stack_a->first->next
+		|| !root->stack_a->sec_last || !root->stack_b->first
+		|| !root->stack_b->first->next || !root->stack_b->sec_last)
 	{
 		printf(MORE_NODES);
 		return ;
@@ -185,12 +170,11 @@ void	rr(t_root *root)
 	}
 }
 
-
-void rev_rotate(t_stack *stack)
+void	rev_rotate(t_stack *stack)
 {
-	t_elem *tmp;
+	t_elem	*tmp;
 
-	if (!stack->first) 
+	if (!stack->first)
 		ft_error(UNWANTED_BEHAVIOR);
 	tmp = stack->first->next;
 	if (!stack->sec_last || !stack->first->next)
@@ -206,9 +190,10 @@ void rev_rotate(t_stack *stack)
 	}
 }
 
-void rev_rotate_ab(t_root *root, stack_ab ab)
+void	rev_rotate_ab(t_root *root, stack_ab ab)
 {
-	t_stack *stack;
+	t_stack	*stack;
+
 	printf("REVERSE ROTATE\n");
 	if (ab == A)
 		stack = root->stack_a;
@@ -222,8 +207,9 @@ void rev_rotate_ab(t_root *root, stack_ab ab)
 void	rrr(t_root *root)
 {
 	if (!root->stack_a->first)
-	 	ft_error(PTR_ERROR);
-	if (!root->stack_a->sec_last || !root->stack_a->first->next || !root->stack_b->sec_last || !root->stack_b->first->next)
+		ft_error(PTR_ERROR);
+	if (!root->stack_a->sec_last || !root->stack_a->first->next
+		|| !root->stack_b->sec_last || !root->stack_b->first->next)
 	{
 		printf(MORE_NODES);
 		return ;
