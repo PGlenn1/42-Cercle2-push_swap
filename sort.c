@@ -1,25 +1,5 @@
 #include "push_swap.h"
 
-// int    get_median_value(int first, int middle, int last)
-// {
-//     if ((first < middle && middle < last) || (last < middle
-// && middle < first)) {
-//         return (middle);
-//     }
-//     else if ((middle < first && first < last) || (last < first
-// && first < middle)) {
-//         return (first);
-//     }
-//     else {
-//         return (last);
-//     }
-// }
-
-// int median(t_stack *stack)
-// {
-
-// }
-
 void	median_small(t_stack *stack)
 {
 	int		i;
@@ -156,10 +136,17 @@ void	sort_five(t_root *root, t_stack *stack)
 	if (is_sorted(root->stack_b))
 		rotate_ab(root->stack_b, B);
 	if (!is_sorted(stack))
-		sort_three(root, stack);
+		sort_three(stack);
 	push_ab(root->stack_b, root->stack_a, A);
 	push_ab(root->stack_b, root->stack_a, A);
 }
+
+// void	sort_twelve(t_root *root, t_stack *stack)
+// {
+// 	printf("SORT TWELVE\n");
+// 	get_median(stack);
+
+// }
 
 int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 {
@@ -176,7 +163,7 @@ int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 		swap_ab(root->stack_a, A);
 	}
 	else if (stack->size == 3)
-		sort_three(root, stack);
+		sort_three(stack);
 	else if (stack->size <= 5)
 		sort_five(root, stack);
 	// print_both(root);
