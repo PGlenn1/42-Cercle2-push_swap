@@ -87,14 +87,13 @@ void	get_median(t_stack *stack)
 //     }
 // }
 
-void	sort_three(t_root *root, t_stack *stack)
+void	sort_three(t_stack *stack)
 {
 	int	first;
 	int	sec_last;
 	int	last;
 
 	printf("SORT THREE\n");
-	// (void)root;
 	first = stack->first->value;
 	last = stack->last->value;
 	sec_last = stack->last->prev->value;
@@ -105,37 +104,37 @@ void	sort_three(t_root *root, t_stack *stack)
 		// first < sec_last < last
 		// 2 4 6
 		printf("A\n");
-		rotate_ab(root->stack_a, A);
-		swap_ab(root->stack_a, A);
+		rotate_ab(stack, A);
+		swap_ab(stack, A);
 	}
 	else if (first < last && last < sec_last)
 	{
 		// first < last < sec_last
 		// 1 8 5
 		printf("B\n");
-		rev_rotate_ab(root->stack_a, A);
+		rev_rotate_ab(stack, A);
 	}
 	else if (sec_last < first && first < last)
 	{
 		// sec_last < first < last
 		// 7 3 9
 		printf("C\n");
-		rotate_ab(root->stack_a, A);
+		rotate_ab(stack, A);
 	}
 	else if (sec_last < last && last < first)
 	{
 		// sec_last < last < first
 		// 20 15 18
 		printf("D\n");
-		swap_ab(root->stack_a, A);
+		swap_ab(stack, A);
 	}
 	else if (last < first && first < sec_last)
 	{
 		// last < first < sec_last
 		// 5 6 4
 		printf("E\n");
-		rev_rotate_ab(root->stack_a, A);
-		swap_ab(root->stack_a, A);
+		rev_rotate_ab(stack, A);
+		swap_ab(stack, A);
 	}
 	else
 	{
@@ -154,14 +153,12 @@ void	sort_five(t_root *root, t_stack *stack)
 		else
 			rotate_ab(root->stack_a, A);
 	}
-	// print_both(root);
 	if (is_sorted(root->stack_b))
 		rotate_ab(root->stack_b, B);
 	if (!is_sorted(stack))
 		sort_three(root, stack);
 	push_ab(root->stack_b, root->stack_a, A);
 	push_ab(root->stack_b, root->stack_a, A);
-	// swap_ab(root->stack_a, A);
 }
 
 int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
