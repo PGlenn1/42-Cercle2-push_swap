@@ -56,7 +56,7 @@ void	swap_ab(t_stack *stack, stack_ab ab)
 	ab == A ? printf("sa\n") : printf("sb");
 	if (!stack)
 		ft_error(PTR_ERROR);
-	if (!stack->first || !stack->first->next || stack->size <= 3)
+	if (!stack->first || !stack->first->next || stack->size <= 1)
 		printf(BAD_OPS);
 	tmp = stack->last->value;
 	stack->last->value = stack->last->prev->value;

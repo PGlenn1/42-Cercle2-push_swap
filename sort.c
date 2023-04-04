@@ -39,6 +39,7 @@ void	median_small(t_stack *stack)
 	}
 	array = bubble_sort(array, 5);
 	stack->median = array[2];
+	printf("FOUND MEDIAN:%d\n", stack->median);
 	free(array);
 }
 
@@ -97,8 +98,8 @@ void	sort_three(t_root *root, t_stack *stack)
 	first = stack->first->value;
 	last = stack->last->value;
 	sec_last = stack->last->prev->value;
-	printf("CHOICE PATH\n");
-	print_result(stack);
+	printf("PATH ");
+	// print_result(stack);
 	if (first < sec_last && sec_last < last)
 	{
 		// first < sec_last < last
@@ -144,23 +145,22 @@ void	sort_three(t_root *root, t_stack *stack)
 
 void	sort_five(t_root *root, t_stack *stack)
 {
-	(void)root, (void)stack;
-	// printf("SORT FIVE\n");
-	// get_median(stack);
-	// while (stack->size > 3)
-	// {
-	//     if (stack->last->value < stack->median)
-	//         push_ab(root, B);
-	//     else
-	//         rotate_ab(root, A);
-	// }
+	printf("SORT FIVE\n");
+	get_median(stack);
+	while (stack->size > 3)
+	{
+		if (stack->last->value < stack->median)
+			push_ab(root->stack_a, root->stack_b, B);
+		else
+			rotate_ab(root->stack_a, A);
+	}
 	// print_both(root);
-	// if (is_sorted(root->stack_b))
-	//     swap_ab(root, B);
-	// if (!is_sorted(stack))
-	//     sort_three(root, stack);
-	// push_ab(root->stack_a, A);
-	// push_ab(root->stack_a, A);
+	if (is_sorted(root->stack_b))
+		rotate_ab(root->stack_b, B);
+	if (!is_sorted(stack))
+		sort_three(root, stack);
+	push_ab(root->stack_b, root->stack_a, A);
+	push_ab(root->stack_b, root->stack_a, A);
 	// swap_ab(root->stack_a, A);
 }
 
@@ -175,13 +175,13 @@ int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 	printf("\nPICK ALGO %c\n", ab == A ? 'A' : 'B');
 	if (stack->size == 2)
 	{
-	    printf("SORT TWO\n");
+		printf("SORT TWO\n");
 		swap_ab(root->stack_a, A);
 	}
 	else if (stack->size == 3)
 		sort_three(root, stack);
 	else if (stack->size <= 5)
-	sort_five(root, stack);
+		sort_five(root, stack);
 	// print_both(root);
 	if (is_sorted(stack))
 		return (1);

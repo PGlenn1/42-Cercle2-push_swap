@@ -17,11 +17,13 @@ int	is_sorted(t_stack *stack)
 			ft_error(UNWANTED_BEHAVIOR);
 		if (value < probe->next->value)
 		{
+			print_result(stack);
 			printf("Not sorted\n");
 			return (0);
 		}
 		probe = probe->next;
 	}
+	print_result(stack);
 	printf("Yes\n");
 	return (1);
 }
@@ -135,28 +137,23 @@ void	print_both(t_root *root)
 	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	printf("\nPRINTING STACK A\n");
-	root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
-	printf("\nPRINTING STACK B\n");
-	root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
+	// root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
+	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
 	printf("\n");
+	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)
 		print_result(root->stack_a);
 	else
 		printf("--> EMPTY\n");
+	printf("\nPRINTING STACK B\n");
 	if (root->stack_b->first)
 		print_result(root->stack_b);
 	else
 		printf("--> EMPTY\n");
-	printf("\n");
 	if (i > 15)
 		ft_error(UNWANTED_BEHAVIOR);
-	// if (root->stack_a->first && root->stack_a->sec_last
-	// && root->stack_a->last)
-	// 	print_sort_values(root->stack_a->first->value,
-	// root->stack_a->sec_last->value, root->stack_a->last->value);
-	// printf("\nEND PRINT BOTH\n\n");
+	printf("\nEND PRINT BOTH\n\n");
 }
 
 void	ft_error(errors error)

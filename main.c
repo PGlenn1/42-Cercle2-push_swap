@@ -2,7 +2,7 @@
 
 int	push_swap(char **input)
 {
-	t_root *root;
+	t_root	*root;
 
 	root = init_root(input);
 	if (!root)
@@ -13,11 +13,11 @@ int	push_swap(char **input)
 	{
 		// if (root->ops > 12)
 		// {
-			// printf("Too many ops:%d\n", root->ops);
-			// return (0);
+		// printf("Too many ops:%d\n", root->ops);
+		// return (0);
 		// }
 		// {
-			// printf("Ops:%d\n", root->ops);
+		// printf("Ops:%d\n", root->ops);
 		// }
 		return (1);
 	}
@@ -26,11 +26,12 @@ int	push_swap(char **input)
 
 int	main(int argc, char **argv)
 {
-
 	if (argc < 3)
 		return (0);
 	if (push_swap(argv))
+	{
 		printf("Done\n");
+	}
 	else
 	{
 		printf("Failed\n");
