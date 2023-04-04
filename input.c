@@ -82,6 +82,8 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
+	root->stack_a->op_call = NOT_SET;
+	root->stack_b->op_call = NOT_SET;
 	root->ops = 0;
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;

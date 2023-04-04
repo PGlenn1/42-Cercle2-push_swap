@@ -125,22 +125,25 @@ int	sort_three(t_stack *stack)
 	return (ops);
 }
 
-int	sort_five(t_root *root, t_stack *stack)
+int	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
 	int	ops;
 
 	ops = 0;
 	printf("SORT FIVE\n");
-	get_median(stack);
-	while (stack->size > 3)
+	get_median(stack_a);
+	while (stack_a->size > 3)
 	{
 		if (stack->last->value < stack->median)
-			ops += push_ab(root->stack_a, root->stack_b, B);
+			stack_a->op_call = PA;
+		// ops += push_ab(root->stack_a, root->stack_b, B);
 		else
-			ops += rotate_ab(root->stack_a, A);
+			stack_a->op_call = RA;
+		// ops += rotate_ab(root->stack_a, A);
 	}
 	if (is_sorted(root->stack_b))
-		ops += rotate_ab(root->stack_b, B);
+		stack_b->op_call = RB;
+	// ops += rotate_ab(root->stack_b, B);
 	if (!is_sorted(stack))
 		ops += sort_three(stack);
 	ops += push_ab(root->stack_b, root->stack_a, A);
@@ -148,31 +151,17 @@ int	sort_five(t_root *root, t_stack *stack)
 	return (ops);
 }
 
-// void	sort_twelve(t_root *root, t_stack *stack)
-// {
-// 	printf("SORT TWELVE\n");
-// 	get_median(stack);
-
-// }
-
-int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
+int	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 {
-	stack_ab ab;
-
-	if (stack == root->stack_a)
-		ab = A;
-	else
-		ab = B;
-	printf("\nPICK ALGO %c\n", ab == A ? 'A' : 'B');
-	if (stack->size == 2)
+	if (root->stack_a->size == 2)
 	{
 		printf("SORT TWO\n");
 		root->ops += swap_ab(root->stack_a, A);
 	}
-	else if (stack->size == 3)
-		root->ops += sort_three(stack);
-	else if (stack->size <= 5)
-		root->ops += sort_five(root, stack);
+	else if (root->stack_a->size == 3)
+		root->ops += sort_three(root->stack_a);
+	else if (root->stack_a->size <= 5)
+		root->ops += sort_five(root->stack_a, root->stack_b);
 	// print_both(root);
 	if (is_sorted(stack))
 		return (1);

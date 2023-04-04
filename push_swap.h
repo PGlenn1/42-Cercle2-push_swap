@@ -21,6 +21,30 @@ typedef enum
 
 typedef enum
 {
+	NOT_SET,
+	SA,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR,
+}					op_call;
+
+typedef enum
+{
+	INCREASING,
+	DECREASING,
+	INCREASING_MIN_ONE,
+	DECREASING_MIN_ONE,
+}					order;
+
+typedef enum
+{
 	A,
 	B,
 }					stack_ab;
@@ -31,6 +55,7 @@ typedef struct s_stack
 	struct s_elem	*last;
 	int				size;
 	int				median;
+	op_call			operator;
 }					t_stack;
 
 typedef struct s_elem
@@ -50,7 +75,7 @@ typedef struct s_root
 
 t_root				*init_root(char **input);
 int					is_sorted(t_stack *stack);
-int					pick_algo(t_root *root, t_stack *stack);
+int					pick_algo(t_root *root);
 void				print_sort_values(int first, int sec_last, int last);
 void				print_result(t_stack *stack);
 int					get_stack_size(t_stack *stack);

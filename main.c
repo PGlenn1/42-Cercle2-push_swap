@@ -9,7 +9,7 @@ int	push_swap(char **input)
 		ft_error(MALLOC_FAIL);
 	if (is_sorted(root->stack_a))
 		ft_error(ALREADY_SORTED);
-	else if (pick_algo(root, root->stack_a))
+	else if (pick_algo(root))
 	{
 		// if (root->ops > 12)
 		// {
