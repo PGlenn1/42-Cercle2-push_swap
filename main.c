@@ -19,6 +19,8 @@ int	push_swap(char **input)
 		// {
 		// printf("Ops:%d\n", root->ops);
 		// }
+		print_result(root->stack_a);
+		printf("OPS:%d\n", root->ops);
 		return (1);
 	}
 	return (0);

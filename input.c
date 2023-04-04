@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-static void check_numbers(char **input)
+static void	check_numbers(char **input)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (input[i])
@@ -13,9 +13,9 @@ static void check_numbers(char **input)
 	}
 }
 
-static int check_len(char *str)
+static int	check_len(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -27,11 +27,11 @@ static int check_len(char *str)
 	return (0);
 }
 
-static void check_input(char **input)
+static void	check_input(char **input)
 {
-	int i;
-	int j;
-	long value;
+	int		i;
+	int		j;
+	long	value;
 
 	i = 1;
 	j = i + 1;
@@ -45,8 +45,6 @@ static void check_input(char **input)
 		j = i + 1;
 		while (input[j])
 		{
-			// printf("VALUE|%ld|\n", value);
-			// printf("VALUE2|%ld|\n", ft_atol(input[j]));
 			if (value == ft_atol(input[j]))
 				ft_error(DOUBLE);
 			j++;
@@ -55,11 +53,11 @@ static void check_input(char **input)
 	}
 }
 
-struct s_elem *fill_stack(t_stack *stack, char **input)
+struct s_elem	*fill_stack(t_stack *stack, char **input)
 {
-	t_elem *new;
-	t_elem *first;
-	int i;
+	t_elem	*new;
+	t_elem	*first;
+	int		i;
 
 	check_input(input);
 	new = NULL;
@@ -81,23 +79,19 @@ struct s_elem *fill_stack(t_stack *stack, char **input)
 	return (first);
 }
 
-void init_stack_values(t_root *root, char **input)
+void	init_stack_values(t_root *root, char **input)
 {
-		root->stack_a->first = fill_stack(root->stack_a, input);
-		root->stack_a->ops = 0;
-
-		root->stack_b->first = NULL;
-		root->stack_b->last = NULL;
-		root->stack_b->size = 0;
-		root->stack_b->ops = 0;
-		// update_stack_ptrs(root->stack_a->size, root->stack_a);
-		// update_stack_ptrs(root->stack_b->size, root->stack_b);
+	root->stack_a->first = fill_stack(root->stack_a, input);
+	root->ops = 0;
+	root->stack_b->first = NULL;
+	root->stack_b->last = NULL;
+	root->stack_b->size = 0;
 }
 
-void init_stacks(t_root *root, char **input)
+void	init_stacks(t_root *root, char **input)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
 	stack_a = malloc(sizeof(t_stack));
 	if (!stack_a)
@@ -107,10 +101,11 @@ void init_stacks(t_root *root, char **input)
 		ft_error(MALLOC_FAIL);
 	root->stack_a = stack_a;
 	root->stack_b = stack_b;
+	root->ops = 0;
 	init_stack_values(root, input);
 }
 
-t_root *init_root(char **input)
+t_root	*init_root(char **input)
 {
 	t_root *root;
 

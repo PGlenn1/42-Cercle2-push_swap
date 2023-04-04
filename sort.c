@@ -67,16 +67,18 @@ void	get_median(t_stack *stack)
 //     }
 // }
 
-void	sort_three(t_stack *stack)
+int	sort_three(t_stack *stack)
 {
 	int	first;
 	int	sec_last;
 	int	last;
+	int	ops;
 
 	printf("SORT THREE\n");
 	first = stack->first->value;
 	last = stack->last->value;
 	sec_last = stack->last->prev->value;
+	ops = 0;
 	printf("PATH ");
 	// print_result(stack);
 	if (first < sec_last && sec_last < last)
@@ -84,61 +86,66 @@ void	sort_three(t_stack *stack)
 		// first < sec_last < last
 		// 2 4 6
 		printf("A\n");
-		rotate_ab(stack, A);
-		swap_ab(stack, A);
+		ops += rotate_ab(stack, A);
+		ops += swap_ab(stack, A);
 	}
 	else if (first < last && last < sec_last)
 	{
 		// first < last < sec_last
 		// 1 8 5
 		printf("B\n");
-		rev_rotate_ab(stack, A);
+		ops += rev_rotate_ab(stack, A);
 	}
 	else if (sec_last < first && first < last)
 	{
 		// sec_last < first < last
 		// 7 3 9
 		printf("C\n");
-		rotate_ab(stack, A);
+		ops += rotate_ab(stack, A);
 	}
 	else if (sec_last < last && last < first)
 	{
 		// sec_last < last < first
 		// 20 15 18
 		printf("D\n");
-		swap_ab(stack, A);
+		ops += swap_ab(stack, A);
 	}
 	else if (last < first && first < sec_last)
 	{
 		// last < first < sec_last
 		// 5 6 4
 		printf("E\n");
-		rev_rotate_ab(stack, A);
-		swap_ab(stack, A);
+		ops += rev_rotate_ab(stack, A);
+		ops += swap_ab(stack, A);
 	}
 	else
 	{
 		ft_error(UNWANTED_BEHAVIOR);
 	}
+	return (ops);
 }
 
-void	sort_five(t_root *root, t_stack *stack)
+int	sort_five(t_root *root, t_stack *stack)
 {
+	int	ops;
+
+	ops = 0;
 	printf("SORT FIVE\n");
 	get_median(stack);
 	while (stack->size > 3)
 	{
 		if (stack->last->value < stack->median)
-			push_ab(root->stack_a, root->stack_b, B);
+			ops += push_ab(root->stack_a, root->stack_b, B);
 		else
-			rotate_ab(root->stack_a, A);
+			ops += rotate_ab(root->stack_a, A);
 	}
 	if (is_sorted(root->stack_b))
-		rotate_ab(root->stack_b, B);
+		ops += rotate_ab(root->stack_b, B);
 	if (!is_sorted(stack))
-		sort_three(stack);
-	push_ab(root->stack_b, root->stack_a, A);
-	push_ab(root->stack_b, root->stack_a, A);
+		ops += sort_three(stack);
+	ops += push_ab(root->stack_b, root->stack_a, A);
+	ops += push_ab(root->stack_b, root->stack_a, A);
+	return (ops);
 }
 
 // void	sort_twelve(t_root *root, t_stack *stack)
@@ -160,12 +167,12 @@ int	pick_algo(t_root *root, t_stack *stack) /// LAST MUST BE SMALLEST
 	if (stack->size == 2)
 	{
 		printf("SORT TWO\n");
-		swap_ab(root->stack_a, A);
+		root->ops += swap_ab(root->stack_a, A);
 	}
 	else if (stack->size == 3)
-		sort_three(stack);
+		root->ops += sort_three(stack);
 	else if (stack->size <= 5)
-		sort_five(root, stack);
+		root->ops += sort_five(root, stack);
 	// print_both(root);
 	if (is_sorted(stack))
 		return (1);

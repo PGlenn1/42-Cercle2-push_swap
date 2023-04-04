@@ -24,7 +24,6 @@ int	is_sorted(t_stack *stack)
 		probe = probe->next;
 	}
 	// print_result(stack);
-	printf("OPS:%d\n", stack->ops);
 	printf("Yes\n");
 	return (1);
 }

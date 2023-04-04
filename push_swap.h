@@ -31,7 +31,6 @@ typedef struct s_stack
 	struct s_elem	*last;
 	int				size;
 	int				median;
-	int				ops;
 }					t_stack;
 
 typedef struct s_elem
@@ -45,6 +44,7 @@ typedef struct s_root
 {
 	struct s_stack	*stack_a;
 	struct s_stack	*stack_b;
+	int				ops;
 	// struct s_data	*data;
 }					t_root;
 
@@ -61,13 +61,13 @@ t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
 t_elem				*ps_lstprev(t_elem *stack);
 void				print_both(t_root *root);
-void				swap_ab(t_stack *stack, stack_ab ab);
-void				ss(t_root *root);
-void				push_ab(t_stack *from, t_stack *to, stack_ab ab);
-void				rotate_ab(t_stack *stack, stack_ab ab);
-void				rev_rotate_ab(t_stack *stack, stack_ab ab);
-void				rrr(t_root *root);
-void				rr(t_root *root);
+int					swap_ab(t_stack *stack, stack_ab ab);
+int					ss(t_root *root);
+int					push_ab(t_stack *from, t_stack *to, stack_ab ab);
+int					rotate_ab(t_stack *stack, stack_ab ab);
+int					rev_rotate_ab(t_stack *stack, stack_ab ab);
+int					rrr(t_root *root);
+int					rr(t_root *root);
 void				ft_error(errors error);
 
 #endif
