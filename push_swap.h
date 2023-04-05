@@ -22,16 +22,12 @@ typedef enum
 typedef enum
 {
 	NOT_SET,
-	SA,
-	SB,
+	SWAP,
 	SS,
-	PA,
-	PB,
-	RA,
-	RB,
+	PUSH,
+	ROT,
 	RR,
-	RRA,
-	RRB,
+	REV_ROT,
 	RRR,
 }					op_call;
 
