@@ -1,15 +1,36 @@
 #include "push_swap.h"
 
-int	is_sorted(t_stack *stack)
+int	incr_sorted(t_stack *stack)
 {
 	t_elem	*probe;
 	int		value;
 
-	printf("IS SORTED ?\n");
+	printf("INCR SORTED\n");
 	probe = stack->first;
 	value = 0;
-	if (!probe || !probe->next)
-		return (0);
+	while (probe && probe->next)
+	{
+		value = probe->value;
+		if (value == probe->next->value)
+			ft_error(UNWANTED_BEHAVIOR);
+		if (value > probe->next->value)
+		{
+			// print_result(stack);
+			return (0);
+		}
+		probe = probe->next;
+	}
+	return (1);
+}
+
+int	decr_sorted(t_stack *stack)
+{
+	t_elem	*probe;
+	int		value;
+
+	printf("DECR SORTED\n");
+	probe = stack->first;
+	value = 0;
 	while (probe && probe->next)
 	{
 		value = probe->value;
@@ -17,21 +38,42 @@ int	is_sorted(t_stack *stack)
 			ft_error(UNWANTED_BEHAVIOR);
 		if (value < probe->next->value)
 		{
-			print_result(stack);
-			printf("Not sorted\n");
+			// print_result(stack);
+			// printf("Not sorted\n");
 			return (0);
 		}
 		probe = probe->next;
 	}
-	// print_result(stack);
-	printf("Yes\n");
 	return (1);
 }
 
-int	get_stack_size(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
-	t_elem	*probe;
-	int		size;
+	printf("IS SORTED ?\n");
+	if (!stack || !stack->first)
+		ft_error(PTR_ERROR);
+	print_result(stack);
+	if (incr_sorted(stack))
+	{
+		stack->order = INCREASING;
+		return (1);
+	}
+	else if (decr_sorted(stack))
+	{
+		stack->order = DECREASING;
+		return (1);
+	}
+	else
+	{
+		stack->order = NOT_SORTED;
+		return (0);
+	}
+}
+
+int	get_stack_size(t_stack *stack) // Only for dev
+{
+	t_elem *probe;
+	int size;
 
 	probe = stack->first;
 	size = 0;

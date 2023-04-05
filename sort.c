@@ -44,18 +44,16 @@ void	get_median(t_stack *stack)
 	//     median = median(stack);
 }
 
-int	sort_three(t_stack *stack)
+void	sort_three(t_stack *stack)
 {
 	int	first;
 	int	sec_last;
 	int	last;
-	int	ops;
 
 	printf("SORT THREE\n");
 	first = stack->first->value;
 	last = stack->last->value;
 	sec_last = stack->last->prev->value;
-	ops = 0;
 	printf("PATH ");
 	// print_result(stack);
 	if (first < sec_last && sec_last < last)
@@ -63,48 +61,47 @@ int	sort_three(t_stack *stack)
 		// first < sec_last < last
 		// 2 4 6
 		printf("A\n");
-		ops += rotate_ab(stack, A);
-		ops += swap_ab(stack, A);
+		rotate_ab(stack, A);
+		swap_ab(stack, A);
 	}
 	else if (first < last && last < sec_last)
 	{
 		// first < last < sec_last
 		// 1 8 5
 		printf("B\n");
-		ops += rev_rotate_ab(stack, A);
+		rev_rotate_ab(stack, A);
 	}
 	else if (sec_last < first && first < last)
 	{
 		// sec_last < first < last
 		// 7 3 9
 		printf("C\n");
-		ops += rotate_ab(stack, A);
+		rotate_ab(stack, A);
 	}
 	else if (sec_last < last && last < first)
 	{
 		// sec_last < last < first
 		// 20 15 18
 		printf("D\n");
-		ops += swap_ab(stack, A);
+		swap_ab(stack, A);
 	}
 	else if (last < first && first < sec_last)
 	{
 		// last < first < sec_last
 		// 5 6 4
 		printf("E\n");
-		ops += rev_rotate_ab(stack, A);
-		ops += swap_ab(stack, A);
+		rev_rotate_ab(stack, A);
+		swap_ab(stack, A);
 	}
 	else
 	{
 		ft_error(UNWANTED_BEHAVIOR);
 	}
-	return (ops);
 }
 
-void	sort_five(t_stack *stack_a, t_stack *stack_b)
-{
-}
+// void	sort_five(t_stack *stack_a, t_stack *stack_b)
+// {
+// }
 
 // int	sort_five(t_stack *stack_a, t_stack *stack_b)
 // {
@@ -132,9 +129,10 @@ void	sort_five(t_stack *stack_a, t_stack *stack_b)
 // 	ops += push_ab(stack_b, stack_a, A);
 // 	return (ops);
 // }
-void	algo_five(t_root *root)
-{
-}
+
+// void	algo_five(t_root *root)
+// {
+// }
 
 int	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 {
@@ -148,7 +146,7 @@ int	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 	}
 	else if (root->stack_a->size <= 5)
 	{
-		algo_five(root)
+		// algo_five(root)
 	}
 	else if (root->stack_a->size <= 100)
 	{
@@ -156,4 +154,5 @@ int	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 	else if (root->stack_a->size <= 500)
 	{
 	}
+	return (1);
 }
