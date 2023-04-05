@@ -12,6 +12,7 @@ int	push_swap(char **input)
 	{
 		ft_error(ALREADY_SORTED);
 	}
+	pick_algo(root);
 	return (0);
 }
 

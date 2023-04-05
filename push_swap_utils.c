@@ -5,7 +5,7 @@ int	incr_sorted(t_stack *stack)
 	t_elem	*probe;
 	int		value;
 
-	printf("INCR SORTED\n");
+	// printf("INCR SORTED\n");
 	probe = stack->first;
 	value = 0;
 	while (probe && probe->next)
@@ -28,7 +28,7 @@ int	decr_sorted(t_stack *stack)
 	t_elem	*probe;
 	int		value;
 
-	printf("DECR SORTED\n");
+	// printf("DECR SORTED\n");
 	probe = stack->first;
 	value = 0;
 	while (probe && probe->next)
@@ -52,6 +52,7 @@ int	is_sorted(t_stack *stack)
 	printf("IS SORTED ?\n");
 	if (!stack || !stack->first)
 		ft_error(PTR_ERROR);
+	printf("DEBUGITOOOOO\n");
 	print_result(stack);
 	if (incr_sorted(stack))
 	{
