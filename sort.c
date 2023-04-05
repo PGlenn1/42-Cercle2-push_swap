@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 void	median_five(t_stack *stack)
 {
 	int		i;
@@ -44,29 +43,6 @@ void	get_median(t_stack *stack)
 	// else
 	//     median = median(stack);
 }
-
-// void    push_median(t_root *root, t_stack *stack)
-// {
-//     t_elem *probe;
-
-//     probe = stack->first;
-//     while (probe && !is_sorted(stack))
-//     {
-//         if (probe->value <= stack->median)
-//             push_ab(root, B);
-//         // if (!is_sorted(stack))
-//         probe = probe->next;
-//     }
-//     if (!is_sorted(stack))
-//     {
-//         if (stack == root->stack_a)
-//             pick_algo(root, root->stack_b);
-//         else if (stack == root->stack_b)
-//             pick_algo(root, root->stack_a);
-//         else
-//             ft_error(UNWANTED_BEHAVIOR);
-//     }
-// }
 
 int	sort_three(t_stack *stack)
 {
@@ -128,7 +104,6 @@ int	sort_three(t_stack *stack)
 
 void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
-
 }
 
 // int	sort_five(t_stack *stack_a, t_stack *stack_b)
@@ -157,20 +132,28 @@ void	sort_five(t_stack *stack_a, t_stack *stack_b)
 // 	ops += push_ab(stack_b, stack_a, A);
 // 	return (ops);
 // }
+void	algo_five(t_root *root)
+{
+}
 
 int	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 {
 	if (root->stack_a->size == 2)
 	{
-		printf("SORT TWO\n");
-		root->ops += swap_ab(root->stack_a, A);
+		swap_ab(root->stack_a, A);
 	}
 	else if (root->stack_a->size == 3)
-		root->ops += sort_three(root->stack_a);
+	{
+		sort_three(root->stack_a);
+	}
 	else if (root->stack_a->size <= 5)
-		root->ops += sort_five(root->stack_a, root->stack_b);
-	// print_both(root);
-	if (is_sorted(stack->stack_a))
-		return (1);
-	return (0);
+	{
+		algo_five(root)
+	}
+	else if (root->stack_a->size <= 100)
+	{
+	}
+	else if (root->stack_a->size <= 500)
+	{
+	}
 }

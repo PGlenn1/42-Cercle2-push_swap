@@ -9,20 +9,6 @@ int	push_swap(char **input)
 		ft_error(MALLOC_FAIL);
 	if (is_sorted(root->stack_a))
 		ft_error(ALREADY_SORTED);
-	else if (pick_algo(root))
-	{
-		// if (root->ops > 12)
-		// {
-		// printf("Too many ops:%d\n", root->ops);
-		// return (0);
-		// }
-		// {
-		// printf("Ops:%d\n", root->ops);
-		// }
-		print_result(root->stack_a);
-		printf("OPS:%d\n", root->ops);
-		return (1);
-	}
 	return (0);
 }
 

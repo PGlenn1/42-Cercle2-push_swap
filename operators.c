@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	push(t_stack *to, t_elem *last_from)
+void	push(t_stack *to, t_elem *last_from)
 {
 	if (to->size >= 1)
 	{
@@ -22,10 +22,9 @@ int	push(t_stack *to, t_elem *last_from)
 		to->first->prev = NULL;
 		to->last = to->first;
 	}
-	return (1);
 }
 
-int	push_ab(t_stack *from, t_stack *to, stack_ab ab)
+void	push_ab(t_stack *from, t_stack *to, stack_ab ab)
 {
 	t_elem	*last_from;
 
@@ -36,7 +35,7 @@ int	push_ab(t_stack *from, t_stack *to, stack_ab ab)
 	if (!from->first)
 	{
 		printf(BAD_OPS);
-		return (0);
+		return ;
 	}
 	if (from->size == 1)
 		from->first = from->last = NULL;
@@ -48,10 +47,9 @@ int	push_ab(t_stack *from, t_stack *to, stack_ab ab)
 	push(to, last_from);
 	from->size--;
 	to->size++;
-	return (1);
 }
 
-int	swap_ab(t_stack *stack, stack_ab ab)
+void	swap_ab(t_stack *stack, stack_ab ab)
 {
 	int	tmp;
 
@@ -61,15 +59,14 @@ int	swap_ab(t_stack *stack, stack_ab ab)
 	if (!stack->first || !stack->first->next || stack->size <= 1)
 	{
 		printf(BAD_OPS);
-		return (0);
+		return ;
 	}
 	tmp = stack->last->value;
 	stack->last->value = stack->last->prev->value;
 	stack->last->prev->value = tmp;
-	return (1);
 }
 
-int	ss(t_root *root)
+void	ss(t_root *root)
 {
 	printf("ss\n");
 	if (!root->stack_a || !root->stack_b)
@@ -77,14 +74,13 @@ int	ss(t_root *root)
 	if (root->stack_a->size <= 3 || root->stack_b->size <= 3)
 	{
 		printf(MORE_NODES);
-		return (0);
+		return ;
 	}
 	swap_ab(root->stack_a, A);
 	swap_ab(root->stack_b, B);
-	return (2);
 }
 
-int	rotate_ab(t_stack *stack, stack_ab ab)
+void	rotate_ab(t_stack *stack, stack_ab ab)
 {
 	t_elem	*second;
 	t_elem	*sec_last;
@@ -95,7 +91,7 @@ int	rotate_ab(t_stack *stack, stack_ab ab)
 	if (stack->size <= 1)
 	{
 		printf(MORE_NODES);
-		return (0);
+		return ;
 	}
 	sec_last = stack->last->prev;
 	second = stack->first;
@@ -105,18 +101,16 @@ int	rotate_ab(t_stack *stack, stack_ab ab)
 	stack->first->next = second;
 	stack->last = sec_last;
 	sec_last->next = NULL;
-	return (1);
 }
 
-int	rr(t_root *root)
+void	rr(t_root *root)
 {
 	printf("rr\n");
 	rotate_ab(root->stack_a, A);
 	rotate_ab(root->stack_b, B);
-	return (2);
 }
 
-int	rev_rotate_ab(t_stack *stack, stack_ab ab)
+void	rev_rotate_ab(t_stack *stack, stack_ab ab)
 {
 	t_elem	*second;
 
@@ -126,7 +120,7 @@ int	rev_rotate_ab(t_stack *stack, stack_ab ab)
 	if (stack->size <= 1)
 	{
 		printf(MORE_NODES);
-		return (0);
+		return ;
 	}
 	second = stack->first->next;
 	stack->last->next = stack->first;
@@ -135,13 +129,11 @@ int	rev_rotate_ab(t_stack *stack, stack_ab ab)
 	stack->last = stack->first;
 	stack->first = second;
 	stack->first->prev = NULL;
-	return (1);
 }
 
-int	rrr(t_root *root)
+void	rrr(t_root *root)
 {
 	printf("rrr\n");
 	rev_rotate_ab(root->stack_a, A);
 	rev_rotate_ab(root->stack_b, B);
-	return (2);
 }
