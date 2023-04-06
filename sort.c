@@ -131,13 +131,6 @@ void	sort_five(t_stack *stack_a, t_stack *stack_b)
 // {
 // }
 
-void	calc_execution(t_root *root, t_stack *stack)
-{
-	///// THIS IS WHERE THE MAGIC HAPPENS.
-	(void)stack;
-	sort_five(root->stack_a, root->stack_b); // TMP WHILE DEV
-}
-
 void	call_stack_op(t_stack *stack, t_stack *to, char ab)
 {
 	if (stack->operator== SWAP)
@@ -191,17 +184,31 @@ void	exec_ops(t_root *root)
 	else
 	{
 		call_stack_op(root->stack_a, root->stack_b, 'a');
-		// call_stack_op(root->stack_b, root->stack_a, 'b');
+		call_stack_op(root->stack_b, root->stack_a, 'b');
 	}
 	root->stack_a->operator= NOT_SET;
 	root->stack_b->operator= NOT_SET;
 	root->ops++;
 }
 
+void	calc_execution_a(t_root *root, t_stack *stack)
+{
+	///// THIS IS WHERE THE MAGIC HAPPENS.
+	is_sorted(stack);
+	if (stack->size == 3)
+	{
+		sort_three(root->stack_a);
+	}
+	else if (stack->size >= 4)
+	{
+		if ()
+	}
+}
+
 void	op_calls(t_root *root)
 {
-	calc_execution(root, root->stack_a);
-	calc_execution(root, root->stack_b);
+	calc_execution_a(root, root->stack_a);
+	calc_execution_b(root, root->stack_b);
 	// optimize(root);
 	exec_ops(root);
 }
