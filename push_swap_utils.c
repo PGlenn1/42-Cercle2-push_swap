@@ -52,7 +52,6 @@ int	is_sorted(t_stack *stack)
 	printf("IS SORTED ?\n");
 	if (!stack || !stack->first)
 		ft_error(PTR_ERROR);
-	printf("DEBUGITOOOOO\n");
 	print_result(stack);
 	if (incr_sorted(stack))
 	{
@@ -137,8 +136,8 @@ void	print_node(t_elem *node)
 {
 	printf("\n");
 	printf("node->prev:%p\n", node->prev);
-	printf("node:%p\n", node);
 	printf("node->value:%d\n", node->value);
+	printf("node:%p\n", node);
 	printf("node->next:%p\n", node->next);
 	printf("\n");
 }
@@ -151,7 +150,7 @@ void	print_result(t_stack *stack)
 	probe = stack->first;
 	while (probe->next)
 	{
-		printf("--> %d ", probe->value);
+		printf("--> %d |", probe->value);
 		probe = probe->next;
 	}
 	printf("--> %d", probe->value);
@@ -181,9 +180,9 @@ void	print_both(t_root *root)
 	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	// root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
-	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
-	// printf("\n");
+	root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
+	root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
+	printf("\n");
 	printf("\n");
 	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)

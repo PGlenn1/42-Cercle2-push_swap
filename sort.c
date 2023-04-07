@@ -37,17 +37,17 @@ void	sort_three(t_stack *stack)
 		// first < sec_last < last
 		// 2 4 6
 		printf("A\n");
-		// rotate_ab(stack);
-		stack->operator= ROT;
-		// swap_ab(stack);
+		rotate_ab(stack);
+		// stack->operator= ROT;
+		swap_ab(stack);
 	}
 	else if (first < last && last < sec_last)
 	{
 		// first < last < sec_last
 		// 1 8 5
 		printf("B\n");
-		stack->operator= REV_ROT;
-		// rev_rotate_ab(stack);
+		// stack->operator= REV_ROT;
+		rev_rotate_ab(stack);
 	}
 	else if (sec_last < first && first < last)
 	{
@@ -70,9 +70,9 @@ void	sort_three(t_stack *stack)
 		// last < first < sec_last
 		// 5 6 4
 		printf("E\n");
-		stack->operator= REV_ROT;
-		// rev_rotate_ab(stack);
-		// swap_ab(stack);
+		// stack->operator= REV_ROT;
+		rev_rotate_ab(stack);
+		swap_ab(stack);
 	}
 	else
 	{
@@ -210,11 +210,14 @@ void	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 	}
 	else
 	{
-		printf("SIZE 5 DEBUG\n");
 		// while (root->stack_a->order != DECREASING)
 		// {
-			printf("TEST\n");
-			op_calls(root);
+		// print_result(root->stack_a);
+		print_both(root);
+		push_ab(root->stack_a, root->stack_b);
+		push_ab(root->stack_a, root->stack_b);
+		print_both(root);
+		// op_calls(root);
 		// }
 	}
 }

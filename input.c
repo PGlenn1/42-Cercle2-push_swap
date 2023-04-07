@@ -42,9 +42,9 @@ void	assign_index(t_stack *stack_a, int *array)
 		}
 		if (probe->value == array[i])
 			probe->index = i;
-		printf("probe->index:%d\n", probe->index);
-		printf("probe->value:%d\n", probe->value);
-		printf("----\n");
+		// printf("probe->index:%d\n", probe->index);
+		// printf("probe->value:%d\n", probe->value);
+		// printf("----\n");
 		i++;
 	}
 }
