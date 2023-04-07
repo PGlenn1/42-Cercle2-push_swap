@@ -1,48 +1,24 @@
 #include "push_swap.h"
 
-void	median_five(t_stack *stack)
-{
-	int		i;
-	int		*array;
-	t_elem	*probe;
+// void	get_median(t_stack *stack)
+// {
+// 	int	first;
+// 	int	middle;
+// 	int	last;
 
-	array = malloc(sizeof(int) * stack->size);
-	if (!array)
-		ft_error(MALLOC_FAIL);
-	probe = stack->first;
-	i = 0;
-	while (probe)
-	{
-		array[i] = probe->value;
-		probe = probe->next;
-		i++;
-	}
-	array = bubble_sort(array, 5);
-	stack->median = array[2];
-	printf("FOUND MEDIAN:%d\n", stack->median);
-	free(array);
-}
-
-void	get_median(t_stack *stack)
-{
-	int	first;
-	int	middle;
-	int	last;
-
-	if (!stack || !stack->first)
-		return ;
-	(void)middle;
-	first = stack->first->value;
-	last = stack->first->value;
-	(void)last;
-	(void)first;
-	if (stack->size <= 12)
-		median_five(stack);
-	// else if
-	//     median = median_twelve(stack);
-	// else
-	//     median = median(stack);
-}
+// 	if (!stack || !stack->first)
+// 		return ;
+// 	(void)middle;
+// 	first = stack->first->value;
+// 	last = stack->first->value;
+// 	(void)last;
+// 	(void)first;
+// 	pre_sort(stack);
+// 	// else if
+// 	//     median = median_twelve(stack);
+// 	// else
+// 	//     median = median(stack);
+// }
 
 void	sort_three(t_stack *stack)
 {
@@ -111,7 +87,7 @@ void	sort_three(t_stack *stack)
 void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
 	printf("SORT FIVE\n");
-	get_median(stack_a);
+	// get_median(stack_a);
 	if (stack_a->size > 3)
 	{
 		if (stack_a->last->value < stack_a->median)
@@ -201,14 +177,14 @@ void	calc_execution_a(t_root *root, t_stack *stack)
 	}
 	else if (stack->size >= 4)
 	{
-		if ()
+		// if ()
 	}
 }
 
 void	op_calls(t_root *root)
 {
 	calc_execution_a(root, root->stack_a);
-	calc_execution_b(root, root->stack_b);
+	// calc_execution_b(root, root->stack_b);
 	// optimize(root);
 	exec_ops(root);
 }
@@ -235,10 +211,10 @@ void	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 	else
 	{
 		printf("SIZE 5 DEBUG\n");
-		while (root->stack_a->order != DECREASING)
-		{
+		// while (root->stack_a->order != DECREASING)
+		// {
 			printf("TEST\n");
 			op_calls(root);
-		}
+		// }
 	}
 }

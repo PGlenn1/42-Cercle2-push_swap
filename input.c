@@ -27,6 +27,50 @@ static int	check_len(char *str)
 	return (0);
 }
 
+void	assign_index(t_stack *stack_a, int *array)
+{
+	int		i;
+	t_elem	*probe;
+
+	i = 0;
+	while (i < stack_a->size)
+	{
+		probe = stack_a->first;
+		while (probe->value != array[i])
+		{
+			probe = probe->next;
+		}
+		if (probe->value == array[i])
+			probe->index = i;
+		printf("probe->index:%d\n", probe->index);
+		printf("probe->value:%d\n", probe->value);
+		printf("----\n");
+		i++;
+	}
+}
+
+void	pre_sort(t_stack *stack)
+{
+	int		i;
+	int		*array;
+	t_elem	*probe;
+
+	array = malloc(sizeof(int) * stack->size);
+	if (!array)
+		ft_error(MALLOC_FAIL);
+	probe = stack->first;
+	i = 0;
+	while (probe)
+	{
+		array[i] = probe->value;
+		probe = probe->next;
+		i++;
+	}
+	bubble_sort(array, stack->size);
+	assign_index(stack, array);
+	free(array);
+}
+
 static void	check_input(char **input)
 {
 	int		i;
@@ -82,8 +126,9 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
-	root->stack_a->operator = NOT_SET;
-	root->stack_b->operator = NOT_SET;
+	pre_sort(root->stack_a);
+	root->stack_a->operator= NOT_SET;
+	root->stack_b->operator= NOT_SET;
 	root->ops = 0;
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;

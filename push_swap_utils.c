@@ -93,6 +93,7 @@ t_elem	*ps_lstnew(int value)
 	ptr = (struct s_elem *)malloc(sizeof(struct s_elem));
 	if (!ptr)
 		return (NULL);
+	ptr->index = 0;
 	ptr->value = value;
 	ptr->prev = NULL;
 	ptr->next = NULL;

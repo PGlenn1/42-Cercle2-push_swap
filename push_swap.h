@@ -51,6 +51,7 @@ typedef struct s_stack
 typedef struct s_elem
 {
 	int				value;
+	int				index;
 	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
