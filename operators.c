@@ -98,9 +98,9 @@ void	rr(t_root *root)
 
 void	rev_rotate_ab(t_stack *stack)
 {
-	t_elem	*second;
-	t_elem	*sec_last;
+	t_elem *sec_last;
 
+	printf("REV ROT\n");
 	if (!stack)
 		ft_error(PTR_ERROR);
 	if (stack->size <= 1)
@@ -109,11 +109,10 @@ void	rev_rotate_ab(t_stack *stack)
 		return ;
 	}
 	sec_last = stack->last->prev;
-	second = stack->first;
+	stack->last->next = stack->first;
 	stack->first->prev = stack->last;
 	stack->first = stack->last;
 	stack->first->prev = NULL;
-	stack->first->next = second;
 	stack->last = sec_last;
 	sec_last->next = NULL;
 }

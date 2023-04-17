@@ -214,20 +214,6 @@ void	pick_algo(t_root *root) /// LAST MUST BE SMALLEST
 		// {
 		// print_result(root->stack_a);
 		print_both(root);
-		rotate_ab(root->stack_a);
-		rotate_ab(root->stack_a);
-		rotate_ab(root->stack_a);
-		rotate_ab(root->stack_a);
-		// rotate_ab(root->stack_a);
-		// push_ab(root->stack_a, root->stack_b);
-		// print_both(root);
-		// push_ab(root->stack_a, root->stack_b);
-		// print_both(root);
-		// push_ab(root->stack_a, root->stack_b);
-		// push_ab(root->stack_a, root->stack_b);
-		// print_both(root);
-		// push_ab(root->stack_a, root->stack_b);
-		print_both(root);
 		// op_calls(root);
 		// }
 	}
