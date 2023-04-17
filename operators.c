@@ -9,7 +9,7 @@ void	push(t_stack *to, t_elem *first_from)
 	}
 	else
 	{
-		to->first->next = first_from;
+		to->first->prev = first_from;
 		first_from->next = to->first;
 	}
 	to->first = first_from;
