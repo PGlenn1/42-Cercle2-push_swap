@@ -137,6 +137,7 @@ void	print_node(t_elem *node)
 	printf("\n");
 	printf("node->prev:%p\n", node->prev);
 	printf("node->value:%d\n", node->value);
+	printf("node->index:%d\n", node->index);
 	printf("node:%p\n", node);
 	printf("node->next:%p\n", node->next);
 	printf("\n");

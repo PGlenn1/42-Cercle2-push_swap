@@ -143,10 +143,10 @@ void	init_stacks(t_root *root, char **input)
 	stack_a = malloc(sizeof(t_stack));
 	if (!stack_a)
 		ft_error(MALLOC_FAIL);
+	root->stack_a = stack_a;
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
 		ft_error(MALLOC_FAIL);
-	root->stack_a = stack_a;
 	root->stack_b = stack_b;
 	root->ops = 0;
 	init_stack_values(root, input);

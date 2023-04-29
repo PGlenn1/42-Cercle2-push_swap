@@ -54,7 +54,6 @@ void	swap_ab(t_stack *stack)
 	val_tmp = stack->first->value;
 	stack->first->value = stack->first->next->value;
 	stack->first->next->value = val_tmp;
-
 	ind_tmp = stack->first->index;
 	stack->first->index = stack->first->next->index;
 	stack->first->next->index = ind_tmp;
@@ -98,7 +97,7 @@ void	rr(t_root *root)
 
 void	rev_rotate_ab(t_stack *stack)
 {
-	t_elem *sec_last;
+	t_elem	*sec_last;
 
 	printf("REV ROT\n");
 	if (!stack)
