@@ -2,8 +2,7 @@
 
 int	push_swap(char **input)
 {
-	t_root		*root;
-	static int	i;
+	t_root	*root;
 
 	root = init_root(input);
 	if (!root)
@@ -15,17 +14,8 @@ int	push_swap(char **input)
 	}
 	while (root->stack_a->order != INCREASING)
 	{
+		printf("PROUT\n");
 		sort_stacks(root);
-		// is_sorted(root->stack_a);
-		// rotate_ab(root->stack_a);
-		if (i++ == 6)
-		{
-			print_both(root);
-			// print_result(root->stack_a);
-			printf("size:%d\n", root->stack_a->size);
-			printf("i:%d\n", i);
-			return (0);
-		}
 	}
 	return (1);
 }

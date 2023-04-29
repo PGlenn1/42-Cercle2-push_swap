@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	sort_three(t_stack *stack)
+void	sort_three_a(t_stack *stack)
 {
 	int	first;
 	int	second;
@@ -16,9 +16,7 @@ void	sort_three(t_stack *stack)
 		// first > second > third
 		// 3 2 1
 		printf("A\n");
-		stack->operator= SWAP;
-		// swap_ab(stack);
-		// rev_rotate_ab(stack);
+		stack->operator= REV_ROT;
 	}
 	else if (first > third && third > second)
 	{
@@ -26,7 +24,6 @@ void	sort_three(t_stack *stack)
 		// 3 1 2
 		printf("B\n");
 		stack->operator= ROT;
-		// rev_rotate_ab(stack);
 	}
 	else if (second > first && first > third)
 	{
@@ -34,15 +31,13 @@ void	sort_three(t_stack *stack)
 		// 2 3 1
 		printf("C\n");
 		stack->operator= REV_ROT;
-		// rotate_ab(stack);
 	}
 	else if (second > third && third > first)
 	{
 		// second > third > first
 		// 1 3 2
 		printf("D\n");
-		stack->operator= SWAP;
-		// swap_ab(stack);
+		stack->operator= REV_ROT;
 	}
 	else if (third > first && first > second)
 	{
@@ -50,14 +45,55 @@ void	sort_three(t_stack *stack)
 		// 2 1 3
 		printf("E\n");
 		stack->operator= SWAP;
-		// rev_rotate_ab(stack);
-		// swap_ab(stack);
 	}
 	else
 	{
-		printf("Z\n");
+		printf("F\n");
 		ft_error(UNWANTED_BEHAVIOR);
 	}
+}
+
+void	sort_three_b(t_stack *stack)
+{
+	int	first;
+	int	second;
+	int	third;
+
+	first = stack->first->value;
+	third = stack->last->value;
+	second = stack->last->prev->value;
+	if (first < second && second < third)
+	{
+		printf("A\n");
+		// 1 2 3
+		stack->operator= ROT;
+	}
+	else if (first < third && third < second)
+	{
+		printf("B\n");
+		// 1 3 2
+		stack->operator= ROT;
+	}
+	else if (second < first && first < third)
+	{
+		printf("C\n");
+		// 2 1 3
+		stack->operator= REV_ROT;
+	}
+	else if (second < third && third < first)
+	{
+		printf("D\n");
+		// 3 1 2
+		stack->operator= ROT;
+	}
+	else if (third < first && first < second)
+	{
+		printf("D\n");
+		// 2 3 1
+		stack->operator= SWAP;
+	}
+	else
+		ft_error(UNWANTED_BEHAVIOR);
 }
 
 // void	sort_five(t_root *root)
@@ -110,36 +146,27 @@ void	call_combined_ops(t_root *root)
 	}
 }
 
-void	algo_sort_a(t_stack *stack)
-{
-	printf("ALGO SORT A\n");
-	if (stack->size < 2)
-	{
-		ft_error(UNWANTED_BEHAVIOR);
-	}
-	else if (stack->size == 2)
-	{
-		stack->operator= SWAP;
-	}
-	else if (stack->size == 3)
-	{
-		sort_three(stack);
-	}
-	else if (stack->size <= 5)
-	{
-	}
-}
-
 void	sort_stacks(t_root *root)
 {
-	printf("SORT STACKS\n");
-
-	if (root->stack_a->order != INCREASING)
-		algo_sort_a(root->stack_a);
-	// if (root->stack_b->order != DECREASING)
-	// 	algo_sort_a(root->stack_b);
+	if (root->stack_size == 2)
+	{
+		swap_ab(root->stack_a);
+	}
+	else if (root->stack_size == 3)
+	{
+		sort_three_a(root->stack_a);
+	}
+	else if (root->stack_size <= 5)
+	{
+		sort_five(root);
+	}
+	else if (root->stack_size <= 100)
+	{
+	}
+	else if (root->stack_size <= 500)
+	{
+	}
 	call_stack_op(root->stack_a, root->stack_b, 'a');
 	is_sorted(root->stack_a);
-	// print_result(root->stack_a);
-	(void)root;
+	printf("SORTED RESULT:%d\n", root->stack_a->order);
 }

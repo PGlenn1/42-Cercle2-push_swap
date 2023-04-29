@@ -130,6 +130,7 @@ void	init_stack_values(t_root *root, char **input)
 	root->stack_a->operator= NOT_SET;
 	root->stack_b->operator= NOT_SET;
 	root->ops = 0;
+	root->stack_size = root->stack_a->size;
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;

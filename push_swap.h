@@ -61,6 +61,7 @@ typedef struct s_root
 	struct s_stack	*stack_a;
 	struct s_stack	*stack_b;
 	int				ops;
+	int				stack_size;
 	// struct s_data	*data;
 }					t_root;
 
