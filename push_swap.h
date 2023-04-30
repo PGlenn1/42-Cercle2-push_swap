@@ -21,6 +21,12 @@ typedef enum
 
 typedef enum
 {
+	A,
+	B,
+}					stack_ab;
+
+typedef enum
+{
 	NOT_SET,
 	SWAP,
 	SS,
@@ -66,7 +72,8 @@ typedef struct s_root
 }					t_root;
 
 t_root				*init_root(char **input);
-int					is_sorted(t_stack *stack);
+// int					is_sorted(t_stack *stack);
+order_type			is_sorted(t_stack *stack);
 void				sort_stacks(t_root *root);
 // void				pick_algo(t_root *root);
 void				print_sort_values(int first, int sec_last, int last);

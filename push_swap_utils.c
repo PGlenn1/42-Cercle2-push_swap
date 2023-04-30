@@ -14,10 +14,7 @@ int	incr_sorted(t_stack *stack)
 		if (value == probe->next->value)
 			ft_error(UNWANTED_BEHAVIOR);
 		if (value > probe->next->value)
-		{
-			// print_result(stack);
 			return (0);
-		}
 		probe = probe->next;
 	}
 	return (1);
@@ -37,37 +34,24 @@ int	decr_sorted(t_stack *stack)
 		if (value == probe->next->value)
 			ft_error(UNWANTED_BEHAVIOR);
 		if (value < probe->next->value)
-		{
-			// print_result(stack);
-			// printf("Not sorted\n");
 			return (0);
-		}
 		probe = probe->next;
 	}
 	return (1);
 }
 
-int	is_sorted(t_stack *stack)
+order_type	is_sorted(t_stack *stack)
 {
 	printf("IS SORTED ?\n");
 	if (!stack || !stack->first)
 		ft_error(PTR_ERROR);
 	print_result(stack);
 	if (incr_sorted(stack))
-	{
-		stack->order = INCREASING;
-		return (1);
-	}
+		return (INCREASING);
 	else if (decr_sorted(stack))
-	{
-		stack->order = DECREASING;
-		return (1);
-	}
+		return (DECREASING);
 	else
-	{
-		stack->order = NOT_SORTED;
-		return (0);
-	}
+		return (NOT_SORTED);
 }
 
 int	get_stack_size(t_stack *stack) // Only for dev

@@ -7,14 +7,12 @@ int	push_swap(char **input)
 	root = init_root(input);
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	is_sorted(root->stack_a);
-	if (root->stack_a->order == INCREASING)
+	if (is_sorted(root->stack_a) == DECREASING)
 	{
 		ft_error(ALREADY_SORTED);
 	}
-	while (root->stack_a->order != INCREASING)
+	while (is_sorted(root->stack_a) != DECREASING)
 	{
-		printf("PROUT\n");
 		sort_stacks(root);
 	}
 	return (1);
