@@ -157,7 +157,7 @@ void	sort_stacks(t_root *root)
 		swap_ab(root->stack_a);
 	else if (root->stack_size == 3)
 	{
-		sort_three_b(root->stack_a, root->stack_a->first->value,
+		sort_three_a(root->stack_a, root->stack_a->first->value,
 				root->stack_a->first->next->value, root->stack_a->last->value);
 	}
 	else if (root->stack_size <= 5)
