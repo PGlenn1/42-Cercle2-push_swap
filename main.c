@@ -7,15 +7,17 @@ int	push_swap(char **input)
 	root = init_root(input);
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	if (is_sorted(root->stack_a) == INCREASING)
+	if (stack_is_sorted(root->stack_a) == INCREASING)
 	{
 		ft_error(ALREADY_SORTED);
 	}
-	while (is_sorted(root->stack_a) != INCREASING)
-	{
+	while (!final_is_sorted(root))
 		sort_stacks(root);
-	}
-	return (1);
+	print_both(root);
+	if (final_is_sorted(root))
+		return (1);
+	else
+		return (0);
 }
 
 int	main(int argc, char **argv)

@@ -42,6 +42,7 @@ void	sort_three_a(t_stack *stack, int first, int second, int third)
 	else
 	{
 		printf("F\n");
+		print_result(stack);
 		ft_error(UNWANTED_BEHAVIOR);
 	}
 }
@@ -94,15 +95,15 @@ void	sort_three_b(t_stack *stack, int first, int second, int third)
 
 void	sort_five(t_root *root)
 {
-	while (root->stack_a->size > 3)
-		push_ab(root->stack_a, root->stack_b);
-	if (is_sorted(root->stack_b))
-	{
-	}
+	t_elem	*probe;
+
+	probe = root->stack_a->first;
+	
 }
 
 void	call_stack_op(t_stack *stack, t_stack *to, char ab)
 {
+	printf("CALL STACK OP\n");
 	if (stack->operator== SWAP)
 	{
 		swap_ab(stack);
@@ -123,6 +124,8 @@ void	call_stack_op(t_stack *stack, t_stack *to, char ab)
 		rev_rotate_ab(stack);
 		ft_putstr_fd("rr", 1);
 	}
+	else
+		stack->operator= NOT_SET;
 	write(1, &ab, 1);
 	write(1, "\n", 1);
 }
@@ -171,6 +174,6 @@ void	sort_stacks(t_root *root)
 	{
 	}
 	call_stack_op(root->stack_a, root->stack_b, 'a');
-	is_sorted(root->stack_a);
-	printf("SORTED RESULT:%d\n", root->stack_a->order);
+	// stack_is_sorted(root->stack_a);
+	// printf("SORTED RESULT:%d\n", root->stack_a->order);
 }

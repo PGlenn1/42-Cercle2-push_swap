@@ -40,18 +40,27 @@ int	decr_sorted(t_stack *stack)
 	return (1);
 }
 
-order_type	is_sorted(t_stack *stack)
+order_type	stack_is_sorted(t_stack *stack)
 {
 	printf("IS SORTED ?\n");
 	if (!stack || !stack->first)
 		ft_error(PTR_ERROR);
-	print_result(stack);
+	// print_result(stack);
 	if (incr_sorted(stack))
 		return (INCREASING);
 	else if (decr_sorted(stack))
 		return (DECREASING);
 	else
 		return (NOT_SORTED);
+}
+
+int	final_is_sorted(t_root *root)
+{
+	if (stack_is_sorted(root->stack_a) == INCREASING
+		&& root->stack_a->size == root->stack_size)
+		return (1);
+	else
+		return (0);
 }
 
 int	get_stack_size(t_stack *stack) // Only for dev
@@ -165,10 +174,10 @@ void	print_both(t_root *root)
 	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
-	root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
-	printf("\n");
-	printf("\n");
+	// root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
+	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
+	// printf("\n");
+	// printf("\n");
 	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)
 		print_result(root->stack_a);
