@@ -6,6 +6,8 @@ int	incr_sorted(t_stack *stack)
 	int		value;
 
 	// printf("INCR SORTED\n");
+	// if (stack->size < 2)
+	// 	return (0);
 	probe = stack->first;
 	value = 0;
 	while (probe && probe->next)
@@ -26,6 +28,8 @@ int	decr_sorted(t_stack *stack)
 	int		value;
 
 	// printf("DECR SORTED\n");
+	// if (stack->size < 2)
+	// 	return (0);
 	probe = stack->first;
 	value = 0;
 	while (probe && probe->next)
@@ -42,8 +46,8 @@ int	decr_sorted(t_stack *stack)
 
 order_type	stack_is_sorted(t_stack *stack)
 {
-	printf("IS SORTED ?\n");
-	if (!stack || !stack->first)
+	// printf("IS SORTED ?\n");
+	if (!stack)
 		ft_error(PTR_ERROR);
 	// print_result(stack);
 	if (incr_sorted(stack))
@@ -141,6 +145,12 @@ void	print_result(t_stack *stack)
 	t_elem	*probe;
 
 	printf("\nPRINT RESULT\n");
+	printf("median:%d\n", stack->median);
+	if (!stack->first)
+	{
+		printf("STACK EMPTY\n");
+		return;
+	}
 	probe = stack->first;
 	while (probe->next)
 	{

@@ -3,6 +3,9 @@
 void	sort_three_a(t_stack *stack, int first, int second, int third)
 {
 	printf("SORT THREE A\n");
+	printf("first:%d\n", first);
+	printf("second:%d\n", second);
+	printf("third:%d\n", third);
 	printf("PATH ");
 	if (first > second && second > third)
 	{
@@ -51,6 +54,7 @@ void	sort_three_b(t_stack *stack, int first, int second, int third)
 {
 	printf("SORT THREE B\n");
 	printf("PATH ");
+	// print_result(stack);
 	if (first < second && second < third)
 	{
 		// first > second > third
@@ -93,12 +97,25 @@ void	sort_three_b(t_stack *stack, int first, int second, int third)
 	}
 }
 
-void	sort_five(t_root *root)
+void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
-	t_elem	*probe;
+	t_elem *probe;
 
-	probe = root->stack_a->first;
-	
+	printf("SORT FIVE\n");
+	probe = stack_a->first;
+	if (stack_is_sorted(stack_a) != INCREASING && stack_a->size > 3)
+	{
+		if (probe->value < stack_a->median)
+			stack_a->operator = PUSH;
+		else
+			stack_a->operator = ROT;
+	}
+	else if (stack_a->size == 3 && stack_is_sorted(stack_a) != INCREASING)
+		sort_three_a(stack_a, stack_a->first->value, stack_a->first->next->value, stack_a->last->value);
+	if (stack_is_sorted(stack_b) != DECREASING && stack_b->size == 2 && stack_a->operator != NOT_SET && stack_a->operator != PUSH)
+		stack_b->operator = stack_a->operator;
+	else if ((stack_is_sorted(stack_b) == DECREASING) && stack_is_sorted(stack_a) == INCREASING)
+		stack_b->operator = PUSH;
 }
 
 void	call_stack_op(t_stack *stack, t_stack *to, char ab)
@@ -125,15 +142,15 @@ void	call_stack_op(t_stack *stack, t_stack *to, char ab)
 		ft_putstr_fd("rr", 1);
 	}
 	else
-		stack->operator= NOT_SET;
+		return ;
 	write(1, &ab, 1);
 	write(1, "\n", 1);
 }
 
 void	call_combined_ops(t_root *root)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	t_stack *stack_a;
+	t_stack *stack_b;
 
 	stack_a = root->stack_a;
 	stack_b = root->stack_b;
@@ -152,10 +169,17 @@ void	call_combined_ops(t_root *root)
 		ft_putstr_fd("rrr\n", 1);
 		rrr(root);
 	}
+	else
+	{
+		call_stack_op(stack_a, stack_b, 'a');
+		call_stack_op(stack_b, stack_a, 'b');
+	}
 }
 
 void	sort_stacks(t_root *root)
 {
+	printf("SORT STACKS\n");
+	print_both(root);
 	if (root->stack_size == 2)
 		swap_ab(root->stack_a);
 	else if (root->stack_size == 3)
@@ -165,7 +189,7 @@ void	sort_stacks(t_root *root)
 	}
 	else if (root->stack_size <= 5)
 	{
-		sort_five(root);
+		sort_five(root->stack_a, root->stack_b);
 	}
 	else if (root->stack_size <= 100)
 	{
@@ -173,7 +197,10 @@ void	sort_stacks(t_root *root)
 	else if (root->stack_size <= 500)
 	{
 	}
-	call_stack_op(root->stack_a, root->stack_b, 'a');
+	call_combined_ops(root);
+	// print_both(root);
+	root->stack_a->operator = root->stack_b->operator = NOT_SET;
+	// call_stack_op(root->stack_a, root->stack_b, 'a');
 	// stack_is_sorted(root->stack_a);
 	// printf("SORTED RESULT:%d\n", root->stack_a->order);
 }

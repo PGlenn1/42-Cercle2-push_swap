@@ -37,14 +37,9 @@ void	assign_index(t_stack *stack_a, int *array)
 	{
 		probe = stack_a->first;
 		while (probe->value != array[i])
-		{
 			probe = probe->next;
-		}
 		if (probe->value == array[i])
 			probe->index = i;
-		// printf("probe->index:%d\n", probe->index);
-		// printf("probe->value:%d\n", probe->value);
-		// printf("----\n");
 		i++;
 	}
 }
@@ -68,6 +63,7 @@ void	pre_sort(t_stack *stack)
 	}
 	bubble_sort(array, stack->size);
 	assign_index(stack, array);
+	stack->median = array[stack->size / 2];
 	free(array);
 }
 
@@ -134,6 +130,7 @@ void	init_stack_values(t_root *root, char **input)
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
+	root->stack_b->median = 0;
 }
 
 void	init_stacks(t_root *root, char **input)

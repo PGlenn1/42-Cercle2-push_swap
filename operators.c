@@ -63,7 +63,7 @@ void	ss(t_root *root)
 {
 	if (!root->stack_a || !root->stack_b)
 		ft_error(PTR_ERROR);
-	if (root->stack_a->size <= 3 || root->stack_b->size <= 3)
+	if (root->stack_a->size <= 1 || root->stack_b->size <= 1)
 	{
 		printf(MORE_NODES);
 		return ;

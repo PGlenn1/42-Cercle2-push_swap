@@ -11,13 +11,18 @@ int	push_swap(char **input)
 	{
 		ft_error(ALREADY_SORTED);
 	}
+	// static int i;
 	while (!final_is_sorted(root))
+	{
+		// if (i > 12)
+		// 	return (0);
 		sort_stacks(root);
+		// i++;
+	}
 	print_both(root);
 	if (final_is_sorted(root))
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
 int	main(int argc, char **argv)
