@@ -97,25 +97,45 @@ void	sort_three_b(t_stack *stack, int first, int second, int third)
 	}
 }
 
-void	sort_five(t_stack *stack_a, t_stack *stack_b)
+int	find_remaining_values(t_stack *stack, int median)
 {
-	t_elem *probe;
+	t_elem	*probe;
 
-	printf("SORT FIVE\n");
-	probe = stack_a->first;
-	if (stack_is_sorted(stack_a) != INCREASING && stack_a->size > 3)
+	probe = stack->first;
+	while (probe)
 	{
-		if (probe->value < stack_a->median)
-			stack_a->operator = PUSH;
-		else
-			stack_a->operator = ROT;
+		if (probe->value < median)
+			return (1);
+		probe = probe->next;
 	}
-	else if (stack_a->size == 3 && stack_is_sorted(stack_a) != INCREASING)
-		sort_three_a(stack_a, stack_a->first->value, stack_a->first->next->value, stack_a->last->value);
-	if (stack_is_sorted(stack_b) != DECREASING && stack_b->size == 2 && stack_a->operator != NOT_SET && stack_a->operator != PUSH)
-		stack_b->operator = stack_a->operator;
-	else if ((stack_is_sorted(stack_b) == DECREASING) && stack_is_sorted(stack_a) == INCREASING)
-		stack_b->operator = PUSH;
+}
+
+void	sort_five(t_stack *stack_a, t_stack *stack_b, int median)
+{
+	stack_a->order = stack_is_sorted(stack_a);
+	stack_b->order = stack_is_sorted(stack_b);
+	if (find_remaining_values(stack_a, median))
+	{
+		if (stack_a->first->value < median)
+			stack_a->operator= PUSH;
+		else
+			stack_a->operator= ROT;
+	}
+	else if (stack_a->order != INCREASING)
+	{
+		if (stack_a->size == 3)
+			sort_three_a(stack_a, stack_a->first->value,
+					stack_a->first->next->value, stack_a->last->value);
+		else if (stack_a->size == 2)
+			stack_a->operator== SWAP;
+	}
+	else if (stack_a->order == INCREASING && stack_b->order == DECREASING)
+		stack_b->operator= PUSH;
+	if (stack_is_sorted(stack_b) != DECREASING && stack_b->size > 1)
+	{
+		printf("DEBUG\n");
+		stack_b->operator= stack_a->operator;
+	}
 }
 
 void	call_stack_op(t_stack *stack, t_stack *to, char ab)
@@ -149,8 +169,8 @@ void	call_stack_op(t_stack *stack, t_stack *to, char ab)
 
 void	call_combined_ops(t_root *root)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
 	stack_a = root->stack_a;
 	stack_b = root->stack_b;
@@ -189,7 +209,7 @@ void	sort_stacks(t_root *root)
 	}
 	else if (root->stack_size <= 5)
 	{
-		sort_five(root->stack_a, root->stack_b);
+		sort_five(root->stack_a, root->stack_b, root->stack_a->median);
 	}
 	else if (root->stack_size <= 100)
 	{
@@ -199,7 +219,7 @@ void	sort_stacks(t_root *root)
 	}
 	call_combined_ops(root);
 	// print_both(root);
-	root->stack_a->operator = root->stack_b->operator = NOT_SET;
+	root->stack_a->operator= root->stack_b->operator= NOT_SET;
 	// call_stack_op(root->stack_a, root->stack_b, 'a');
 	// stack_is_sorted(root->stack_a);
 	// printf("SORTED RESULT:%d\n", root->stack_a->order);
