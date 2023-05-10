@@ -7,7 +7,8 @@ int	push_swap(char **input)
 	root = init_root(input);
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	if (stack_is_sorted(root->stack_a) == INCREASING)
+	// if (stack_is_sorted(root->stack_a) == INCREASING)
+	if (incr_sorted(root->stack_a))
 	{
 		ft_error(ALREADY_SORTED);
 	}
@@ -21,7 +22,10 @@ int	push_swap(char **input)
 	}
 	print_both(root);
 	if (final_is_sorted(root))
+	{
+		printf("OPS:%d\n", root->ops);
 		return (1);
+	}
 	return (0);
 }
 

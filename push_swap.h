@@ -73,6 +73,8 @@ typedef struct s_root
 
 t_root				*init_root(char **input);
 order_type			stack_is_sorted(t_stack *stack);
+int					decr_sorted(t_stack *stack);
+int					incr_sorted(t_stack *stack);
 int					final_is_sorted(t_root *root);
 void				sort_stacks(t_root *root);
 // void				pick_algo(t_root *root);

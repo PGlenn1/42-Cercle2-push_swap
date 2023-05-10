@@ -3,19 +3,12 @@
 int	incr_sorted(t_stack *stack)
 {
 	t_elem	*probe;
-	int		value;
 
 	// printf("INCR SORTED\n");
-	// if (stack->size < 2)
-	// 	return (0);
 	probe = stack->first;
-	value = 0;
 	while (probe && probe->next)
 	{
-		value = probe->value;
-		if (value == probe->next->value)
-			ft_error(UNWANTED_BEHAVIOR);
-		if (value > probe->next->value)
+		if (probe->index + 1 != probe->next->index)
 			return (0);
 		probe = probe->next;
 	}
@@ -25,20 +18,17 @@ int	incr_sorted(t_stack *stack)
 int	decr_sorted(t_stack *stack)
 {
 	t_elem	*probe;
-	int		value;
 
 	// printf("DECR SORTED\n");
-	// if (stack->size < 2)
-	// 	return (0);
 	probe = stack->first;
-	value = 0;
+	printf("ALLO %d\n", stack->first->value);
 	while (probe && probe->next)
 	{
-		value = probe->value;
-		if (value == probe->next->value)
-			ft_error(UNWANTED_BEHAVIOR);
-		if (value < probe->next->value)
+		if (probe->index - 1 != probe->next->index)
+		{
+			printf("NOT SORTED LEL\n");
 			return (0);
+		}
 		probe = probe->next;
 	}
 	return (1);
@@ -46,10 +36,6 @@ int	decr_sorted(t_stack *stack)
 
 order_type	stack_is_sorted(t_stack *stack)
 {
-	// printf("IS SORTED ?\n");
-	if (!stack)
-		ft_error(PTR_ERROR);
-	// print_result(stack);
 	if (incr_sorted(stack))
 		return (INCREASING);
 	else if (decr_sorted(stack))
@@ -149,7 +135,7 @@ void	print_result(t_stack *stack)
 	if (!stack->first)
 	{
 		printf("STACK EMPTY\n");
-		return;
+		return ;
 	}
 	probe = stack->first;
 	while (probe->next)
