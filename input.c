@@ -44,7 +44,7 @@ void	assign_index(t_stack *stack_a, int *array)
 	}
 }
 
-void	pre_sort(t_stack *stack)
+void	pre_sort(t_root *root, t_stack *stack)
 {
 	int		i;
 	int		*array;
@@ -63,8 +63,10 @@ void	pre_sort(t_stack *stack)
 	}
 	bubble_sort(array, stack->size);
 	assign_index(stack, array);
-	stack->median = array[stack->size / 2];
-	free(array);
+	root->array = array;
+	// stack->median = array[stack->size / 2];
+	print_array(array, stack->size);
+	// free(array);
 }
 
 static void	check_input(char **input)
@@ -86,7 +88,10 @@ static void	check_input(char **input)
 		while (input[j])
 		{
 			if (value == ft_atol(input[j]))
+			{
+				printf("DOUBLE:%ld\n", value);
 				ft_error(DOUBLE);
+			}
 			j++;
 		}
 		i++;
@@ -122,15 +127,20 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
-	pre_sort(root->stack_a);
+	pre_sort(root, root->stack_a);
+	root->stack_a->median = 0;
+	root->stack_a->segment = 0;
 	root->stack_a->operator= NOT_SET;
-	root->stack_b->operator= NOT_SET;
+	root->stack_a->order = stack_is_sorted(root->stack_a);
 	root->ops = 0;
-	root->stack_size = root->stack_a->size;
+	root->input_size = root->stack_a->size;
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
 	root->stack_b->median = 0;
+	root->stack_b->segment = 0;
+	root->stack_b->operator= NOT_SET;
+	root->stack_b->order = NOT_SORTED;
 }
 
 void	init_stacks(t_root *root, char **input)

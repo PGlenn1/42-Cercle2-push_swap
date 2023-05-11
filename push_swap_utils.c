@@ -21,12 +21,10 @@ int	decr_sorted(t_stack *stack)
 
 	// printf("DECR SORTED\n");
 	probe = stack->first;
-	printf("ALLO %d\n", stack->first->value);
 	while (probe && probe->next)
 	{
 		if (probe->index - 1 != probe->next->index)
 		{
-			printf("NOT SORTED LEL\n");
 			return (0);
 		}
 		probe = probe->next;
@@ -47,7 +45,7 @@ order_type	stack_is_sorted(t_stack *stack)
 int	final_is_sorted(t_root *root)
 {
 	if (stack_is_sorted(root->stack_a) == INCREASING
-		&& root->stack_a->size == root->stack_size)
+		&& root->stack_a->size == root->input_size)
 		return (1);
 	else
 		return (0);

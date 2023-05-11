@@ -1,5 +1,17 @@
 #include "push_swap.h"
 
+void	set_segments(t_root *root, int size)
+{
+	if (size <= 5)
+	{
+		root->stack_a->median = root->array[size / 2];
+	}
+	else if (size <= 100)
+	{
+		// root->stack_a->median =
+	}
+}
+
 int	push_swap(char **input)
 {
 	t_root	*root;
@@ -7,19 +19,12 @@ int	push_swap(char **input)
 	root = init_root(input);
 	if (!root)
 		ft_error(MALLOC_FAIL);
-	// if (stack_is_sorted(root->stack_a) == INCREASING)
-	if (incr_sorted(root->stack_a))
+	if (root->stack_a->order == INCREASING)
 	{
 		ft_error(ALREADY_SORTED);
 	}
-	// static int i;
-	while (!final_is_sorted(root))
-	{
-		// if (i > 12)
-		// 	return (0);
-		sort_stacks(root);
-		// i++;
-	}
+	print_both(root);
+	sort_stacks(root);
 	print_both(root);
 	if (final_is_sorted(root))
 	{

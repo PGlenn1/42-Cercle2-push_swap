@@ -50,6 +50,7 @@ typedef struct s_stack
 	struct s_elem	*last;
 	int				size;
 	int				median;
+	int				segment;
 	op_call			operator;
 	order_type		order;
 }					t_stack;
@@ -67,7 +68,8 @@ typedef struct s_root
 	struct s_stack	*stack_a;
 	struct s_stack	*stack_b;
 	int				ops;
-	int				stack_size;
+	int				input_size;
+	int				*array;
 	// struct s_data	*data;
 }					t_root;
 
@@ -77,6 +79,7 @@ int					decr_sorted(t_stack *stack);
 int					incr_sorted(t_stack *stack);
 int					final_is_sorted(t_root *root);
 void				sort_stacks(t_root *root);
+void				call_combined_ops(t_root *root);
 // void				pick_algo(t_root *root);
 void				print_sort_values(int first, int sec_last, int last);
 void				print_result(t_stack *stack);
