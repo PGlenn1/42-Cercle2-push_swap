@@ -129,7 +129,6 @@ void	print_result(t_stack *stack)
 	t_elem	*probe;
 
 	printf("\nPRINT RESULT\n");
-	printf("median:%d\n", stack->median);
 	if (!stack->first)
 	{
 		printf("STACK EMPTY\n");
@@ -182,8 +181,10 @@ void	print_both(t_root *root)
 		print_result(root->stack_b);
 	else
 		printf("--> EMPTY\n");
-	if (i > 15)
+	if (i > 90)
 		ft_error(UNWANTED_BEHAVIOR);
+	printf("size_a:%d\n", root->stack_a->size);
+	printf("size_b:%d\n", root->stack_b->size);
 	printf("\nEND PRINT BOTH\n\n");
 }
 

@@ -130,6 +130,7 @@ void	init_stack_values(t_root *root, char **input)
 	pre_sort(root, root->stack_a);
 	root->stack_a->median = 0;
 	root->stack_a->segment = 0;
+	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
 	root->ops = 0;
@@ -139,6 +140,7 @@ void	init_stack_values(t_root *root, char **input)
 	root->stack_b->size = 0;
 	root->stack_b->median = 0;
 	root->stack_b->segment = 0;
+	root->stack_b->ab = 'b';
 	root->stack_b->operator= NOT_SET;
 	root->stack_b->order = NOT_SORTED;
 }

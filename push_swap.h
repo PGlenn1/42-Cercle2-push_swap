@@ -51,6 +51,7 @@ typedef struct s_stack
 	int				size;
 	int				median;
 	int				segment;
+	char			ab;
 	op_call			operator;
 	order_type		order;
 }					t_stack;
@@ -80,6 +81,7 @@ int					incr_sorted(t_stack *stack);
 int					final_is_sorted(t_root *root);
 void				sort_stacks(t_root *root);
 void				call_combined_ops(t_root *root);
+void				median_sort(t_stack *stack, t_elem *first, int seg_size);
 // void				pick_algo(t_root *root);
 void				print_sort_values(int first, int sec_last, int last);
 void				print_result(t_stack *stack);

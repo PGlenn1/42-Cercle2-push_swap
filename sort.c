@@ -56,7 +56,8 @@ void	sort_five_ops(t_stack *stack_a, t_stack *stack_b, int median)
 					stack_a->first->next->value, stack_a->last->value);
 		else
 			stack_a->operator= ROT;
-		if (stack_b->order != DECREASING && stack_b->size > 1)
+		if (stack_b->order != DECREASING && stack_b->size > 1
+			&& stack_a->operator!= PUSH)
 			stack_b->operator= stack_a->operator;
 	}
 	else if (stack_a->order == INCREASING)
@@ -75,20 +76,63 @@ void	sort_five(t_root *root)
 		// print_array(root->array, root->input_size);
 		root->stack_a->order = stack_is_sorted(root->stack_a);
 		root->stack_b->order = stack_is_sorted(root->stack_b);
-		sort_five_ops(root->stack_a, root->stack_b, root->array[2]);
+		sort_five_ops(root->stack_a, root->stack_b, root->array[root->input_size
+				/ 2]);
 		call_combined_ops(root);
 		print_both(root);
 	}
 }
 
-void	sort_hundred(t_stack *stack_a, t_stack *stack_b)
+void	push_segment(t_stack *from, t_stack *to, int seg_size)
 {
-	int	a_target;
+	// if (optimize)
+	// {
+	// }
+	// else
+	if (from->first->index < seg_size)
+	{
+		push_ab(from, to);
+		if (to->size > 1 && to->first->index < seg_size / 2)
+			to->operator= ROT;
+	}
+	if (from->first->index >= seg_size)
+		from->operator= ROT;
+}
 
-	(void)stack_b;
-	a_target = stack_a->size / 3;
-	printf("a_target=%d\n", a_target);
-	ft_error(UNWANTED_BEHAVIOR);
+void	sort_hundred_ops(t_stack *stack_a, t_stack *stack_b, int *array,
+		int segment_size)
+{
+	(void)array;
+	if (stack_a->size == 3)
+	{
+	}
+	else if (stack_a->size <= segment_size)
+	{
+	}
+	else if (stack_a->size <= segment_size * 2)
+	{
+	}
+	else if (stack_a->size <= segment_size * 3)
+	{
+		printf("first->index:%d\n", stack_a->first->index);
+		push_segment(stack_a, stack_b, segment_size);
+	}
+}
+
+void	sort_hundred(t_root *root)
+{
+	while (!final_is_sorted(root))
+	{
+		root->stack_a->order = stack_is_sorted(root->stack_a);
+		root->stack_b->order = stack_is_sorted(root->stack_b);
+		printf("median_a:%d\n", root->array[root->input_size / 3]);
+		printf("median_b:%d\n", root->array[(root->input_size / 3) / 2]);
+		sort_hundred_ops(root->stack_a, root->stack_b, root->array,
+				root->input_size / 3);
+		call_combined_ops(root);
+		root->stack_a->operator= root->stack_b->operator= NOT_SET;
+		print_both(root);
+	}
 }
 
 void	sort_stacks(t_root *root)
@@ -97,13 +141,17 @@ void	sort_stacks(t_root *root)
 		swap_ab(root->stack_a);
 	else if (root->input_size == 3)
 		sort_three(root, root->stack_a);
-	else if (root->input_size <= 5)
-		sort_five(root);
+	// else if (root->input_size <= 5)
+	// {
+	// 	sort_five(root);
+	// }
 	else if (root->input_size <= 100)
-		sort_hundred(root->stack_a, root->stack_b);
-	else if (root->input_size <= 500)
 	{
+		sort_hundred(root);
 	}
+	// else if (root->input_size <= 500)
+	// {
+	// }
 	// print_both(root);
 	// call_stack_op(root->stack_a, root->stack_b, 'a');
 	// stack_is_sorted(root->stack_a);
