@@ -162,6 +162,31 @@ void	print_stack(t_stack *stack)
 	printf("-----\nSize:%d\n", get_stack_size(stack));
 }
 
+void	print_indexes(t_root *root)
+{
+	int	chunk_a;
+	int	med_a;
+	int	chunk_b;
+	int	med_b;
+	int	chunk_c;
+	int	med_c;
+
+	printf("INDEX[0]:%d\n", root->array[0]);
+	chunk_a = root->input_size / 3;
+	med_a = chunk_a / 2;
+	printf("MED A[%d]:%d\n", med_a, root->array[med_a]);
+	printf("INDEX[%d]:%d\n", chunk_a, root->array[chunk_a]);
+	chunk_b = chunk_a * 2;
+	med_b = chunk_a + med_a;
+	printf("MED B[%d]:%d\n", med_b, root->array[med_b]);
+	printf("INDEX[%d]:%d\n", chunk_b, root->array[chunk_b]);
+	chunk_c = chunk_a * 3;
+	med_c = chunk_b + med_a;
+	printf("MED C[%d]:%d\n", med_c, root->array[med_c]);
+	printf("INDEX[%d]:%d\n", root->input_size - 1, root->array[root->input_size
+			- 1]);
+}
+
 void	print_both(t_root *root)
 {
 	static int	i;
@@ -171,20 +196,29 @@ void	print_both(t_root *root)
 	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
 	// printf("\n");
+	print_indexes(root);
 	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)
+	{
+		printf("size_a:%d\n", root->stack_a->size);
 		print_result(root->stack_a);
+	}
 	else
 		printf("--> EMPTY\n");
 	printf("\nPRINTING STACK B\n");
 	if (root->stack_b->first)
+	{
+		printf("size_b:%d\n", root->stack_b->size);
 		print_result(root->stack_b);
+	}
 	else
 		printf("--> EMPTY\n");
-	if (i > 90)
-		ft_error(UNWANTED_BEHAVIOR);
-	printf("size_a:%d\n", root->stack_a->size);
-	printf("size_b:%d\n", root->stack_b->size);
+	// if (i > 90)
+	// {
+	// 	print_array(root->array, root->input_size);
+	// 	printf("STOP:%d\n", root->stack_a->first->value);
+	// 	ft_error(UNWANTED_BEHAVIOR);
+	// }
 	printf("\nEND PRINT BOTH\n\n");
 }
 

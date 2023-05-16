@@ -83,7 +83,7 @@ void	sort_five(t_root *root)
 	}
 }
 
-void	push_segment(t_stack *from, t_stack *to, int seg_size)
+void	push_segment(t_stack *from, t_stack *to, int seg_size, int med_ind)
 {
 	// if (optimize)
 	// {
@@ -92,46 +92,65 @@ void	push_segment(t_stack *from, t_stack *to, int seg_size)
 	if (from->first->index < seg_size)
 	{
 		push_ab(from, to);
-		if (to->size > 1 && to->first->index < seg_size / 2)
+		if (to->size > 1 && to->first->index < med_ind)
 			to->operator= ROT;
 	}
-	if (from->first->index >= seg_size)
+	if (from->size > 1 && from->first->index >= seg_size)
 		from->operator= ROT;
 }
 
 void	sort_hundred_ops(t_stack *stack_a, t_stack *stack_b, int *array,
 		int segment_size)
 {
+	int	med_ind;
+	int	segment;
+
 	(void)array;
-	if (stack_a->size == 3)
+	med_ind = segment = segment_size;
+	if (stack_a->size == 1)
+		return ;
+	else if (stack_a->size - 1 <= segment_size)
 	{
+		printf("THIRD CHUNK\n");
+		segment = segment_size * 3;
+		med_ind = segment_size * 2 + segment_size / 2;
 	}
-	else if (stack_a->size <= segment_size)
+	else if (stack_a->size - 1 <= segment_size * 2)
 	{
+		printf("SECOND CHUNK\n");
+		segment = segment_size * 2;
+		med_ind = segment_size + segment_size / 2;
 	}
-	else if (stack_a->size <= segment_size * 2)
+	else if (stack_a->size - 1 <= segment_size * 3)
 	{
+		printf("FIRST CHUNK\n");
+		segment = segment_size;
+		med_ind = segment / 2;
+		// printf("first->index:%d\n", stack_a->first->index);
 	}
-	else if (stack_a->size <= segment_size * 3)
-	{
-		printf("first->index:%d\n", stack_a->first->index);
-		push_segment(stack_a, stack_b, segment_size);
-	}
+	push_segment(stack_a, stack_b, segment, med_ind);
 }
 
 void	sort_hundred(t_root *root)
 {
 	while (!final_is_sorted(root))
 	{
+		printf("\nSORT HUNDRED\n");
+		print_both(root);
 		root->stack_a->order = stack_is_sorted(root->stack_a);
 		root->stack_b->order = stack_is_sorted(root->stack_b);
-		printf("median_a:%d\n", root->array[root->input_size / 3]);
-		printf("median_b:%d\n", root->array[(root->input_size / 3) / 2]);
-		sort_hundred_ops(root->stack_a, root->stack_b, root->array,
-				root->input_size / 3);
+		if (root->stack_a->size == 1 || root->stack_a->order == INCREASING)
+		{
+		}
+		else
+		{
+			sort_hundred_ops(root->stack_a, root->stack_b, root->array,
+					root->input_size / 3);
+		}
 		call_combined_ops(root);
 		root->stack_a->operator= root->stack_b->operator= NOT_SET;
-		print_both(root);
+		if (root->stack_a->size == 1)
+			return ;
 	}
 }
 
