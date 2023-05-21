@@ -82,15 +82,108 @@ void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 		from->operator= ROT;
 }
 
+op_call	ind_over_median(t_stack *stack, int index, int median)
+{
+	t_elem	*probe;
+
+	probe = stack->first;
+	printf("1 probe->index:%d|probe->value:%d\n", probe->index, probe->value);
+	while (probe && probe->index >= median)
+	{
+		printf("while probe->index:%d|probe->value:%d\n", probe->index,
+				probe->value);
+		if (probe->index == index)
+		{
+			printf("ROT FOUND\n");
+			return (ROT);
+		}
+		probe = probe->next;
+	}
+	printf("debug probe->index:%d|probe->value:%d\n", probe->index,
+			probe->value);
+	probe = stack->last;
+	while (probe && probe->index >= median)
+	{
+		printf("while probe->index:%d|probe->value:%d\n", probe->index,
+				probe->value);
+		if (probe->index == index)
+		{
+			printf("REV ROT FOUND\n");
+			return (REV_ROT);
+		}
+		probe = probe->prev;
+	}
+	ft_error(UNWANTED_BEHAVIOR);
+	return (NOT_SET);
+}
+
+op_call	ind_under_median(t_stack *stack, int index, int limit)
+{
+	t_elem	*probe;
+
+	probe = stack->first;
+	while (probe && probe->index >= limit)
+	{
+		if (probe->index == index)
+		{
+			printf("ROT FOUND\n");
+			return (ROT);
+		}
+		probe = probe->next;
+	}
+	probe = stack->last;
+	while (probe && probe->index >= limit)
+	{
+		if (probe->index == index)
+		{
+			printf("REV ROT FOUND\n");
+			return (REV_ROT);
+		}
+		probe = probe->prev;
+	}
+	ft_error(UNWANTED_BEHAVIOR);
+	return (NOT_SET);
+}
+
+op_call	find_index(t_stack *stack, int index, int median, int limit)
+{
+	(void)limit;
+	if (index >= median)
+		return (ind_over_median(stack, index, median));
+	else
+		return (ind_under_median(stack, index, limit));
+}
+
 void	sort_hundred_ops_b(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 {
-	(void)stack_a, (void)stack_b, (void)limits;
+	printf("SORT HUNDRED OPS B\n");
+	if (stack_b->first->index == stack_a->first->index - 1)
+	{
+		push_ab(stack_b, stack_a);
+	}
+	else if (stack_b->size <= limits->limit_a)
+	{
+		printf("MEDIAN A\n");
+		stack_b->operator= find_index(stack_b, stack_a->first->index - 1,
+				limits->median_a, 0);
+	}
+	else if (stack_b->size <= limits->limit_b)
+	{
+		printf("MEDIAN B\n");
+		stack_b->operator= find_index(stack_b, stack_a->first->index - 1,
+				limits->median_b, limits->limit_a);
+	}
+	else if (stack_b->size <= limits->limit_c)
+	{
+		printf("MEDIAN C\n");
+		stack_b->operator= find_index(stack_b, stack_a->first->index - 1,
+				limits->median_c, limits->limit_b);
+	}
 }
 
 void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 {
 	printf("SORT HUNDRED OPS A\n");
-	printf("stack_a->size:%d, limit_a:%d\n", stack_a->size, limits->limit_a);
 	if (stack_a->size - 1 <= limits->limit_a)
 	{
 		printf("LIMIT A\n");
@@ -128,16 +221,18 @@ void	sort_hundred(t_root *root)
 		root->stack_b->order = stack_is_sorted(root->stack_b);
 		if (root->stack_a->size == 1 || root->stack_a->order == INCREASING)
 		{
+			printf("DEBUG 1\n");
 			sort_hundred_ops_b(root->stack_a, root->stack_b, root->limits);
 		}
 		else
 		{
+			printf("DEBUG 2\n");
 			sort_hundred_ops_a(root->stack_a, root->stack_b, root->limits);
 		}
 		call_combined_ops(root);
 		root->stack_a->operator= root->stack_b->operator= NOT_SET;
-		if (root->stack_a->size == 1)
-			return ;
+		// if (root->stack_a->size == 1)
+		// 	return ;
 	}
 }
 

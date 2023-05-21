@@ -207,6 +207,7 @@ void	print_both(t_root *root)
 	// 	printf("STOP:%d\n", root->stack_a->first->value);
 	// 	ft_error(UNWANTED_BEHAVIOR);
 	// }
+	printf("ops:%d\n", root->ops);
 	printf("\nEND PRINT BOTH\n\n");
 }
 
