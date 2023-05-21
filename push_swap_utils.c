@@ -137,10 +137,10 @@ void	print_result(t_stack *stack)
 	probe = stack->first;
 	while (probe->next)
 	{
-		printf("--> %d |", probe->value);
+		printf("--> %d |", probe->index);
 		probe = probe->next;
 	}
-	printf("--> %d", probe->value);
+	printf("--> %d", probe->index);
 	printf("\n\n");
 }
 
@@ -165,14 +165,13 @@ void	print_stack(t_stack *stack)
 void	print_indexes(t_root *root, t_limits *limits)
 {
 	printf("FIRST INDEX[0]:%d\n", root->array[0]);
-	printf("MED A[%d]:%d\n", limits->median_a, root->array[limits->median_a]);
-	printf("LIMIT A[%d]:%d\n", limits->limit_a, root->array[limits->limit_a]);
-	printf("MED B[%d]:%d\n", limits->median_b, root->array[limits->median_b]);
-	printf("LIMIT B[%d]:%d\n", limits->limit_b, root->array[limits->limit_b]);
-	printf("MED C[%d]:%d\n", limits->median_c, root->array[limits->median_c]);
-	printf("LIMIT C[%d]:%d\n", limits->limit_c, root->array[limits->limit_c]);
-	printf("LAST INDEX[%d]:%d\n", root->input_size - 1,
-			root->array[root->input_size - 1]);
+	printf("MED A[%d]\n", limits->median_a);
+	printf("LIMIT A[%d]\n", limits->limit_a);
+	printf("MED B[%d]\n", limits->median_b);
+	printf("LIMIT B[%d]\n", limits->limit_b);
+	printf("MED C[%d]\n", limits->median_c);
+	printf("LIMIT C[%d]\n", limits->limit_c);
+	printf("LAST INDEX[%d]\n", root->input_size - 1);
 }
 
 void	print_both(t_root *root)
@@ -201,9 +200,9 @@ void	print_both(t_root *root)
 	}
 	else
 		printf("--> EMPTY\n");
-	// if (i > 100)
+	// if (i > 20)
 	// {
-	// 	print_array(root->array, root->input_size);
+	// 	// print_array(root->array, root->input_size);
 	// 	printf("STOP:%d\n", root->stack_a->first->value);
 	// 	ft_error(UNWANTED_BEHAVIOR);
 	// }

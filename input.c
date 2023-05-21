@@ -132,12 +132,17 @@ t_limits	*init_segment_values(t_root *root)
 	if (!limits)
 		ft_error(MALLOC_FAIL);
 	if (root->input_size > 100)
+	{
 		limits->segment_size = root->input_size / 4;
+		limits->limit_c = limits->segment_size * 3;
+	}
 	else
+	{
 		limits->segment_size = root->input_size / 3;
+		limits->limit_c = root->input_size - 1;
+	}
 	limits->limit_a = limits->segment_size;
 	limits->limit_b = limits->segment_size * 2;
-	limits->limit_c = limits->segment_size * 3;
 	limits->median_a = limits->segment_size / 2;
 	limits->median_b = limits->limit_a + limits->median_a;
 	limits->median_c = limits->limit_b + limits->median_a;
