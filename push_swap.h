@@ -49,8 +49,6 @@ typedef struct s_stack
 	struct s_elem	*first;
 	struct s_elem	*last;
 	int				size;
-	int				median;
-	int				segment;
 	char			ab;
 	op_call			operator;
 	order_type		order;
@@ -64,14 +62,26 @@ typedef struct s_elem
 	struct s_elem	*next;
 }					t_elem;
 
+typedef struct s_limits
+{
+	int				segment_size;
+	int				limit_a;
+	int				limit_b;
+	int				limit_c;
+	int				median_a;
+	int				median_b;
+	int				median_c;
+	int				median_d;
+}					t_limits;
+
 typedef struct s_root
 {
 	struct s_stack	*stack_a;
 	struct s_stack	*stack_b;
-	int				ops;
+	struct s_limits	*limits;
 	int				input_size;
 	int				*array;
-	// struct s_data	*data;
+	int				ops;
 }					t_root;
 
 t_root				*init_root(char **input);

@@ -32,19 +32,6 @@ void	sort_three(t_root *root, t_stack *stack)
 	}
 }
 
-// int	find_remaining_values(t_stack *stack, int median)
-// {
-// t_elem	*probe;
-//
-// probe = stack->first;
-// while (probe)
-// {
-// if (probe->value < median)
-// return (1);
-// probe = probe->next;
-// }
-// return (0);
-// }
 void	sort_five_ops(t_stack *stack_a, t_stack *stack_b, int median)
 {
 	if (stack_a->order != INCREASING)
@@ -83,53 +70,53 @@ void	sort_five(t_root *root)
 	}
 }
 
-void	push_segment(t_stack *from, t_stack *to, int seg_size, int med_ind)
+void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 {
-	// if (optimize)
-	// {
-	// }
-	// else
-	if (from->first->index < seg_size)
+	if (from->first->index < limit)
 	{
 		push_ab(from, to);
-		if (to->size > 1 && to->first->index < med_ind)
+		if (to->size > 1 && to->first->index < median)
 			to->operator= ROT;
 	}
-	if (from->size > 1 && from->first->index >= seg_size)
+	if (from->size > 1 && from->first->index >= limit)
 		from->operator= ROT;
 }
 
-void	sort_hundred_ops(t_stack *stack_a, t_stack *stack_b, int *array,
-		int segment_size)
+void	sort_hundred_ops_b(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 {
-	int	med_ind;
-	int	segment;
-
-	(void)array;
-	med_ind = segment = segment_size;
-	if (stack_a->size == 1)
-		return ;
-	else if (stack_a->size - 1 <= segment_size)
-	{
-		printf("THIRD CHUNK\n");
-		segment = segment_size * 3;
-		med_ind = segment_size * 2 + segment_size / 2;
-	}
-	else if (stack_a->size - 1 <= segment_size * 2)
-	{
-		printf("SECOND CHUNK\n");
-		segment = segment_size * 2;
-		med_ind = segment_size + segment_size / 2;
-	}
-	else if (stack_a->size - 1 <= segment_size * 3)
-	{
-		printf("FIRST CHUNK\n");
-		segment = segment_size;
-		med_ind = segment / 2;
-		// printf("first->index:%d\n", stack_a->first->index);
-	}
-	push_segment(stack_a, stack_b, segment, med_ind);
+	(void)stack_a, (void)stack_b, (void)limits;
 }
+
+void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
+{
+	printf("SORT HUNDRED OPS A\n");
+	printf("stack_a->size:%d, limit_a:%d\n", stack_a->size, limits->limit_a);
+	if (stack_a->size - 1 <= limits->limit_a)
+	{
+		printf("LIMIT A\n");
+		push_segment(stack_a, stack_b, limits->limit_c, limits->median_c);
+	}
+	else if (stack_a->size - 1 <= limits->limit_b)
+	{
+		printf("LIMIT B\n");
+		push_segment(stack_a, stack_b, limits->limit_b, limits->median_b);
+	}
+	else if (stack_a->size - 1 <= limits->limit_c)
+	{
+		printf("LIMIT C\n");
+		push_segment(stack_a, stack_b, limits->limit_a, limits->median_a);
+	}
+}
+
+// int	get_op(t_stack *stack, int index, int segment)
+// {
+// 	t_elem	*probe;
+
+// 	probe = stack->first;
+// 	while (probe->index > segment)
+// 	{
+// 	}
+// }
 
 void	sort_hundred(t_root *root)
 {
@@ -141,11 +128,11 @@ void	sort_hundred(t_root *root)
 		root->stack_b->order = stack_is_sorted(root->stack_b);
 		if (root->stack_a->size == 1 || root->stack_a->order == INCREASING)
 		{
+			sort_hundred_ops_b(root->stack_a, root->stack_b, root->limits);
 		}
 		else
 		{
-			sort_hundred_ops(root->stack_a, root->stack_b, root->array,
-					root->input_size / 3);
+			sort_hundred_ops_a(root->stack_a, root->stack_b, root->limits);
 		}
 		call_combined_ops(root);
 		root->stack_a->operator= root->stack_b->operator= NOT_SET;
@@ -160,10 +147,10 @@ void	sort_stacks(t_root *root)
 		swap_ab(root->stack_a);
 	else if (root->input_size == 3)
 		sort_three(root, root->stack_a);
-	// else if (root->input_size <= 5)
-	// {
-	// 	sort_five(root);
-	// }
+	else if (root->input_size <= 5)
+	{
+		sort_five(root);
+	}
 	else if (root->input_size <= 100)
 	{
 		sort_hundred(root);

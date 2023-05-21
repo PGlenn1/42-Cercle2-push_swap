@@ -162,29 +162,17 @@ void	print_stack(t_stack *stack)
 	printf("-----\nSize:%d\n", get_stack_size(stack));
 }
 
-void	print_indexes(t_root *root)
+void	print_indexes(t_root *root, t_limits *limits)
 {
-	int	chunk_a;
-	int	med_a;
-	int	chunk_b;
-	int	med_b;
-	int	chunk_c;
-	int	med_c;
-
-	printf("INDEX[0]:%d\n", root->array[0]);
-	chunk_a = root->input_size / 3;
-	med_a = chunk_a / 2;
-	printf("MED A[%d]:%d\n", med_a, root->array[med_a]);
-	printf("INDEX[%d]:%d\n", chunk_a, root->array[chunk_a]);
-	chunk_b = chunk_a * 2;
-	med_b = chunk_a + med_a;
-	printf("MED B[%d]:%d\n", med_b, root->array[med_b]);
-	printf("INDEX[%d]:%d\n", chunk_b, root->array[chunk_b]);
-	chunk_c = chunk_a * 3;
-	med_c = chunk_b + med_a;
-	printf("MED C[%d]:%d\n", med_c, root->array[med_c]);
-	printf("INDEX[%d]:%d\n", root->input_size - 1, root->array[root->input_size
-			- 1]);
+	printf("FIRST INDEX[0]:%d\n", root->array[0]);
+	printf("MED A[%d]:%d\n", limits->median_a, root->array[limits->median_a]);
+	printf("LIMIT A[%d]:%d\n", limits->limit_a, root->array[limits->limit_a]);
+	printf("MED B[%d]:%d\n", limits->median_b, root->array[limits->median_b]);
+	printf("LIMIT B[%d]:%d\n", limits->limit_b, root->array[limits->limit_b]);
+	printf("MED C[%d]:%d\n", limits->median_c, root->array[limits->median_c]);
+	printf("LIMIT C[%d]:%d\n", limits->limit_c, root->array[limits->limit_c]);
+	printf("LAST INDEX[%d]:%d\n", root->input_size - 1,
+			root->array[root->input_size - 1]);
 }
 
 void	print_both(t_root *root)
@@ -196,7 +184,7 @@ void	print_both(t_root *root)
 	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
 	// printf("\n");
 	// printf("\n");
-	print_indexes(root);
+	print_indexes(root, root->limits);
 	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)
 	{
@@ -213,7 +201,7 @@ void	print_both(t_root *root)
 	}
 	else
 		printf("--> EMPTY\n");
-	// if (i > 90)
+	// if (i > 100)
 	// {
 	// 	print_array(root->array, root->input_size);
 	// 	printf("STOP:%d\n", root->stack_a->first->value);

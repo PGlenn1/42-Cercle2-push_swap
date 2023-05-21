@@ -124,22 +124,40 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 	return (first);
 }
 
+t_limits	*init_segment_values(t_root *root)
+{
+	t_limits	*limits;
+
+	limits = malloc(sizeof(t_limits));
+	if (!limits)
+		ft_error(MALLOC_FAIL);
+	if (root->input_size > 100)
+		limits->segment_size = root->input_size / 4;
+	else
+		limits->segment_size = root->input_size / 3;
+	limits->limit_a = limits->segment_size;
+	limits->limit_b = limits->segment_size * 2;
+	limits->limit_c = limits->segment_size * 3;
+	limits->median_a = limits->segment_size / 2;
+	limits->median_b = limits->limit_a + limits->median_a;
+	limits->median_c = limits->limit_b + limits->median_a;
+	limits->median_d = limits->limit_c + limits->median_a;
+	return (limits);
+}
+
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
 	pre_sort(root, root->stack_a);
-	root->stack_a->median = 0;
-	root->stack_a->segment = 0;
 	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
 	root->ops = 0;
 	root->input_size = root->stack_a->size;
+	root->limits = init_segment_values(root);
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
-	root->stack_b->median = 0;
-	root->stack_b->segment = 0;
 	root->stack_b->ab = 'b';
 	root->stack_b->operator= NOT_SET;
 	root->stack_b->order = NOT_SORTED;

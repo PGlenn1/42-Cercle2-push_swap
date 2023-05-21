@@ -1,17 +1,5 @@
 #include "push_swap.h"
 
-void	set_segments(t_root *root, int size)
-{
-	if (size <= 5)
-	{
-		root->stack_a->median = root->array[size / 2];
-	}
-	else if (size <= 100)
-	{
-		// root->stack_a->median =
-	}
-}
-
 int	push_swap(char **input)
 {
 	t_root	*root;
@@ -31,6 +19,7 @@ int	push_swap(char **input)
 		printf("OPS:%d\n", root->ops);
 		return (1);
 	}
+	// print_array(root->array, root->input_size);
 	return (0);
 }
 
