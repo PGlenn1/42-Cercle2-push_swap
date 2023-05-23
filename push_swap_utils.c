@@ -171,6 +171,8 @@ void	print_indexes(t_root *root, t_limits *limits)
 	printf("LIMIT B[%d]\n", limits->limit_b);
 	printf("MED C[%d]\n", limits->median_c);
 	printf("LIMIT C[%d]\n", limits->limit_c);
+	printf("MED D[%d]\n", limits->median_d);
+	printf("LIMIT D[%d]\n", limits->limit_d);
 	printf("LAST INDEX = %d\n", root->input_size - 1);
 }
 
@@ -200,7 +202,7 @@ void	print_both(t_root *root)
 	}
 	else
 		printf("--> EMPTY\n");
-	// if (i > 150)
+	// if (i > 60)
 	// 	ft_error(UNWANTED_BEHAVIOR);
 	if (root->ops + root->stack_a->ops + root->stack_b->ops >= 700)
 	{

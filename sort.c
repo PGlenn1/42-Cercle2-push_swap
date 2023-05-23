@@ -178,6 +178,12 @@ void	sort_hundred_ops_b(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_c,
 				limits->limit_b);
 	}
+	else if (target_index <= limits->limit_d)
+	{
+		printf("MEDIAN D\n");
+		stack_b->operator= find_index(stack_b, target_index, limits->median_d,
+				limits->limit_c);
+	}
 	else
 		ft_error(UNWANTED_BEHAVIOR);
 }
@@ -187,28 +193,35 @@ void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 	printf("INDEX:%d\n", from->first->index);
 	printf("LIMIT = %d\n", limit);
 	printf("MEDIAN = %d\n", median);
+	// if (limit == 75 && from->first->index == 74)
+	// 	ft_error(UNWANTED_BEHAVIOR);
 	if (from->first->index <= limit)
 	{
-		// if (from->operator== NOT_SET)
 		push_ab(from, to);
 		if (to->size > 1 && to->first->index < median)
 			to->operator= ROT;
 	}
-	if (from->size > 1 && from->first->index >= limit)
+	if (from->size > 1 && from->first->index > limit)
 		from->operator= ROT;
 }
 
 void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 {
 	printf("SORT HUNDRED OPS A\n");
-	if (stack_a->first->index == limits->limit_c - 1)
+	if (stack_a->first->index == limits->limit_d - 1)
 	{
 		printf("FIRST = LAST\n");
 		stack_a->operator= ROT;
 	}
+	else if (stack_b->size > limits->limit_c)
+	{
+		printf("LIMIT D\n");
+		push_segment(stack_a, stack_b, limits->limit_d, limits->median_d);
+	}
 	else if (stack_b->size > limits->limit_b)
 	{
-		printf("LIMIT A\n");
+		printf("LIMIT C\n");
+		// ft_error(UNWANTED_BEHAVIOR);
 		push_segment(stack_a, stack_b, limits->limit_c, limits->median_c);
 	}
 	else if (stack_b->size > limits->limit_a)
@@ -217,13 +230,9 @@ void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 		// ft_error(UNWANTED_BEHAVIOR);
 		push_segment(stack_a, stack_b, limits->limit_b, limits->median_b);
 	}
-	// else
 	else if (stack_b->size >= 0)
 	{
-		printf("LIMIT C\n");
-		// if (stack_a->first->index == limits->limit_c - 1)
-		// 	stack_a->operator= ROT;
-		// else
+		printf("LIMIT A\n");
 		push_segment(stack_a, stack_b, limits->limit_a, limits->median_a);
 	}
 	else
@@ -239,7 +248,7 @@ void	sort_hundred(t_root *root)
 		root->stack_a->order = stack_is_sorted(root->stack_a);
 		root->stack_b->order = stack_is_sorted(root->stack_b);
 		if ((root->stack_a->size == 1 || root->stack_a->order == INCREASING)
-			&& root->stack_a->last->index == root->limits->limit_c - 1)
+			&& root->stack_a->last->index == root->limits->limit_d - 1)
 		{
 			printf("DEBUG 1\n");
 			sort_hundred_ops_b(root->stack_a, root->stack_b, root->limits);
@@ -266,7 +275,7 @@ void	sort_stacks(t_root *root)
 	{
 		sort_five(root);
 	}
-	else if (root->input_size <= 100)
+	else if (root->input_size <= 500)
 	{
 		sort_hundred(root);
 	}

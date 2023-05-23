@@ -69,6 +69,7 @@ typedef struct s_limits
 	int				limit_a;
 	int				limit_b;
 	int				limit_c;
+	int				limit_d;
 	int				median_a;
 	int				median_b;
 	int				median_c;
