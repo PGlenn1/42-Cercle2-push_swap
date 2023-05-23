@@ -25,7 +25,7 @@ void	call_stack_op(t_stack *stack, t_stack *to, t_root *root)
 	}
 	else
 	{
-		printf("NO OPS\n");
+		printf("%c->NO OPS\n", stack->ab);
 		return ;
 	}
 	root->ops++;

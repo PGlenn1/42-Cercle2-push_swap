@@ -37,6 +37,7 @@ void	push_ab(t_stack *from, t_stack *to)
 	push(to, first_from);
 	from->size--;
 	to->size++;
+	from->ops++;
 	write(1, "p", 1);
 	write(1, &to->ab, 1);
 	write(1, "\n", 1);

@@ -140,7 +140,7 @@ void	print_result(t_stack *stack)
 		printf("--> %d |", probe->index);
 		probe = probe->next;
 	}
-	printf("--> %d", probe->index);
+	printf("--> %d\n", probe->index);
 	printf("\n\n");
 }
 
@@ -171,7 +171,7 @@ void	print_indexes(t_root *root, t_limits *limits)
 	printf("LIMIT B[%d]\n", limits->limit_b);
 	printf("MED C[%d]\n", limits->median_c);
 	printf("LIMIT C[%d]\n", limits->limit_c);
-	printf("LAST INDEX[%d]\n", root->input_size - 1);
+	printf("LAST INDEX = %d\n", root->input_size - 1);
 }
 
 void	print_both(t_root *root)
@@ -200,13 +200,16 @@ void	print_both(t_root *root)
 	}
 	else
 		printf("--> EMPTY\n");
-	// if (i > 20)
-	// {
-	// 	// print_array(root->array, root->input_size);
-	// 	printf("STOP:%d\n", root->stack_a->first->value);
+	// if (i > 150)
 	// 	ft_error(UNWANTED_BEHAVIOR);
-	// }
-	printf("ops:%d\n", root->ops);
+	if (root->ops + root->stack_a->ops + root->stack_b->ops >= 700)
+	{
+		// printf("ops:%d\n", root->ops + root->stack_a->ops
+		// + root->stack_b->ops);
+		printf("TOO MANY OPS\n");
+		// ft_error(UNWANTED_BEHAVIOR);
+	}
+	printf("ops:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
 	printf("\nEND PRINT BOTH\n\n");
 }
 

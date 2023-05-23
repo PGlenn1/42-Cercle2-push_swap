@@ -139,7 +139,7 @@ t_limits	*init_segment_values(t_root *root)
 	else
 	{
 		limits->segment_size = root->input_size / 3;
-		limits->limit_c = root->input_size - 1;
+		limits->limit_c = root->input_size;
 	}
 	limits->limit_a = limits->segment_size;
 	limits->limit_b = limits->segment_size * 2;
@@ -157,13 +157,14 @@ void	init_stack_values(t_root *root, char **input)
 	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
-	root->ops = 0;
+	root->stack_a->ops = 0;
 	root->input_size = root->stack_a->size;
 	root->limits = init_segment_values(root);
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
 	root->stack_b->ab = 'b';
+	root->stack_b->ops = 0;
 	root->stack_b->operator= NOT_SET;
 	root->stack_b->order = NOT_SORTED;
 }

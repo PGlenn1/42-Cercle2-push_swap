@@ -52,6 +52,7 @@ typedef struct s_stack
 	char			ab;
 	op_call			operator;
 	order_type		order;
+	int				ops;
 }					t_stack;
 
 typedef struct s_elem
