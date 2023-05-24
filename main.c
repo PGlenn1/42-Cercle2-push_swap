@@ -5,21 +5,22 @@ int	push_swap(char **input)
 	t_root	*root;
 
 	root = init_root(input);
-	if (!root)
-		ft_error(MALLOC_FAIL);
 	if (root->stack_a->order == INCREASING)
 	{
-		ft_error(ALREADY_SORTED);
+		ft_free_all(root);
+		// ft_error(ALREADY_SORTED);
 	}
 	print_both(root);
 	sort_stacks(root);
 	print_both(root);
 	if (final_is_sorted(root))
 	{
-		printf("OPS:%d\n", root->ops);
+		printf("OPS:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
+		printf("OPTI:%d\n", root->opti);
 		return (1);
 	}
-	// print_array(root->array, root->input_size);
+	printf("OPS:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
+	printf("OPTI:%d\n", root->opti);
 	return (0);
 }
 

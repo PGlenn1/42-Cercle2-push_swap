@@ -169,6 +169,36 @@ void	print_both(t_root *root)
 	printf("\nEND PRINT BOTH\n\n");
 }
 
+void	ft_free_stack(t_stack *stack)
+{
+	t_elem	*probe;
+	t_elem	*tmp;
+
+	probe = stack->first;
+	tmp = probe;
+	while (probe)
+	{
+		tmp = probe;
+		probe = probe->next;
+		free(tmp);
+	}
+}
+
+void	ft_free_all(t_root *root)
+{
+	if (root->stack_a)
+		ft_free_stack(root->stack_a);
+	if (root->stack_b)
+		ft_free_stack(root->stack_b);
+	if (root->limits)
+		free(root->limits);
+	if (root->array)
+		free(root->array);
+	free(root);
+	// ft_putstr_fd("Error\n", 2);
+	// exit(1);
+}
+
 void	ft_error(errors error)
 {
 	char *str;
@@ -200,6 +230,7 @@ void	ft_error(errors error)
 		str = "Debug\n";
 		break ;
 	}
+	// ft_free_all(root);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("Error\n", 2);
 	if (error != DEBUG)

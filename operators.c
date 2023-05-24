@@ -61,6 +61,9 @@ void	swap_ab(t_stack *stack)
 	ind_tmp = stack->first->index;
 	stack->first->index = stack->first->next->index;
 	stack->first->next->index = ind_tmp;
+	write(1, "s", 1);
+	write(1, &stack->ab, 1);
+	write(1, "\n", 1);
 }
 
 void	ss(t_root *root)
@@ -74,6 +77,7 @@ void	ss(t_root *root)
 	}
 	swap_ab(root->stack_a);
 	swap_ab(root->stack_b);
+	write(1, "ss\n", 3);
 }
 
 void	rotate_ab(t_stack *stack)
@@ -91,6 +95,9 @@ void	rotate_ab(t_stack *stack)
 	stack->last = stack->first;
 	stack->first = stack->first->next;
 	stack->last->next = NULL;
+	write(1, "r", 1);
+	write(1, &stack->ab, 1);
+	write(1, "\n", 1);
 }
 
 void	rr(t_root *root)
@@ -118,10 +125,14 @@ void	rev_rotate_ab(t_stack *stack)
 	stack->first->prev = NULL;
 	stack->last = sec_last;
 	sec_last->next = NULL;
+	write(1, "rr", 2);
+	write(1, &stack->ab, 1);
+	write(1, "\n", 1);
 }
 
 void	rrr(t_root *root)
 {
 	rev_rotate_ab(root->stack_a);
 	rev_rotate_ab(root->stack_b);
+	write(1, "rrr\n", 4);
 }

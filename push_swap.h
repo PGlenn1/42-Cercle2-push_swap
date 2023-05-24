@@ -83,6 +83,7 @@ typedef struct s_root
 	int				input_size;
 	int				*array;
 	int				ops;
+	int				opti;
 }					t_root;
 
 t_root				*init_root(char **input);
@@ -112,5 +113,6 @@ void				rev_rotate_ab(t_stack *stack);
 void				rrr(t_root *root);
 void				rr(t_root *root);
 void				ft_error(errors error);
+void				ft_free_all(t_root *root);
 
 #endif

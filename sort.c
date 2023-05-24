@@ -79,7 +79,7 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 	probe = stack->first;
 	while (probe && probe->index >= limit)
 	{
-		printf("while probe->index:%d\n", probe->index);
+		// printf("while probe->index:%d\n", probe->index);
 		if (probe->index == target_index)
 		{
 			printf("ROT FOUND\n");
@@ -91,7 +91,7 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 	probe = stack->last;
 	while (probe && probe->index >= limit)
 	{
-		printf("while probe->index:%d\n", probe->index);
+		// printf("while probe->index:%d\n", probe->index);
 		if (probe->index == target_index)
 		{
 			printf("REV ROT FOUND\n");
@@ -106,8 +106,9 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 op_call	find_index(t_stack *stack, int index, int median, int limit)
 {
 	(void)limit;
-	printf("SAUGHT INDEX:%d || ACTUAL INDEX:%d\nMEDIAN:%d\nLIMIT:%d\n", index,
-			stack->first->index, median, limit);
+	// printf("SAUGHT INDEX:%d || ACTUAL INDEX:%d\nMEDIAN:%d\nLIMIT:%d\n",
+	// index,
+	// stack->first->index, median, limit);
 	if (index >= median)
 		return (rev_or_rot(stack, index, median));
 	else
@@ -115,14 +116,11 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 }
 
 void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
-		t_limits *limits)
+		t_limits *limits, int target_index)
 {
-	int	target_index;
-
 	printf("SORT HUNDRED OPS B\n");
 	printf("A_INDEX:%d\n", stack_a->first->index);
 	printf("B_INDEX:%d\n", stack_b->first->index);
-	target_index = stack_a->first->index - 1;
 	if (stack_b->first->index == target_index)
 	{
 		printf("INDEX = TARGET\n");
@@ -158,9 +156,9 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 
 void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 {
-	printf("INDEX:%d\n", from->first->index);
-	printf("LIMIT = %d\n", limit);
-	printf("MEDIAN = %d\n", median);
+	// printf("INDEX:%d\n", from->first->index);
+	// printf("LIMIT = %d\n", limit);
+	// printf("MEDIAN = %d\n", median);
 	// if (limit == 75 && from->first->index == 74)
 	// 	ft_error(UNWANTED_BEHAVIOR);
 	if (from->first->index <= limit)
@@ -208,20 +206,35 @@ void	sort_large_numbers_ops_a(t_stack *stack_a, t_stack *stack_b,
 		ft_error(UNWANTED_BEHAVIOR);
 }
 
+void	optimize(t_root *root, t_stack *stack_a, t_stack *stack_b)
+{
+	if (stack_a->size > 1 && stack_a->first->index
+		- 1 == stack_a->first->next->index)
+	{
+		// print_both(root);
+		// ft_error(UNWANTED_BEHAVIOR);
+		stack_a->operator= SWAP;
+		root->opti++;
+	}
+	call_combined_ops(root);
+	root->stack_a->operator= root->stack_b->operator= NOT_SET;
+	(void)stack_b;
+}
+
 void	sort_large_numbers(t_root *root)
 {
 	while (!final_is_sorted(root))
 	{
 		printf("\nSORT HUNDRED\n");
-		print_both(root);
+		// print_both(root);
 		root->stack_a->order = stack_is_sorted(root->stack_a);
-		root->stack_b->order = stack_is_sorted(root->stack_b);
+		optimize(root, root->stack_a, root->stack_b);
 		if ((root->stack_a->size == 1 || root->stack_a->order == INCREASING)
 			&& root->stack_a->last->index == root->limits->limit_d - 1)
 		{
 			printf("DEBUG 1\n");
-			sort_large_numbers_ops_b(root->stack_a, root->stack_b,
-					root->limits);
+			sort_large_numbers_ops_b(root->stack_a, root->stack_b, root->limits,
+					root->stack_a->first->index - 1);
 		}
 		else
 		{
@@ -250,11 +263,4 @@ void	sort_stacks(t_root *root)
 	{
 		sort_large_numbers(root);
 	}
-	// else if (root->input_size <= 500)
-	// {
-	// }
-	// print_both(root);
-	// call_stack_op(root->stack_a, root->stack_b, 'a');
-	// stack_is_sorted(root->stack_a);
-	// printf("SORTED RESULT:%d\n", root->stack_a->order);
 }

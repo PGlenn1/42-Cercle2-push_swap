@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static void	check_numbers(char **input)
+int	check_numbers(char **input)
 {
 	int	i;
 
@@ -8,12 +8,13 @@ static void	check_numbers(char **input)
 	while (input[i])
 	{
 		if (!is_number(input[i]))
-			ft_error(NAN);
+			return (0);
 		i++;
 	}
+	return (1);
 }
 
-static int	check_len(char *str)
+int	check_len(char *str)
 {
 	int	i;
 
@@ -21,10 +22,10 @@ static int	check_len(char *str)
 	while (str[i])
 	{
 		if (i > 11)
-			return (i);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 void	assign_index(t_stack *stack_a, int *array)
@@ -64,12 +65,9 @@ void	pre_sort(t_root *root, t_stack *stack)
 	bubble_sort(array, stack->size);
 	assign_index(stack, array);
 	root->array = array;
-	// stack->median = array[stack->size / 2];
-	// print_array(array, stack->size);
-	// free(array);
 }
 
-static void	check_input(char **input)
+int	check_input(char **input)
 {
 	int		i;
 	int		j;
@@ -82,20 +80,23 @@ static void	check_input(char **input)
 	while (input[i])
 	{
 		value = ft_atol(input[i]);
-		if (value > INT_MAX || value < INT_MIN || check_len(input[i]))
-			ft_error(OVERFLOW);
+		if (value > INT_MAX || value < INT_MIN || !check_len(input[i]))
+			return (0);
+		// ft_error(OVERFLOW);
 		j = i + 1;
 		while (input[j])
 		{
 			if (value == ft_atol(input[j]))
 			{
 				printf("DOUBLE:%ld\n", value);
-				ft_error(DOUBLE);
+				// ft_error(DOUBLE);
+				return (0);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (1);
 }
 
 struct s_elem	*fill_stack(t_stack *stack, char **input)
@@ -104,18 +105,21 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 	t_elem	*first;
 	int		i;
 
-	check_input(input);
+	if (!check_input(input))
+		return (NULL);
 	new = NULL;
 	i = 1;
 	first = ps_lstnew(ft_atol(input[i]));
 	if (!first)
-		ft_error(MALLOC_FAIL);
+		// ft_error(MALLOC_FAIL);
+		return (NULL);
 	i++;
 	while (input[i])
 	{
 		new = ps_lstnew(ft_atol(input[i]));
 		if (!new)
-			ft_error(MALLOC_FAIL);
+			return (NULL);
+		// ft_error(MALLOC_FAIL);
 		ps_lstadd_back(&first, new);
 		i++;
 	}
@@ -146,6 +150,8 @@ t_limits	*init_segment_values(t_root *root)
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
+	if (!root->stack_a->first)
+		ft_free_all(root);
 	pre_sort(root, root->stack_a);
 	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
@@ -175,7 +181,8 @@ void	init_stacks(t_root *root, char **input)
 	if (!stack_b)
 		ft_error(MALLOC_FAIL);
 	root->stack_b = stack_b;
-	root->ops = 0;
+	root->ops = 0;  // Dev only
+	root->opti = 0; //
 	init_stack_values(root, input);
 }
 
