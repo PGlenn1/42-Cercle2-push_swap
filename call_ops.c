@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	call_stack_op(t_stack *stack, t_stack *to, t_root *root)
+void	call_stack_op(t_stack *stack, t_stack *to)
 {
 	if (stack->operator== SWAP)
 		swap_ab(stack);
@@ -10,12 +10,6 @@ void	call_stack_op(t_stack *stack, t_stack *to, t_root *root)
 		push_ab(stack, to);
 	else if (stack->operator== REV_ROT)
 		rev_rotate_ab(stack);
-	// else
-	// {
-	// 	printf("%c->NO OPS\n", stack->ab);
-	// 	return ;
-	// }
-	root->ops++;
 }
 
 void	call_combined_ops(t_root *root)
@@ -33,9 +27,8 @@ void	call_combined_ops(t_root *root)
 		rrr(root);
 	else
 	{
-		call_stack_op(stack_a, stack_b, root);
-		call_stack_op(stack_b, stack_a, root);
+		call_stack_op(stack_a, stack_b);
+		call_stack_op(stack_b, stack_a);
 		return ;
 	}
-	root->ops++;
 }

@@ -51,7 +51,6 @@ typedef struct s_stack
 	char			ab;
 	op_call			operator;
 	order_type		order;
-	int				ops;
 }					t_stack;
 
 typedef struct s_elem
@@ -81,30 +80,16 @@ typedef struct s_root
 	struct s_stack	*stack_b;
 	struct s_limits	*limits;
 	int				input_size;
-	int				*array;
-	int				ops;
-	int				opti;
 }					t_root;
 
 t_root				*init_root(char **input);
+t_elem				*ps_lstnew(int value);
+t_elem				*ps_lstlast(t_elem *lst);
+void				ps_lstadd_back(t_elem **lst, t_elem *new);
 order_type			stack_is_sorted(t_stack *stack);
-int					decr_sorted(t_stack *stack);
-int					incr_sorted(t_stack *stack);
 int					final_is_sorted(t_root *root);
 void				sort_stacks(t_root *root);
 void				call_combined_ops(t_root *root);
-void				median_sort(t_stack *stack, t_elem *first, int seg_size);
-// void				pick_algo(t_root *root);
-void				print_sort_values(int first, int sec_last, int last);
-void				print_result(t_stack *stack);
-int					get_stack_size(t_stack *stack);
-void				ps_lstadd_back(t_elem **lst, t_elem *new);
-t_elem				*get_second_last(t_stack *stack);
-t_elem				*get_third_last(t_stack *stack);
-t_elem				*ps_lstnew(int value);
-t_elem				*ps_lstlast(t_elem *lst);
-t_elem				*ps_lstprev(t_elem *stack);
-void				print_both(t_root *root);
 void				swap_ab(t_stack *stack);
 void				ss(t_root *root);
 void				push_ab(t_stack *from, t_stack *to);
@@ -112,7 +97,6 @@ void				rotate_ab(t_stack *stack);
 void				rev_rotate_ab(t_stack *stack);
 void				rrr(t_root *root);
 void				rr(t_root *root);
-void				ft_error(errors error);
 void				ft_free_all(t_root *root);
 
 #endif

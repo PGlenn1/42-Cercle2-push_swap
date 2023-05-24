@@ -45,7 +45,7 @@ void	assign_index(t_stack *stack_a, int *array)
 	}
 }
 
-void	pre_sort(t_root *root, t_stack *stack)
+int	pre_sort(t_stack *stack)
 {
 	int		i;
 	int		*array;
@@ -53,7 +53,7 @@ void	pre_sort(t_root *root, t_stack *stack)
 
 	array = malloc(sizeof(int) * stack->size);
 	if (!array)
-		ft_error(MALLOC_FAIL);
+		return (0);
 	probe = stack->first;
 	i = 0;
 	while (probe)
@@ -64,7 +64,8 @@ void	pre_sort(t_root *root, t_stack *stack)
 	}
 	bubble_sort(array, stack->size);
 	assign_index(stack, array);
-	root->array = array;
+	free(array);
+	return (1);
 }
 
 int	check_input(char **input)
@@ -82,16 +83,11 @@ int	check_input(char **input)
 		value = ft_atol(input[i]);
 		if (value > INT_MAX || value < INT_MIN || !check_len(input[i]))
 			return (0);
-		// ft_error(OVERFLOW);
 		j = i + 1;
 		while (input[j])
 		{
 			if (value == ft_atol(input[j]))
-			{
-				// printf("DOUBLE:%ld\n", value);
-				// ft_error(DOUBLE);
 				return (0);
-			}
 			j++;
 		}
 		i++;
@@ -111,7 +107,6 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 	i = 1;
 	first = ps_lstnew(ft_atol(input[i]));
 	if (!first)
-		// ft_error(MALLOC_FAIL);
 		return (NULL);
 	i++;
 	while (input[i])
@@ -119,7 +114,6 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 		new = ps_lstnew(ft_atol(input[i]));
 		if (!new)
 			return (NULL);
-		// ft_error(MALLOC_FAIL);
 		ps_lstadd_back(&first, new);
 		i++;
 	}
@@ -134,7 +128,7 @@ t_limits	*init_segment_values(t_root *root)
 
 	limits = malloc(sizeof(t_limits));
 	if (!limits)
-		ft_error(MALLOC_FAIL);
+		ft_free_all(root);
 	limits->segment_size = root->input_size / 4;
 	limits->limit_a = limits->segment_size;
 	limits->limit_b = limits->segment_size * 2;
@@ -150,20 +144,17 @@ t_limits	*init_segment_values(t_root *root)
 void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
-	if (!root->stack_a->first)
+	if (!root->stack_a->first || !pre_sort(root->stack_a))
 		ft_free_all(root);
-	pre_sort(root, root->stack_a);
 	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
-	root->stack_a->ops = 0;
 	root->input_size = root->stack_a->size;
 	root->limits = init_segment_values(root);
 	root->stack_b->first = NULL;
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
 	root->stack_b->ab = 'b';
-	root->stack_b->ops = 0;
 	root->stack_b->operator= NOT_SET;
 	root->stack_b->order = NOT_SORTED;
 }
@@ -175,11 +166,11 @@ void	init_stacks(t_root *root, char **input)
 
 	stack_a = malloc(sizeof(t_stack));
 	if (!stack_a)
-		ft_error(MALLOC_FAIL);
+		ft_free_all(root);
 	root->stack_a = stack_a;
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
-		ft_error(MALLOC_FAIL);
+		ft_free_all(root);
 	root->stack_b = stack_b;
 	init_stack_values(root, input);
 }
@@ -190,7 +181,7 @@ t_root	*init_root(char **input)
 
 	root = malloc(sizeof(t_root));
 	if (!root)
-		ft_error(MALLOC_FAIL);
+		ft_free_all(root);
 	init_stacks(root, input);
 	return (root);
 }
