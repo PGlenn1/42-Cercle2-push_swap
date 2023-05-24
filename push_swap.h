@@ -41,7 +41,6 @@ typedef enum
 {
 	NOT_SORTED,
 	INCREASING,
-	DECREASING,
 }					order_type;
 
 typedef struct s_stack

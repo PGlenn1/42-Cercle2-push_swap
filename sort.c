@@ -43,13 +43,13 @@ void	sort_five_ops(t_stack *stack_a, t_stack *stack_b, int median)
 					stack_a->first->next->value, stack_a->last->value);
 		else
 			stack_a->operator= ROT;
-		if (stack_b->order != DECREASING && stack_b->size > 1
+		if (stack_b->order != NOT_SORTED && stack_b->size > 1
 			&& stack_a->operator!= PUSH)
 			stack_b->operator= stack_a->operator;
 	}
 	else if (stack_a->order == INCREASING)
 	{
-		if (stack_b->order == DECREASING || stack_b->size == 1)
+		if (stack_b->order == NOT_SORTED || stack_b->size == 1)
 			stack_b->operator= PUSH;
 		else
 			stack_b->operator= SWAP;
@@ -69,39 +69,6 @@ void	sort_five(t_root *root)
 		call_combined_ops(root);
 		print_both(root);
 	}
-}
-
-op_call	ind_over_median(t_stack *stack, int target_index, int median)
-{
-	t_elem	*probe;
-
-	printf("OVER MED\n");
-	probe = stack->first;
-	printf("1 probe->index:%d|probe->value:%d\n", probe->index, probe->value);
-	while (probe && probe->index >= median)
-	{
-		printf("while probe->index:%d\n", probe->index);
-		if (probe->index == target_index)
-		{
-			printf("ROT FOUND\n");
-			return (ROT);
-		}
-		probe = probe->next;
-	}
-	printf("DEBUG probe->index:%d\n", probe->index);
-	probe = stack->last;
-	while (probe && probe->index >= median)
-	{
-		printf("while probe->index:%d\n", probe->index);
-		if (probe->index == target_index)
-		{
-			printf("REV ROT FOUND\n");
-			return (REV_ROT);
-		}
-		probe = probe->prev;
-	}
-	ft_error(UNWANTED_BEHAVIOR);
-	return (NOT_SET);
 }
 
 op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
@@ -147,7 +114,8 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 		return (rev_or_rot(stack, index, limit));
 }
 
-void	sort_hundred_ops_b(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
+void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
+		t_limits *limits)
 {
 	int	target_index;
 
@@ -205,7 +173,8 @@ void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 		from->operator= ROT;
 }
 
-void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
+void	sort_large_numbers_ops_a(t_stack *stack_a, t_stack *stack_b,
+		t_limits *limits)
 {
 	printf("SORT HUNDRED OPS A\n");
 	if (stack_a->first->index == limits->limit_d - 1)
@@ -239,7 +208,7 @@ void	sort_hundred_ops_a(t_stack *stack_a, t_stack *stack_b, t_limits *limits)
 		ft_error(UNWANTED_BEHAVIOR);
 }
 
-void	sort_hundred(t_root *root)
+void	sort_large_numbers(t_root *root)
 {
 	while (!final_is_sorted(root))
 	{
@@ -251,12 +220,14 @@ void	sort_hundred(t_root *root)
 			&& root->stack_a->last->index == root->limits->limit_d - 1)
 		{
 			printf("DEBUG 1\n");
-			sort_hundred_ops_b(root->stack_a, root->stack_b, root->limits);
+			sort_large_numbers_ops_b(root->stack_a, root->stack_b,
+					root->limits);
 		}
 		else
 		{
 			printf("DEBUG 2\n");
-			sort_hundred_ops_a(root->stack_a, root->stack_b, root->limits);
+			sort_large_numbers_ops_a(root->stack_a, root->stack_b,
+					root->limits);
 		}
 		call_combined_ops(root);
 		root->stack_a->operator= root->stack_b->operator= NOT_SET;
@@ -277,7 +248,7 @@ void	sort_stacks(t_root *root)
 	}
 	else if (root->input_size <= 500)
 	{
-		sort_hundred(root);
+		sort_large_numbers(root);
 	}
 	// else if (root->input_size <= 500)
 	// {

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-int	incr_sorted(t_stack *stack)
+order_type	stack_is_sorted(t_stack *stack)
 {
 	t_elem	*probe;
 
@@ -9,37 +9,10 @@ int	incr_sorted(t_stack *stack)
 	while (probe && probe->next)
 	{
 		if (probe->index + 1 != probe->next->index)
-			return (0);
+			return (NOT_SORTED);
 		probe = probe->next;
 	}
-	return (1);
-}
-
-int	decr_sorted(t_stack *stack)
-{
-	t_elem	*probe;
-
-	// printf("DECR SORTED\n");
-	probe = stack->first;
-	while (probe && probe->next)
-	{
-		if (probe->index - 1 != probe->next->index)
-		{
-			return (0);
-		}
-		probe = probe->next;
-	}
-	return (1);
-}
-
-order_type	stack_is_sorted(t_stack *stack)
-{
-	if (incr_sorted(stack))
-		return (INCREASING);
-	else if (decr_sorted(stack))
-		return (DECREASING);
-	else
-		return (NOT_SORTED);
+	return (INCREASING);
 }
 
 int	final_is_sorted(t_root *root)
@@ -49,21 +22,6 @@ int	final_is_sorted(t_root *root)
 		return (1);
 	else
 		return (0);
-}
-
-int	get_stack_size(t_stack *stack) // Only for dev
-{
-	t_elem *probe;
-	int size;
-
-	probe = stack->first;
-	size = 0;
-	while (probe)
-	{
-		size++;
-		probe = probe->next;
-	}
-	return (size);
 }
 
 t_elem	*ps_lstnew(int value)
@@ -159,7 +117,7 @@ void	print_stack(t_stack *stack)
 		probe = probe->next;
 		i++;
 	}
-	printf("-----\nSize:%d\n", get_stack_size(stack));
+	printf("-----\nSize:%d\n", stack->size);
 }
 
 void	print_indexes(t_root *root, t_limits *limits)
@@ -181,10 +139,6 @@ void	print_both(t_root *root)
 	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	// root->stack_a->first ? print_stack(root->stack_a) : printf("\nSTACK A EMPTY\n");
-	// root->stack_b->first ? print_stack(root->stack_b) : printf("\nSTACK B EMPTY\n");
-	// printf("\n");
-	// printf("\n");
 	print_indexes(root, root->limits);
 	printf("\nPRINTING STACK A\n");
 	if (root->stack_a->first)
