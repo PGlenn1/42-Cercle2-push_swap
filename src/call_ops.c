@@ -14,8 +14,8 @@ void	call_stack_op(t_stack *stack, t_stack *to)
 
 void	call_combined_ops(t_root *root)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
 
 	stack_a = root->stack_a;
 	stack_b = root->stack_b;
