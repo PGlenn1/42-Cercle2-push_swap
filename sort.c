@@ -206,29 +206,12 @@ void	sort_large_numbers_ops_a(t_stack *stack_a, t_stack *stack_b,
 		ft_error(UNWANTED_BEHAVIOR);
 }
 
-void	optimize(t_root *root, t_stack *stack_a, t_stack *stack_b)
-{
-	if (stack_a->size > 1 && stack_a->first->index
-		- 1 == stack_a->first->next->index)
-	{
-		// print_both(root);
-		// ft_error(UNWANTED_BEHAVIOR);
-		stack_a->operator= SWAP;
-		root->opti++;
-	}
-	call_combined_ops(root);
-	root->stack_a->operator= root->stack_b->operator= NOT_SET;
-	(void)stack_b;
-}
-
 void	sort_large_numbers(t_root *root)
 {
 	while (!final_is_sorted(root))
 	{
 		printf("\nSORT HUNDRED\n");
-		// print_both(root);
 		root->stack_a->order = stack_is_sorted(root->stack_a);
-		optimize(root, root->stack_a, root->stack_b);
 		if ((root->stack_a->size == 1 || root->stack_a->order == INCREASING)
 			&& root->stack_a->last->index == root->limits->limit_d - 1)
 		{
