@@ -10,11 +10,11 @@ void	call_stack_op(t_stack *stack, t_stack *to, t_root *root)
 		push_ab(stack, to);
 	else if (stack->operator== REV_ROT)
 		rev_rotate_ab(stack);
-	else
-	{
-		printf("%c->NO OPS\n", stack->ab);
-		return ;
-	}
+	// else
+	// {
+	// 	printf("%c->NO OPS\n", stack->ab);
+	// 	return ;
+	// }
 	root->ops++;
 }
 

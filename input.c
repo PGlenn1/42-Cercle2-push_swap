@@ -88,7 +88,7 @@ int	check_input(char **input)
 		{
 			if (value == ft_atol(input[j]))
 			{
-				printf("DOUBLE:%ld\n", value);
+				// printf("DOUBLE:%ld\n", value);
 				// ft_error(DOUBLE);
 				return (0);
 			}
@@ -181,8 +181,6 @@ void	init_stacks(t_root *root, char **input)
 	if (!stack_b)
 		ft_error(MALLOC_FAIL);
 	root->stack_b = stack_b;
-	root->ops = 0;  // Dev only
-	root->opti = 0; //
 	init_stack_values(root, input);
 }
 

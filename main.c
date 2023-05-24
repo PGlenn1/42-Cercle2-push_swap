@@ -10,17 +10,18 @@ int	push_swap(char **input)
 		ft_free_all(root);
 		// ft_error(ALREADY_SORTED);
 	}
-	print_both(root);
+	// print_both(root);
 	sort_stacks(root);
-	print_both(root);
+	// print_both(root);
 	if (final_is_sorted(root))
 	{
-		printf("OPS:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
-		printf("OPTI:%d\n", root->opti);
+		// printf("OPS:%d\n", root->ops + root->stack_a->ops
+		// + root->stack_b->ops);
+		// printf("OPTI:%d\n", root->opti);
 		return (1);
 	}
-	printf("OPS:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
-	printf("OPTI:%d\n", root->opti);
+	// printf("OPS:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
+	// printf("OPTI:%d\n", root->opti);
 	return (0);
 }
 
@@ -34,7 +35,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("Failed\n");
+		// printf("Failed\n");
 		return (1);
 	}
 	return (0);
