@@ -61,6 +61,7 @@ typedef struct s_root
 	int				input_size;
 }					t_root;
 
+void				print_both(t_root *root);
 t_root				*init_root(char **input);
 t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);

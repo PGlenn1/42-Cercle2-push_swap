@@ -67,4 +67,5 @@ void	sort_stacks(t_root *root)
 		sort_five(root);
 	else if (root->input_size <= 500)
 		sort_large_numbers(root);
+	rev_rotate_ab(root->stack_a);
 }

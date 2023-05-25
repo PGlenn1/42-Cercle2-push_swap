@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	call_stack_op(t_stack *stack, t_stack *to)
 {
