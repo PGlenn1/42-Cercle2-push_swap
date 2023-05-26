@@ -77,7 +77,8 @@ int	check_input(char **input)
 	i = 1;
 	j = i + 1;
 	value = 0;
-	check_numbers(input);
+	if (!check_numbers(input))
+		return (0);
 	while (input[i])
 	{
 		value = ft_atol(input[i]);
