@@ -67,6 +67,5 @@ void	sort_large_numbers(t_root *root)
 			sort_large_numbers_ops_a(root->stack_a, root->stack_b,
 					root->limits);
 		call_combined_ops(root);
-		root->stack_a->operator= root->stack_b->operator= NOT_SET;
 	}
 }

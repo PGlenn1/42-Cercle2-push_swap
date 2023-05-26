@@ -1,7 +1,7 @@
 
 #include "../includes/push_swap.h"
 
-void	rotate_ab(t_stack *stack)
+void	rotate_ab(t_stack *stack, int rr)
 {
 	stack->first->next->prev = NULL;
 	stack->last->next = stack->first;
@@ -9,6 +9,8 @@ void	rotate_ab(t_stack *stack)
 	stack->last = stack->first;
 	stack->first = stack->first->next;
 	stack->last->next = NULL;
+	if (rr == 1)
+		return ;
 	write(1, "r", 1);
 	write(1, &stack->ab, 1);
 	write(1, "\n", 1);
@@ -16,12 +18,12 @@ void	rotate_ab(t_stack *stack)
 
 void	rr(t_root *root)
 {
-	rotate_ab(root->stack_a);
-	rotate_ab(root->stack_b);
+	rotate_ab(root->stack_a, 1);
+	rotate_ab(root->stack_b, 1);
 	write(1, "rr\n", 3);
 }
 
-void	rev_rotate_ab(t_stack *stack)
+void	rev_rotate_ab(t_stack *stack, int rrr)
 {
 	t_elem	*sec_last;
 
@@ -32,6 +34,8 @@ void	rev_rotate_ab(t_stack *stack)
 	stack->first->prev = NULL;
 	stack->last = sec_last;
 	sec_last->next = NULL;
+	if (rrr == 1)
+		return ;
 	write(1, "rr", 2);
 	write(1, &stack->ab, 1);
 	write(1, "\n", 1);
@@ -39,7 +43,7 @@ void	rev_rotate_ab(t_stack *stack)
 
 void	rrr(t_root *root)
 {
-	rev_rotate_ab(root->stack_a);
-	rev_rotate_ab(root->stack_b);
+	rev_rotate_ab(root->stack_a, 1);
+	rev_rotate_ab(root->stack_b, 1);
 	write(1, "rrr\n", 4);
 }

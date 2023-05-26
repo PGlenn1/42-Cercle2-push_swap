@@ -24,6 +24,6 @@ void	ft_free_all(t_root *root)
 	if (root->limits)
 		free(root->limits);
 	free(root);
-	ft_putstr_fd("Error\n", 2);
+	// ft_putstr_fd("Error\n", 2);
 	exit(1);
 }

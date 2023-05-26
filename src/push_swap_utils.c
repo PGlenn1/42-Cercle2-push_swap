@@ -135,7 +135,7 @@ void	print_stack(t_stack *stack)
 
 void	print_both(t_root *root)
 {
-	static int i;
+	static int	i;
 
 	printf("\n-------\nPRINT BOTH [%d]\n", i++);
 	// print_indexes(root, root->limits);
@@ -155,8 +155,8 @@ void	print_both(t_root *root)
 	}
 	else
 		printf("--> EMPTY\n");
-	if (i > 0)
-		exit(0);
+	// if (i > 0)
+	// 	exit(0);
 	// if (root->ops + root->stack_a->ops + root->stack_b->ops >= 700)
 	// {
 	// 	// printf("ops:%d\n", root->ops + root->stack_a->ops

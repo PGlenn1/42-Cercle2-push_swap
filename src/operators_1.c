@@ -35,13 +35,15 @@ void	push_ab(t_stack *from, t_stack *to)
 	write(1, "\n", 1);
 }
 
-void	swap_ab(t_stack *stack)
+void	swap_ab(t_stack *stack, int ss)
 {
 	int	ind_tmp;
 
 	ind_tmp = stack->first->index;
 	stack->first->index = stack->first->next->index;
 	stack->first->next->index = ind_tmp;
+	if (ss == 1)
+		return ;
 	write(1, "s", 1);
 	write(1, &stack->ab, 1);
 	write(1, "\n", 1);
@@ -49,7 +51,7 @@ void	swap_ab(t_stack *stack)
 
 void	ss(t_root *root)
 {
-	swap_ab(root->stack_a);
-	swap_ab(root->stack_b);
+	swap_ab(root->stack_a, 1);
+	swap_ab(root->stack_b, 1);
 	write(1, "ss\n", 3);
 }

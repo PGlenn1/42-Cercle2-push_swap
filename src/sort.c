@@ -60,12 +60,11 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 void	sort_stacks(t_root *root)
 {
 	if (root->input_size == 2)
-		swap_ab(root->stack_a);
+		swap_ab(root->stack_a, 0);
 	else if (root->input_size == 3)
 		sort_three(root, root->stack_a);
 	else if (root->input_size <= 5)
 		sort_five(root);
 	else if (root->input_size <= 500)
 		sort_large_numbers(root);
-	rev_rotate_ab(root->stack_a);
 }

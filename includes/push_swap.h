@@ -62,6 +62,7 @@ typedef struct s_root
 }					t_root;
 
 void				print_both(t_root *root);
+void				print_result(t_stack *stack);
 t_root				*init_root(char **input);
 t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
@@ -77,11 +78,11 @@ void				sort_three_ops(t_stack *stack, int first, int second,
 						int third);
 op_call				rev_or_rot(t_stack *stack, int target_index, int limit);
 void				call_combined_ops(t_root *root);
-void				swap_ab(t_stack *stack);
+void				swap_ab(t_stack *stack, int ss);
 void				ss(t_root *root);
 void				push_ab(t_stack *from, t_stack *to);
-void				rotate_ab(t_stack *stack);
-void				rev_rotate_ab(t_stack *stack);
+void				rotate_ab(t_stack *stack, int rr);
+void				rev_rotate_ab(t_stack *stack, int rrr);
 void				rrr(t_root *root);
 void				rr(t_root *root);
 void				ft_free_all(t_root *root);
