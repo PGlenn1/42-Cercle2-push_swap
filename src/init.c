@@ -18,7 +18,11 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 	{
 		new = ps_lstnew(ft_atol(input[i]));
 		if (!new)
+		{
+			if (!first->next)
+				free(first);
 			return (NULL);
+		}
 		ps_lstadd_back(&first, new);
 		i++;
 	}
@@ -48,6 +52,7 @@ t_limits	*init_segment_values(t_root *root)
 
 void	init_stack_values(t_root *root, char **input)
 {
+	root->limits = NULL;
 	root->stack_a->first = fill_stack(root->stack_a, input);
 	if (!root->stack_a->first || !pre_sort(root->stack_a))
 		ft_free_all(root, 1);
@@ -69,14 +74,19 @@ void	init_stacks(t_root *root, char **input)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
+	stack_b = NULL;
 	stack_a = malloc(sizeof(t_stack));
 	if (!stack_a)
 		ft_free_all(root, 1);
 	root->stack_a = stack_a;
+	stack_a->first = NULL;
+	stack_a->last = NULL;
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
 		ft_free_all(root, 1);
 	root->stack_b = stack_b;
+	stack_b->first = NULL;
+	stack_b->last = NULL;
 	init_stack_values(root, input);
 }
 
