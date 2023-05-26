@@ -13,6 +13,7 @@ void	ft_free_stack(t_stack *stack)
 		probe = probe->next;
 		free(tmp);
 	}
+	free(stack);
 }
 
 void	ft_free_all(t_root *root, int error)
