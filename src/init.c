@@ -33,7 +33,7 @@ t_limits	*init_segment_values(t_root *root)
 
 	limits = malloc(sizeof(t_limits));
 	if (!limits)
-		ft_free_all(root);
+		ft_free_all(root, 1);
 	limits->segment_size = root->input_size / 4;
 	limits->limit_a = limits->segment_size;
 	limits->limit_b = limits->segment_size * 2;
@@ -50,7 +50,7 @@ void	init_stack_values(t_root *root, char **input)
 {
 	root->stack_a->first = fill_stack(root->stack_a, input);
 	if (!root->stack_a->first || !pre_sort(root->stack_a))
-		ft_free_all(root);
+		ft_free_all(root, 1);
 	root->stack_a->ab = 'a';
 	root->stack_a->operator= NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
@@ -71,11 +71,11 @@ void	init_stacks(t_root *root, char **input)
 
 	stack_a = malloc(sizeof(t_stack));
 	if (!stack_a)
-		ft_free_all(root);
+		ft_free_all(root, 1);
 	root->stack_a = stack_a;
 	stack_b = malloc(sizeof(t_stack));
 	if (!stack_b)
-		ft_free_all(root);
+		ft_free_all(root, 1);
 	root->stack_b = stack_b;
 	init_stack_values(root, input);
 }
@@ -86,7 +86,7 @@ t_root	*init_root(char **input)
 
 	root = malloc(sizeof(t_root));
 	if (!root)
-		ft_free_all(root);
+		ft_free_all(root, 1);
 	init_stacks(root, input);
 	return (root);
 }

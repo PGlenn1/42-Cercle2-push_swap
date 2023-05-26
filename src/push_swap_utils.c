@@ -48,7 +48,7 @@ t_elem	*ps_lstlast(t_elem *lst)
 
 void	ps_lstadd_back(t_elem **lst, t_elem *new)
 {
-	struct s_elem	*last;
+	struct s_elem *last;
 
 	if (!lst || !new)
 		return ;
@@ -60,110 +60,4 @@ void	ps_lstadd_back(t_elem **lst, t_elem *new)
 	last = ps_lstlast(*lst);
 	new->prev = last;
 	last->next = new;
-}
-
-void	print_sort_values(int first, int middle, int last)
-{
-	printf("\n");
-	printf("SORT OPTIONS\n");
-	printf("%d -> %d -> %d\n", first, middle, last);
-	printf("\n");
-}
-
-void	print_node(t_elem *node)
-{
-	printf("\n");
-	printf("node->prev:%p\n", node->prev);
-	printf("node->value:%d\n", node->value);
-	printf("node->index:%d\n", node->index);
-	printf("node:%p\n", node);
-	printf("node->next:%p\n", node->next);
-	printf("\n");
-}
-
-void	print_result(t_stack *stack)
-{
-	t_elem	*probe;
-
-	printf("\nPRINT RESULT\n");
-	if (!stack->first)
-	{
-		printf("STACK EMPTY\n");
-		return ;
-	}
-	probe = stack->first;
-	while (probe->next)
-	{
-		printf("--> %d |", probe->value);
-		probe = probe->next;
-	}
-	printf("--> %d\n", probe->value);
-	printf("\n\n");
-}
-
-void	print_stack(t_stack *stack)
-{
-	t_elem	*probe;
-	int		i;
-
-	if (!stack)
-		return ;
-	probe = stack->first;
-	i = 0;
-	while (probe && i < 20)
-	{
-		print_node(probe);
-		probe = probe->next;
-		i++;
-	}
-	printf("-----\nSize:%d\n", stack->size);
-}
-
-// void	print_indexes(t_root *root, t_limits *limits)
-// {
-// 	printf("FIRST INDEX[0]:%d\n", root->array[0]);
-// 	printf("MED A[%d]\n", limits->median_a);
-// 	printf("LIMIT A[%d]\n", limits->limit_a);
-// 	printf("MED B[%d]\n", limits->median_b);
-// 	printf("LIMIT B[%d]\n", limits->limit_b);
-// 	printf("MED C[%d]\n", limits->median_c);
-// 	printf("LIMIT C[%d]\n", limits->limit_c);
-// 	printf("MED D[%d]\n", limits->median_d);
-// 	printf("LIMIT D[%d]\n", limits->limit_d);
-// 	printf("LAST INDEX = %d\n", root->input_size - 1);
-// }
-
-void	print_both(t_root *root)
-{
-	static int	i;
-
-	printf("\n-------\nPRINT BOTH [%d]\n", i++);
-	// print_indexes(root, root->limits);
-	printf("\nPRINTING STACK A\n");
-	if (root->stack_a->first)
-	{
-		printf("size_a:%d\n", root->stack_a->size);
-		print_result(root->stack_a);
-	}
-	else
-		printf("--> EMPTY\n");
-	printf("\nPRINTING STACK B\n");
-	if (root->stack_b->first)
-	{
-		printf("size_b:%d\n", root->stack_b->size);
-		print_result(root->stack_b);
-	}
-	else
-		printf("--> EMPTY\n");
-	// if (i > 0)
-	// 	exit(0);
-	// if (root->ops + root->stack_a->ops + root->stack_b->ops >= 700)
-	// {
-	// 	// printf("ops:%d\n", root->ops + root->stack_a->ops
-	// 	// + root->stack_b->ops);
-	// 	printf("TOO MANY OPS\n");
-	// 	// ft_error(UNWANTED_BEHAVIOR);
-	// }
-	// printf("ops:%d\n", root->ops + root->stack_a->ops + root->stack_b->ops);
-	printf("\nEND PRINT BOTH\n\n");
 }

@@ -30,5 +30,5 @@ void	call_combined_ops(t_root *root)
 		call_stack_op(stack_a, stack_b);
 		call_stack_op(stack_b, stack_a);
 	}
-	root->stack_a->operator= root->stack_b->operator= NOT_SET;
+	stack_a->operator= stack_b->operator= NOT_SET;
 }

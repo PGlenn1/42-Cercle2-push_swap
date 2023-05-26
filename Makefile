@@ -20,7 +20,7 @@ SRC_DIR = src
 
 RM = rm -f
 
-NAME = toto
+NAME = push_swap
 
 # Colors
 GREEN=\033[0;32m
@@ -43,7 +43,7 @@ all :	$(NAME)
 
 clean :
 	@$(RM) $(OBJ) $(OBJ_B)
-	@echo "$(RED) ==== All object removed ==== $(END)"
+	@echo "$(RED) ==== All objects removed ==== $(END)"
 
 fclean :	clean
 	@$(RM) $(NAME) $(NAME_B)

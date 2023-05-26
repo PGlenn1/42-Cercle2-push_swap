@@ -8,12 +8,9 @@ typedef enum
 {
 	NOT_SET,
 	SWAP,
-	SS,
 	PUSH,
 	ROT,
-	RR,
 	REV_ROT,
-	RRR,
 }					op_call;
 
 typedef enum
@@ -61,8 +58,6 @@ typedef struct s_root
 	int				input_size;
 }					t_root;
 
-void				print_both(t_root *root);
-void				print_result(t_stack *stack);
 t_root				*init_root(char **input);
 t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
@@ -85,6 +80,6 @@ void				rotate_ab(t_stack *stack, int rr);
 void				rev_rotate_ab(t_stack *stack, int rrr);
 void				rrr(t_root *root);
 void				rr(t_root *root);
-void				ft_free_all(t_root *root);
+void				ft_free_all(t_root *root, int error);
 
 #endif

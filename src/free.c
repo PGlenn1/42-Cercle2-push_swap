@@ -15,7 +15,7 @@ void	ft_free_stack(t_stack *stack)
 	}
 }
 
-void	ft_free_all(t_root *root)
+void	ft_free_all(t_root *root, int error)
 {
 	if (root->stack_a)
 		ft_free_stack(root->stack_a);
@@ -24,6 +24,7 @@ void	ft_free_all(t_root *root)
 	if (root->limits)
 		free(root->limits);
 	free(root);
-	// ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (error)
+		ft_putstr_fd("Error\n", 2);
+	exit(error);
 }
