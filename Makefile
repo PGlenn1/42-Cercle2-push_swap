@@ -6,7 +6,7 @@
 #    By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 17:50:35 by gpiriou           #+#    #+#              #
-#    Updated: 2023/05/25 19:59:24 by glpiriou         ###   ########.fr        #
+#    Updated: 2023/05/27 16:57:45 by glpiriou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC_DIR = src
 
 RM = rm -f
 
-NAME = toto
+NAME = push_swap
 
 # Colors
 GREEN=\033[0;32m
