@@ -94,10 +94,10 @@ void	print_result(t_stack *stack)
 	probe = stack->first;
 	while (probe->next)
 	{
-		printf("--> %d |", probe->value);
+		printf("--> %d |", probe->index);
 		probe = probe->next;
 	}
-	printf("--> %d\n", probe->value);
+	printf("--> %d\n", probe->index);
 	printf("\n\n");
 }
 

@@ -32,7 +32,6 @@ void	sort_five(t_root *root)
 		root->stack_b->order = stack_is_sorted(root->stack_b);
 		sort_five_ops(root->stack_a, root->stack_b, root->limits->limit_b);
 		call_combined_ops(root);
-		root->stack_a->operator= root->stack_b->operator= NOT_SET;
 	}
 }
 
