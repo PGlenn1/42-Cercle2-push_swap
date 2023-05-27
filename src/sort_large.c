@@ -8,9 +8,27 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 		return (rev_or_rot(stack, index, limit));
 }
 
+int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index)
+{
+	if (stack_a->last->index == target_index)
+	{
+		stack_a->operator= REV_ROT;
+	}
+	else if (stack_b->first->index == target_index - 1)
+	{
+		push_ab(stack_b, stack_a);
+		stack_a->operator= ROT;
+	}
+	else
+		return (0);
+	return (1);
+}
+
 void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 		t_limits *limits, int target_index)
 {
+	if (optimize(stack_a, stack_b, target_index))
+		return ;
 	if (stack_b->first->index == target_index)
 		push_ab(stack_b, stack_a);
 	else if (target_index <= limits->limit_a)
