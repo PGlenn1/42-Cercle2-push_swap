@@ -8,6 +8,7 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 		return (rev_or_rot(stack, index, limit));
 }
 
+<<<<<<< Updated upstream
 int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index)
 {
 	if (stack_a->last->index == target_index)
@@ -22,6 +23,11 @@ int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index)
 	else
 		return (0);
 	return (1);
+=======
+int	optimize(t_stack *stack_a, t_stack *stack_b)
+{
+	
+>>>>>>> Stashed changes
 }
 
 void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
