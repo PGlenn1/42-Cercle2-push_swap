@@ -31,6 +31,8 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 		return ;
 	if (stack_b->first->index == target_index)
 		push_ab(stack_b, stack_a);
+	else if (optimize(stack_a, stack_b))
+		return ;
 	else if (target_index <= limits->limit_a)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_a,
 				0);
