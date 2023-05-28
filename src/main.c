@@ -16,7 +16,7 @@ int	push_swap(char **input)
 		return (1);
 	}
 	// print_both(root);
-	// printf("FAIL\n");
+	// ft_printf("FAIL\n");
 	ft_free_all(root);
 	return (0);
 }

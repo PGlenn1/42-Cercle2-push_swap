@@ -6,13 +6,14 @@
 #    By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/06 17:50:35 by gpiriou           #+#    #+#              #
-#    Updated: 2023/05/27 19:35:10 by glpiriou         ###   ########.fr        #
+#    Updated: 2023/05/28 17:16:30by glpiriou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =
+#FLAGS = -Wall -Wextra -Werror -DPRINT 
 
 INCLUDE = -I includes/
 

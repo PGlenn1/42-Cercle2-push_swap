@@ -1,6 +1,15 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdio.h>
+
+# ifdef PRINT
+#  define ft_printf(fmt, ...) printf(fmt, ##__VA_ARGS__);
+# else
+#  define ft_printf(fmt, ...) \
+	(void)fmt;
+# endif
+
 # include "../src/libft_42/libft.h"
 # include <stdbool.h>
 
