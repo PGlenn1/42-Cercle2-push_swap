@@ -8,27 +8,24 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 		return (rev_or_rot(stack, index, limit));
 }
 
-int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index)
+int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index,
+		int end_limit)
 {
-	printf("OPTIMIZE\n");
-	// if (stack_a->size > 1 && stack_a->last->index
-	// 	- stack_a->last->prev->index == 1)
-	// {
-	// 	printf("OPTI 1\n");
-	// 	push_ab(stack_b, stack_a);
-	// }
+	// printf("OPTIMIZE\n");
 	if (stack_a->last->index == target_index)
 	{
 		stack_a->
 		operator= REV_ROT;
-		printf("OPTI 2\n");
+		// printf("OPTI 1\n");
 	}
-	else if (stack_a->size == 1 || stack_b->first->index == stack_a->last->index
-			+ 1)
+	else if (stack_a->last->index == end_limit
+			|| stack_b->first->index == stack_a->last->index + 1)
+	// else if (stack_a->last->index == end_limit)
 	{
-		push_ab(stack_b, stack_a);
+		if (stack_a->operator== NOT_SET)
+			push_ab(stack_b, stack_a);
 		stack_a->operator= ROT;
-		printf("OPTI 3\n");
+		// printf("OPTI 2\n");
 	}
 	return (1);
 }
@@ -36,32 +33,31 @@ int	optimize(t_stack *stack_a, t_stack *stack_b, int target_index)
 void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 		t_limits *limits, int target_index)
 {
-	static int	i;
-
-	printf("SORT OPS B\n");
-	printf("TARGET:%d\n", target_index);
-	i++;
-	printf("ITER:%d\n", i);
+	// static int	i;
+	// printf("SORT OPS B\n");
+	// printf("TARGET:%d\n", target_index);
+	// i++;
+	// printf("ITER:%d\n", i);
 	// if (i > 5)
 	// 	exit(0);
-	if (stack_b->first->index == target_index)
+	if (stack_b->size > 0 && stack_b->first->index == target_index)
 	{
-		printf("DEBUG\n");
+		// printf("DEBUG\n");
 		push_ab(stack_b, stack_a);
 	}
-	else if (optimize(stack_a, stack_b, target_index)
+	else if (optimize(stack_a, stack_b, target_index, limits->limit_d - 1)
 			&& target_index <= limits->limit_a)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_a,
 				0);
-	else if (optimize(stack_a, stack_b, target_index)
+	else if (optimize(stack_a, stack_b, target_index, limits->limit_d - 1)
 			&& target_index <= limits->limit_b)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_b,
 				limits->limit_a);
-	else if (optimize(stack_a, stack_b, target_index)
+	else if (optimize(stack_a, stack_b, target_index, limits->limit_d - 1)
 			&& target_index <= limits->limit_c)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_c,
 				limits->limit_b);
-	else if (optimize(stack_a, stack_b, target_index)
+	else if (optimize(stack_a, stack_b, target_index, limits->limit_d - 1)
 			&& target_index <= limits->limit_d)
 		stack_b->operator= find_index(stack_b, target_index, limits->median_d,
 				limits->limit_c);
@@ -84,7 +80,7 @@ void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 void	sort_large_numbers_ops_a(t_stack *stack_a, t_stack *stack_b,
 		t_limits *limits)
 {
-	printf("SORT OPS A\n");
+	// printf("SORT OPS A\n");
 	if (stack_a->first->index == limits->limit_d - 1)
 		stack_a->operator= ROT;
 	else if (stack_b->size > limits->limit_c)
@@ -121,7 +117,7 @@ void	sort_large_numbers(t_root *root)
 				phase_b = 1;
 		}
 		call_combined_ops(root);
-		print_both(root);
+		// print_both(root);
 		// if (root->stack_a->last->index == 156
 		// 	&& root->stack_a->last->prev->index == 170)
 		// 	exit(1);

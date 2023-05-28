@@ -11,12 +11,12 @@ int	push_swap(char **input)
 	sort_stacks(root);
 	if (final_is_sorted(root))
 	{
-		print_both(root);
+		// print_both(root);
 		ft_free_all(root);
 		return (1);
 	}
 	// print_both(root);
-	printf("FAIL\n");
+	// printf("FAIL\n");
 	ft_free_all(root);
 	return (0);
 }
