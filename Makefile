@@ -12,8 +12,8 @@
 
 CC = cc
 
-FLAGS =
-#FLAGS = -Wall -Wextra -Werror -DPRINT 
+# FLAGS =
+FLAGS = -Wall -Wextra -Werror #-DPRINT 
 
 INCLUDE = -I includes/
 
