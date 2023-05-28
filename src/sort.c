@@ -40,9 +40,9 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 	t_elem	*probe;
 
 	probe = stack->first;
-	ft_printf("REV OR ROT\n");
-	ft_printf("TARGET INDEX:%d\n", target_index);
-	ft_printf("LIMIT:%d\n", limit);
+	// ft_printf("REV OR ROT\n");
+	// ft_printf("TARGET INDEX:%d\n", target_index);
+	// ft_printf("LIMIT:%d\n", limit);
 	while (probe && probe->index >= limit)
 	{
 		if (probe->index == target_index)
@@ -56,7 +56,7 @@ op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 			return (REV_ROT);
 		probe = probe->prev;
 	}
-	ft_printf("%c OPERATOR NOT SET\n", stack->ab);
+	// ft_printf("%c OPERATOR NOT SET\n", stack->ab);
 	return (NOT_SET);
 }
 

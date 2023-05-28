@@ -2,10 +2,10 @@
 
 op_call	find_index(t_stack *stack, int index, int median, int limit)
 {
-	ft_printf("FIND INDEX\n");
-	ft_printf("INDEX:%d\n", index);
-	ft_printf("MEDIAN:%d\n", median);
-	ft_printf("LIMIT:%d\n", limit);
+	// ft_printf("FIND INDEX\n");
+	// ft_printf("INDEX:%d\n", index);
+	// ft_printf("MEDIAN:%d\n", median);
+	// ft_printf("LIMIT:%d\n", limit);
 	if (index >= median)
 		return (rev_or_rot(stack, index, median));
 	else
@@ -15,12 +15,12 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 // int	optimize(t_stack *stack_a, t_stack *stack_b, t_limits *limits,
 // 		int target_index)
 // {
-// 	// ft_printf("OPTIMIZE\n");
+// 	// // ft_printf("OPTIMIZE\n");
 // 	if (stack_a->last->index == target_index)
 // 	{
 // 		stack_a->
 // 		operator= REV_ROT;
-// 		ft_printf("OPTI 1\n");
+// 		// ft_printf("OPTI 1\n");
 // 	}
 // 	else if (stack_b->last->index == limits->limit_d - 1)
 // 	{
@@ -31,7 +31,7 @@ op_call	find_index(t_stack *stack, int index, int median, int limit)
 // 		if (stack_a->operator== NOT_SET)
 // 			push_ab(stack_b, stack_a);
 // 		stack_a->operator= ROT;
-// 		ft_printf("OPTI 2\n");
+// 		// ft_printf("OPTI 2\n");
 // 	}
 // 	return (1);
 // }
@@ -77,8 +77,8 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 	static int	i;
 
 	i++;
-	ft_printf("SORT OPS B\n");
-	ft_printf("ITER:%d\n", i);
+	// ft_printf("SORT OPS B\n");
+	// ft_printf("ITER:%d\n", i);
 	// if (stack_a->last->index != limits->limit_d - 1)
 	// 	exit(0);
 	// if (i > 150)
@@ -87,24 +87,24 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 	// if (current_segment == stack_a->first->index
 	// 	&& current_segment != limits->limit_d)
 	// 	current_segment++;
-	ft_printf("CURRENT:%d\n", current_segment);
+	// ft_printf("CURRENT:%d\n", current_segment);
 	if (stack_b->size == 1 || stack_b->first->index == stack_a->first->index
 		- 1)
 		push_ab(stack_b, stack_a);
 	if (stack_a->last->index == stack_a->first->index - 1)
 	{
-		ft_printf("DEBUG 3\n");
+		// ft_printf("DEBUG 3\n");
 		stack_a->operator= REV_ROT;
 	}
 	else if (stack_b->first->index == stack_a->last->index + 1)
 	{
-		ft_printf("DEBUG 2\n");
+		// ft_printf("DEBUG 2\n");
 		push_ab(stack_b, stack_a);
 		stack_a->operator= ROT;
 	}
 	if (stack_a->last->index == limits->limit_d)
 	{
-		ft_printf("DEBUG\n");
+		// ft_printf("DEBUG\n");
 		get_elem(stack_b, limits, current_segment);
 		if (stack_b->first->index == current_segment)
 		{
@@ -116,13 +116,13 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 		return ;
 	else
 	{
-		ft_printf("DEBUG 4\n");
+		// ft_printf("DEBUG 4\n");
 		get_elem(stack_b, limits, stack_a->last->index + 1);
 	}
-	// ft_printf("TARGET:%d\n", target_index);
+	// // ft_printf("TARGET:%d\n", target_index);
 	// if (stack_b->size > 0 && stack_b->first->index == target_index)
 	// {
-	// 	// ft_printf("DEBUG\n");
+	// 	// // ft_printf("DEBUG\n");
 	// 	push_ab(stack_b, stack_a);
 	// }
 	// else if (optimize(stack_a, stack_b, limits, target_index)
@@ -160,7 +160,7 @@ void	push_segment(t_stack *from, t_stack *to, int limit, int median)
 void	sort_large_numbers_ops_a(t_stack *stack_a, t_stack *stack_b,
 		t_limits *limits)
 {
-	ft_printf("SORT OPS A\n");
+	// ft_printf("SORT OPS A\n");
 	if (stack_a->first->index == limits->limit_d)
 		stack_a->operator= ROT;
 	else if (stack_b->size > limits->limit_c)
@@ -197,7 +197,7 @@ void	sort_large_numbers(t_root *root)
 				phase_b = 1;
 		}
 		call_combined_ops(root);
-		print_both(root);
+		// print_both(root);
 		// if (root->stack_a->last->index == 156
 		// 	&& root->stack_a->last->prev->index == 170)
 		// 	exit(1);
