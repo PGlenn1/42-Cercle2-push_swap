@@ -91,7 +91,7 @@ void	sort_large_numbers_ops_b(t_stack *stack_a, t_stack *stack_b,
 	if (stack_b->size == 1 || stack_b->first->index == stack_a->first->index
 		- 1)
 		push_ab(stack_b, stack_a);
-	if (stack_a->last->index == stack_a->first->index - 1)
+	if (stack_a->last->index == stack_a->first->index - 1 && stack_b->size > 0)
 	{
 		// ft_printf("DEBUG 3\n");
 		stack_a->operator= REV_ROT;
