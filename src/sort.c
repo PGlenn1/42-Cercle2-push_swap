@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 16:18:08 by glpiriou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:31:15 by glpiriou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 void	sort_five_ops(t_stack *stack_a, t_stack *stack_b, int median)
@@ -5,22 +17,22 @@ void	sort_five_ops(t_stack *stack_a, t_stack *stack_b, int median)
 	if (stack_a->order != INCREASING)
 	{
 		if (stack_a->first->index < median)
-			stack_a->operator= PUSH;
+			stack_a->operator = PUSH;
 		else if (stack_a->size == 3)
 			sort_three_ops(stack_a, stack_a->first->index,
-					stack_a->first->next->index, stack_a->last->index);
+				stack_a->first->next->index, stack_a->last->index);
 		else
-			stack_a->operator= ROT;
+			stack_a->operator = ROT;
 		if (stack_b->order != NOT_SORTED && stack_b->size > 1
-			&& stack_a->operator!= PUSH)
-			stack_b->operator= stack_a->operator;
+			&& stack_a->operator != PUSH)
+			stack_b->operator = stack_a->operator;
 	}
 	else if (stack_a->order == INCREASING)
 	{
 		if (stack_b->order == NOT_SORTED || stack_b->size == 1)
-			stack_b->operator= PUSH;
+			stack_b->operator = PUSH;
 		else
-			stack_b->operator= SWAP;
+			stack_b->operator = SWAP;
 	}
 }
 

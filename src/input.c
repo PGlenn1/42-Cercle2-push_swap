@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 16:17:50 by glpiriou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:28:09 by glpiriou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 int	check_numbers(char **input)
@@ -70,9 +82,9 @@ int	pre_sort(t_stack *stack)
 
 int	check_input(char **input)
 {
-	int i;
-	int j;
-	long value;
+	int		i;
+	int		j;
+	long	value;
 
 	i = 1;
 	j = i + 1;

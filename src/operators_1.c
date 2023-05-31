@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   operators_1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 16:33:01 by glpiriou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:33:02 by glpiriou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 void	push(t_stack *to, t_elem *first_from)
@@ -21,7 +33,10 @@ void	push_ab(t_stack *from, t_stack *to)
 
 	first_from = from->first;
 	if (from->size == 1)
-		from->first = from->last = NULL;
+	{
+		from->first = NULL;
+		from->last = NULL;
+	}
 	else if (from->size > 1)
 	{
 		from->first = from->first->next;

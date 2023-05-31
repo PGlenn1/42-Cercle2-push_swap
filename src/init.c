@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 16:18:03 by glpiriou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:35:38 by glpiriou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 struct s_elem	*fill_stack(t_stack *stack, char **input)
@@ -13,8 +25,7 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 	first = ps_lstnew(ft_atol(input[i]));
 	if (!first)
 		return (NULL);
-	i++;
-	while (input[i])
+	while (input[++i])
 	{
 		new = ps_lstnew(ft_atol(input[i]));
 		if (!new)
@@ -24,7 +35,6 @@ struct s_elem	*fill_stack(t_stack *stack, char **input)
 			return (NULL);
 		}
 		ps_lstadd_back(&first, new);
-		i++;
 	}
 	stack->last = ps_lstlast(first);
 	stack->size = i - 1;
@@ -57,7 +67,7 @@ void	init_stack_values(t_root *root, char **input)
 	if (!root->stack_a->first || !pre_sort(root->stack_a))
 		ft_free_all(root, 1);
 	root->stack_a->ab = 'a';
-	root->stack_a->operator= NOT_SET;
+	root->stack_a->operator = NOT_SET;
 	root->stack_a->order = stack_is_sorted(root->stack_a);
 	root->input_size = root->stack_a->size;
 	root->limits = init_segment_values(root);
@@ -65,7 +75,7 @@ void	init_stack_values(t_root *root, char **input)
 	root->stack_b->last = NULL;
 	root->stack_b->size = 0;
 	root->stack_b->ab = 'b';
-	root->stack_b->operator= NOT_SET;
+	root->stack_b->operator = NOT_SET;
 	root->stack_b->order = NOT_SORTED;
 }
 

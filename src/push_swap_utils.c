@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 16:18:21 by glpiriou          #+#    #+#             */
+/*   Updated: 2023/05/31 16:32:13 by glpiriou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 order_type	stack_is_sorted(t_stack *stack)
@@ -48,7 +60,7 @@ t_elem	*ps_lstlast(t_elem *lst)
 
 void	ps_lstadd_back(t_elem **lst, t_elem *new)
 {
-	struct s_elem *last;
+	struct s_elem	*last;
 
 	if (!lst || !new)
 		return ;
