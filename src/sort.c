@@ -6,7 +6,7 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:18:08 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:31:15 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:51 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	sort_five(t_root *root)
 	}
 }
 
-op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
+t_op_call	rev_or_rot(t_stack *stack, int target_index, int limit)
 {
 	t_elem	*probe;
 

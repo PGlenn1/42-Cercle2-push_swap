@@ -6,13 +6,13 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:18:21 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:32:13 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:45:57 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-order_type	stack_is_sorted(t_stack *stack)
+t_order_type	stack_is_sorted(t_stack *stack)
 {
 	t_elem	*probe;
 

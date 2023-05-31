@@ -6,13 +6,13 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:18:14 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/05/31 16:30:09 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:43:51 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-op_call	find_index(t_stack *stack, int index, int median, int limit)
+t_op_call	find_index(t_stack *stack, int index, int median, int limit)
 {
 	if (index >= median)
 		return (rev_or_rot(stack, index, median));
