@@ -75,6 +75,7 @@ t_elem				*ps_lstnew(int value);
 t_elem				*ps_lstlast(t_elem *lst);
 void				ps_lstadd_back(t_elem **lst, t_elem *new);
 int					check_input(char **input);
+int					check_len(char *str);
 int					pre_sort(t_stack *stack);
 t_order_type		stack_is_sorted(t_stack *stack);
 int					final_is_sorted(t_root *root);
