@@ -6,7 +6,7 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:18:15 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/06/20 11:06:03 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:14:19 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int	main(int argc, char **argv)
 {
 	if (argc < 3)
 	{
-		if (!check_single_input(argv[1]))
+		if (argc == 1)
+			return (1);
+		else if (!check_single_input(argv[1]))
 		{
 			write(2, "Error\n", 6);
 			return (1);
