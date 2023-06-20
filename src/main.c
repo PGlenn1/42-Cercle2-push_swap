@@ -6,7 +6,7 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:18:15 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/06/02 15:33:39 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:06:03 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	push_swap(char **input)
 
 int	check_single_input(char *str)
 {
-	int i;
-	int n;
+	int	i;
+	int	n;
 
 	i = ft_is_whitespace(str);
 	if (str[i] == '+' || str[i] == '-')

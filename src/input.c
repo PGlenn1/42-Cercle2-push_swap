@@ -6,7 +6,7 @@
 /*   By: glpiriou <glpiriou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:17:50 by glpiriou          #+#    #+#             */
-/*   Updated: 2023/06/02 15:31:46 by glpiriou         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:05:45 by glpiriou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_numbers(char **input)
 int	check_len(char *str)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
